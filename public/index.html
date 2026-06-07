@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Clothing Store</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Clothing Store</h1>
+      <div id="search">
+        <input id="q" placeholder="Search products..." />
+        <button id="searchBtn">Search</button>
+      </div>
+      <div id="cartToggle">Cart (<span id="cartCount">0</span>)</div>
+    </header>
+    <main>
+      <section id="products"></section>
+      <aside id="cart">
+        <h2>Your Cart</h2>
+        <div id="cartItems"></div>
+        <div id="cartTotal"></div>
+        <h3>Shipping</h3>
+        <form id="checkoutForm">
+          <input name="name" placeholder="Full name" required />
+          <input name="address" placeholder="Address" required />
+          <input name="city" placeholder="City" />
+          <input name="zip" placeholder="ZIP" />
+          <input name="email" placeholder="Email" type="email" />
+          <button type="submit">Place Order</button>
+        </form>
+        <div id="orderResult"></div>
+      </aside>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
