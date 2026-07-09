@@ -1,19 +1,36 @@
-# Clothing Store (Minimal)
+# 🍕 Slice — Pizza Ordering App
 
-This is a minimal full-stack demo app to browse clothing, add to cart, and place orders. It's implemented with an Express server serving a static frontend.
+A mobile-first pizza ordering web app: browse the menu, customize pizzas (size + toppings), add to cart, and place delivery orders. Built with an Express backend serving a vanilla-JS frontend.
 
-Run locally:
+## Run locally
 
 ```
-cd Project_1
 npm install
 npm start
 
-# Open http://localhost:3000 in your browser
+# Open http://localhost:3000 (use browser devtools mobile view for the full effect)
 ```
 
-Files of interest:
+## Features
 
-- [server.js](server.js)
-- [data/products.js](data/products.js)
-- [public/index.html](public/index.html)
+- 📱 Mobile-first UI with bottom-tab navigation (Menu / Cart / Orders)
+- 🍕 Pizza customization: size and extra toppings via a bottom sheet
+- 🛒 Cart persisted in localStorage, quantity steppers
+- 🚚 Delivery fee with free-delivery threshold ($30+)
+- 📦 Order history with status
+
+## API
+
+| Method | Route | Description |
+|---|---|---|
+| GET | `/api/menu?q=&category=` | Menu items + toppings + delivery config |
+| GET | `/api/menu/:id` | Single item |
+| POST | `/api/orders` | Place an order `{cart, delivery}` |
+| GET | `/api/orders` | List past orders |
+
+## Files of interest
+
+- [server.js](server.js) — Express API
+- [data/products.js](data/products.js) — menu + toppings data
+- [public/app.js](public/app.js) — frontend logic
+- [public/styles.css](public/styles.css) — mobile theme
