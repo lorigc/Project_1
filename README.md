@@ -1,36 +1,37 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Creator Intelligence
 
-## Getting Started
+An AI-powered SaaS dashboard for creators — understand what content performs, why it performs, and what to create next. Built as a frontend UX showcase with mock data (no backend, no auth).
 
-First, run the development server:
+**Live demo:** https://lorigc.github.io/Project_1/
 
-```bash
+## Flows
+
+1. **Import** — connect YouTube / TikTok / Instagram or upload a CSV, then watch the AI processing sequence
+2. **Insights Dashboard** — KPIs with sparklines, 90-day performance trend, AI-clustered content themes, audience insights, competitor tracking, and the Opportunity Map
+3. **AI Brief Generator** — a full content strategy per opportunity: hook, title, format, talking points, references, and why the AI recommends it
+
+## Stack
+
+Next.js · React · TypeScript · TailwindCSS · shadcn/ui · Framer Motion · Recharts · Lucide
+
+## Run locally
+
+```
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# open http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Deploy to GitHub Pages
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+npm run build:pages   # static export into docs/ under the /Project_1 base path
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Then push and set Pages source to `main` / `docs`.
 
-## Learn More
+## Notes
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Dark-by-design charcoal theme with a blue → purple brand gradient
+- Chart palette validated for colorblind separation and contrast against the dark surface
+- All data in [src/lib/mock.ts](src/lib/mock.ts) is deterministic (seeded) so SSR and hydration always agree
