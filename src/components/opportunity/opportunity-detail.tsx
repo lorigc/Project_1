@@ -1,7 +1,9 @@
 import Link from "next/link";
 import {
+  AlertTriangle,
   ArrowRight,
   BarChart3,
+  CalendarClock,
   FileText,
   Lightbulb,
   Scale,
@@ -12,6 +14,7 @@ import type { Opportunity } from "@/lib/mock";
 import { audience, competitors, themes } from "@/lib/mock";
 import { buttonVariants } from "@/components/ui/button";
 import { Breadcrumbs } from "@/components/shell/breadcrumbs";
+import { Citation, AssumptionsAndRisks } from "@/components/ai/explain";
 import { FadeIn } from "@/components/motion";
 import { cn } from "@/lib/utils";
 
@@ -90,9 +93,16 @@ export function OpportunityDetail({ opportunity }: { opportunity: Opportunity })
         </div>
       </FadeIn>
 
-      {/* Why recommended */}
+      {/* Why recommended + why now */}
       <Section icon={Lightbulb} title="Why this was recommended" delay={0.05}>
         <p className="text-[14.5px] leading-relaxed text-foreground/90">{d.whyRecommended}</p>
+        <div className="mt-4 rounded-xl bg-secondary/40 p-4">
+          <p className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+            <CalendarClock className="size-3.5" aria-hidden />
+            Why now
+          </p>
+          <p className="mt-1.5 text-[13.5px] leading-relaxed text-foreground/85">{d.whyNow}</p>
+        </div>
         <div className="mt-4 flex flex-wrap items-center gap-2">
           <span className="text-[12px] text-muted-foreground">Built on your themes:</span>
           {sourceThemes.map(t => (
@@ -116,6 +126,9 @@ export function OpportunityDetail({ opportunity }: { opportunity: Opportunity })
                 <div className="min-w-0">
                   <dt className="text-[13.5px] font-medium">{e.label}</dt>
                   <dd className="mt-0.5 text-[12px] leading-relaxed text-muted-foreground">{e.sub}</dd>
+                  <dd className="mt-1.5">
+                    <Citation>{e.source}</Citation>
+                  </dd>
                 </div>
                 <span className="shrink-0 text-[17px] font-bold tabular-nums tracking-tight">
                   {e.value}
@@ -230,8 +243,18 @@ export function OpportunityDetail({ opportunity }: { opportunity: Opportunity })
         <p className="mt-5 border-t border-border/60 pt-4 text-[13px] text-muted-foreground">
           Weighted total:{" "}
           <span className="font-semibold tabular-nums text-foreground">{d.confidenceScore}%</span>{" "}
-          confidence
+          confidence — a data-fit score, not a probability of success
         </p>
+      </Section>
+
+      {/* Assumptions + failure modes */}
+      <Section icon={AlertTriangle} title="Assumptions & Failure Modes" delay={0.2}>
+        <p className="text-[13px] leading-relaxed text-muted-foreground">
+          Every prediction above rests on these. If an assumption stops holding, the scores move.
+        </p>
+        <div className="mt-5">
+          <AssumptionsAndRisks assumptions={d.assumptions} risks={d.risks} />
+        </div>
       </Section>
 
       {/* Bottom CTA */}

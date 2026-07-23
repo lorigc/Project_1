@@ -41,7 +41,9 @@ function LevelBadge({ level }: { level: "Low" | "Medium" | "High" }) {
 function ConfidenceBadge({ level }: { level: "High" | "Medium" | "Low" }) {
   return (
     <span
+      title="A weighted blend of five signals scored on your channel data — open the opportunity for the full breakdown"
       className={cn(
+        "cursor-help",
         "rounded-full px-2.5 py-1 text-[11px] font-semibold",
         level === "High" && "bg-accent text-accent-foreground",
         level === "Medium" && "bg-secondary text-secondary-foreground",

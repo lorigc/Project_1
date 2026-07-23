@@ -26,7 +26,8 @@ import {
   Loader2,
 } from "lucide-react";
 import type { Brief, BriefSetup } from "@/lib/mock";
-import { SETUP_OPTIONS } from "@/lib/mock";
+import { SETUP_OPTIONS, opportunities } from "@/lib/mock";
+import { Citation, ConfidenceExplainer } from "@/components/ai/explain";
 import {
   latestBriefForSlug,
   loadBriefById,
@@ -224,7 +225,9 @@ function BriefFlow({ brief, stored }: { brief: Brief; stored: StoredBrief | unde
   const [regenerating, setRegenerating] = useState(false);
   const [copyState, setCopyState] = useState<CopyState>("idle");
   const [genStage, setGenStage] = useState(0);
+  const [showConfidence, setShowConfidence] = useState(false);
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
+  const opportunity = opportunities.find(o => o.slug === brief.slug);
 
   useEffect(() => {
     const t = timers.current;
@@ -376,6 +379,9 @@ function BriefFlow({ brief, stored }: { brief: Brief; stored: StoredBrief | unde
           <p className="mt-2 max-w-xl text-[14px] leading-relaxed text-muted-foreground">
             Prefilled from the opportunity evidence — adjust anything before generating.
           </p>
+          <div className="mt-3">
+            <Citation>90-day channel analytics · competitor tracking · comment mining</Citation>
+          </div>
         </FadeIn>
 
         <FadeIn delay={0.05}>
@@ -537,16 +543,39 @@ function BriefFlow({ brief, stored }: { brief: Brief; stored: StoredBrief | unde
               </button>
             </div>
           </div>
-          <div className="rounded-2xl border border-border bg-card px-5 py-3 text-center">
+          <button
+            onClick={() => setShowConfidence(s => !s)}
+            aria-expanded={showConfidence}
+            aria-controls="confidence-explainer"
+            title="See how this number is calculated"
+            className="rounded-2xl border border-border bg-card px-5 py-3 text-center transition-colors hover:border-primary/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+          >
             <p className="text-[10.5px] font-semibold uppercase tracking-wide text-muted-foreground">
               Confidence
             </p>
             <p className="text-gradient text-2xl font-bold tabular-nums">
               <Counter value={brief.connection.confidence} render={v => `${Math.round(v)}%`} />
             </p>
-          </div>
+            <p className="mt-0.5 flex items-center justify-center gap-1 text-[10.5px] font-medium text-muted-foreground">
+              How?
+              <span
+                className={cn("transition-transform duration-200", showConfidence && "rotate-180")}
+                aria-hidden
+              >
+                ▾
+              </span>
+            </p>
+          </button>
         </div>
       </FadeIn>
+
+      {showConfidence && opportunity && (
+        <FadeIn>
+          <div id="confidence-explainer">
+            <ConfidenceExplainer opportunity={opportunity} />
+          </div>
+        </FadeIn>
+      )}
 
       {/* Title & idea */}
       <SectionCard icon={Target} title="Working Title & Core Idea" hint="Click any field to edit" delay={0.05}>
@@ -734,6 +763,13 @@ function BriefFlow({ brief, stored }: { brief: Brief; stored: StoredBrief | unde
         <p className="text-[14px] leading-relaxed text-foreground/90">
           {brief.connection.explanation}
         </p>
+        {opportunity && (
+          <div className="mt-3 flex flex-wrap gap-1.5">
+            {opportunity.detail.evidence.slice(0, 2).map(e => (
+              <Citation key={e.label}>{e.source}</Citation>
+            ))}
+          </div>
+        )}
         <div className="mt-4 flex flex-wrap items-center gap-2">
           {brief.connection.themes.map(t => (
             <span

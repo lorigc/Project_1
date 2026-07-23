@@ -252,10 +252,16 @@ export const competitors: Competitor[] = [
 
 /* ---------------- Opportunity map ---------------- */
 
-export type EvidenceStat = { label: string; value: string; sub: string };
+export type EvidenceStat = { label: string; value: string; sub: string; source: string };
 
 export type OpportunityDetail = {
   whyRecommended: string;
+  /** Why this window, specifically — timing evidence. */
+  whyNow: string;
+  /** What the prediction takes for granted. */
+  assumptions: string[];
+  /** What could make this recommendation fail. */
+  risks: string[];
   evidence: EvidenceStat[];
   sourceThemeIds: string[];
   competitorExamples: { competitorId: string; example: string; result: string }[];
@@ -284,11 +290,23 @@ export const opportunities: Opportunity[] = [
     detail: {
       whyRecommended:
         "Founder Dating sits at the intersection of your two strongest themes — dating (9.4% avg engagement, +41% growth) and career (8.2%, +27%). Comment and search demand for “dating founders / tech guys” grew 3× in your niche this quarter, and none of your tracked competitors cover the founder angle.",
+      whyNow:
+        "Demand grew 3× this quarter while the lane is still empty — and first-mover windows on rising formats in your niche have historically closed within 6–8 weeks of a competitor entering.",
+      assumptions: [
+        "Your dating and career engagement rates hold near their 90-day averages (9.4% and 8.2%).",
+        "Audience appetite for profession-comparison dating transfers to the founder angle specifically.",
+        "The video uses first-person storytelling — the prediction is not modeled on commentary formats.",
+      ],
+      risks: [
+        "A tracked competitor ships founder-dating content first — competitive whitespace is 20% of this score.",
+        "The 3× demand trend is measured over a single quarter; one viral outlier could be inflating it.",
+        "Your most recent “X vs Y” upload is five weeks old, so current-month appetite is inferred, not observed.",
+      ],
       evidence: [
-        { label: "Dating theme engagement", value: "9.4%", sub: "vs 7.8% channel baseline · +41% growth this quarter" },
-        { label: "Comparative-framing retention", value: "87%", sub: "avg watch retention on your “X vs Y” dating videos" },
-        { label: "Best related upload", value: "1.2M views", sub: "“I dated 5 finance guys” · 11.8% engagement" },
-        { label: "Demand trend", value: "3×", sub: "growth in founder-dating search & comment volume" },
+        { label: "Dating theme engagement", value: "9.4%", sub: "vs 7.8% channel baseline · +41% growth this quarter", source: "90-day channel analytics · 214 posts" },
+        { label: "Comparative-framing retention", value: "87%", sub: "avg watch retention on your “X vs Y” dating videos", source: "Watch-time analysis · 6 comparison uploads" },
+        { label: "Best related upload", value: "1.2M views", sub: "“I dated 5 finance guys” · 11.8% engagement", source: "Channel history · Mar 2026" },
+        { label: "Demand trend", value: "3×", sub: "growth in founder-dating search & comment volume", source: "Comment & search mining · Q2 → Q3 2026" },
       ],
       sourceThemeIds: ["dating", "career"],
       competitorExamples: [
@@ -319,11 +337,23 @@ export const opportunities: Opportunity[] = [
     detail: {
       whyRecommended:
         "The fastest-growing format in your niche — and the one proven format you've never tested. Priya Nair grew 24.5% this quarter on the back of it, and your Behind the Scenes theme shows your audience already rewards unpolished honesty.",
+      whyNow:
+        "The format is peaking in your niche right now — the +18% reach estimate assumes adoption before saturation, and competition is already rated Medium.",
+      assumptions: [
+        "Format demand transfers from competitor audiences to yours (the 91% overlap is measured on viewing behavior, not follows).",
+        "The trust your unpolished BTS content earns extends to a full-day format.",
+        "Your voiceover production lands comparably to Priya Nair's — the benchmark trajectory is hers.",
+      ],
+      risks: [
+        "The format saturates before you enter — it is the most-copied format in the niche this quarter.",
+        "Your audience may follow you for topics (dating, career), not lifestyle formats.",
+        "The reach estimate leans heavily on one competitor's trajectory rather than a broad sample.",
+      ],
       evidence: [
-        { label: "BTS theme trust signal", value: "73%", sub: "watch retention — your most loyal commenters come from BTS" },
-        { label: "Competitor validation", value: "+24.5%", sub: "Priya Nair's quarterly growth, driven by this format" },
-        { label: "Closest existing upload", value: "398K views", sub: "“A realistic day of content creation” · 6.5% engagement" },
-        { label: "Format gap", value: "0 posts", sub: "you have never published a voiceover day-in-the-life" },
+        { label: "BTS theme trust signal", value: "73%", sub: "watch retention — your most loyal commenters come from BTS", source: "90-day channel analytics · 38 BTS posts" },
+        { label: "Competitor validation", value: "+24.5%", sub: "Priya Nair's quarterly growth, driven by this format", source: "Competitor tracking · weekly · Q3 2026" },
+        { label: "Closest existing upload", value: "398K views", sub: "“A realistic day of content creation” · 6.5% engagement", source: "Channel history · May 2026" },
+        { label: "Format gap", value: "0 posts", sub: "you have never published a voiceover day-in-the-life", source: "Format audit · all 214 posts" },
       ],
       sourceThemeIds: ["bts", "career", "lifestyle"],
       competitorExamples: [
@@ -353,10 +383,21 @@ export const opportunities: Opportunity[] = [
     detail: {
       whyRecommended:
         "Numbers-first career content is your strongest profile-visit converter, and your top career upload (980K views) proves the demand. A recurring series compounds that — viewers return for the next installment.",
+      whyNow:
+        "Salary-content demand keeps climbing and your proven top performer in the lane is now 90 days old — the series slot is open ahead of year-end review season, when this topic peaks.",
+      assumptions: [
+        "Numbers-first content keeps converting profile visits at its current rate.",
+        "You're comfortable disclosing real figures every episode — the format's engagement depends on specifics.",
+        "A repeatable template keeps per-episode effort low enough to sustain the cadence.",
+      ],
+      risks: [
+        "Episodes without genuinely new numbers decay fast — transparency formats punish padding.",
+        "Jordan Lee already owns the receipts style; pausing the series mid-run hands the lane back.",
+      ],
       evidence: [
-        { label: "Top career upload", value: "980K views", sub: "“What my first year in tech actually paid” · 9.9% engagement" },
-        { label: "Career theme engagement", value: "8.2%", sub: "vs 7.8% baseline · +27% growth this quarter" },
-        { label: "Profile-visit conversion", value: "#1", sub: "career transparency drives your strongest funnel" },
+        { label: "Top career upload", value: "980K views", sub: "“What my first year in tech actually paid” · 9.9% engagement", source: "Channel history · Apr 2026" },
+        { label: "Career theme engagement", value: "8.2%", sub: "vs 7.8% baseline · +27% growth this quarter", source: "90-day channel analytics · 56 career posts" },
+        { label: "Profile-visit conversion", value: "#1", sub: "career transparency drives your strongest funnel", source: "Funnel analysis · last 90 days" },
       ],
       sourceThemeIds: ["career", "finance"],
       competitorExamples: [
@@ -385,10 +426,21 @@ export const opportunities: Opportunity[] = [
     detail: {
       whyRecommended:
         "Finance is your fastest-growing minor theme (+19%) with your highest save rate, and it pairs unusually well with your career storytelling. A diary format turns one-off finance spikes into a habit.",
+      whyNow:
+        "Habit formats compound most when started during a growth phase — finance is in one now (+19% this quarter), and no one in your niche has claimed the personal money-diary lane.",
+      assumptions: [
+        "Finance growth is a trend, not seasonality — the +19% is one quarter of data.",
+        "High save rates signal repeat-view intent that a monthly cadence can capture.",
+        "You can source genuinely new numbers every month.",
+      ],
+      risks: [
+        "Finance is only 10% of your content — the engagement average sits on a small base and could regress.",
+        "Monthly transparency is a treadmill; a skipped month breaks the habit loop the prediction depends on.",
+      ],
       evidence: [
-        { label: "Finance theme growth", value: "+19%", sub: "fastest-growing minor theme · 7.5% avg engagement" },
-        { label: "Save behavior", value: "High", sub: "finance uploads lead your save-per-view ratio" },
-        { label: "Best finance upload", value: "610K views", sub: "“Where my first 100K actually went” · 8.9% engagement" },
+        { label: "Finance theme growth", value: "+19%", sub: "fastest-growing minor theme · 7.5% avg engagement", source: "90-day channel analytics · 21 finance posts" },
+        { label: "Save behavior", value: "High", sub: "finance uploads lead your save-per-view ratio", source: "Engagement mining · last 90 days" },
+        { label: "Best finance upload", value: "610K views", sub: "“Where my first 100K actually went” · 8.9% engagement", source: "Channel history · Feb 2026" },
       ],
       sourceThemeIds: ["finance", "career"],
       competitorExamples: [
@@ -417,9 +469,21 @@ export const opportunities: Opportunity[] = [
     detail: {
       whyRecommended:
         "A lighter, recurring spin on your best theme. Dating drives your highest engagement, and a debrief format is low-effort to produce weekly — but it competes in a busier lane than your comparison videos.",
+      whyNow:
+        "Dating engagement is at a 90-day high (+41%) — recurring formats capture the most value when launched at a theme's peak, not after it cools.",
+      assumptions: [
+        "You have a steady weekly supply of first-date stories worth telling.",
+        "The debrief lane stays open — Ava Torres owns street interviews, not debriefs.",
+        "Comment energy on dating uploads converts to appointment viewing.",
+      ],
+      risks: [
+        "Dating formats are the most contested lane among your tracked competitors.",
+        "Episode quality depends on that week's story — cadence formats amplify weak weeks.",
+        "Scores here derive from theme-level data; this exact format is untested on your channel.",
+      ],
       evidence: [
-        { label: "Dating theme engagement", value: "9.4%", sub: "your #1 theme · +41% growth" },
-        { label: "Story-sharing comments", value: "High", sub: "dating uploads drive your most active comment sections" },
+        { label: "Dating theme engagement", value: "9.4%", sub: "your #1 theme · +41% growth", source: "90-day channel analytics · 68 dating posts" },
+        { label: "Story-sharing comments", value: "High", sub: "dating uploads drive your most active comment sections", source: "Comment mining · last 90 days" },
       ],
       sourceThemeIds: ["dating"],
       competitorExamples: [
@@ -448,9 +512,20 @@ export const opportunities: Opportunity[] = [
     detail: {
       whyRecommended:
         "Career is your #2 theme and pivot stories reliably perform across the niche — but this is the most saturated lane on this list. Worth testing behind the higher-whitespace opportunities above.",
+      whyNow:
+        "Honestly, timing pressure is low — which is part of why this ranks last. The one natural hook is your own pivot anniversary; there is no closing demand window.",
+      assumptions: [
+        "Your personal specifics differentiate a format the niche has seen many times.",
+        "The career-curious segment (26% of content) shows up for longer storytelling.",
+      ],
+      risks: [
+        "Most saturated lane on the list — competitive whitespace scores just 35/100.",
+        "Without a differentiated angle, expect baseline performance, not the +4% modeled.",
+        "Opportunity cost: the same slot spent here can't go to a higher-whitespace pick.",
+      ],
       evidence: [
-        { label: "Career theme engagement", value: "8.2%", sub: "+27% growth this quarter" },
-        { label: "Related upload", value: "645K views", sub: "“Quitting without a backup plan” · 8.4% engagement" },
+        { label: "Career theme engagement", value: "8.2%", sub: "+27% growth this quarter", source: "90-day channel analytics · 56 career posts" },
+        { label: "Related upload", value: "645K views", sub: "“Quitting without a backup plan” · 8.4% engagement", source: "Channel history · Jan 2026" },
       ],
       sourceThemeIds: ["career"],
       competitorExamples: [
@@ -489,21 +564,58 @@ export const recommendation = {
 
 /* ---------------- AI insight panel ---------------- */
 
-export const aiInsights = [
+export type AiInsight = {
+  id: string;
+  text: string;
+  highlight?: string;
+  /** Where this observation comes from — shown as a citation. */
+  basis: string;
+  /** The data points behind it — shown on progressive disclosure. */
+  evidence: { label: string; value: string }[];
+  /** What would weaken or invalidate the observation. */
+  caveat: string;
+};
+
+export const aiInsights: AiInsight[] = [
   {
     id: "i1",
     text: "Your audience strongly engages with emotionally vulnerable storytelling mixed with career advice.",
+    basis: "Comment & engagement mining · 214 posts · last 90 days",
+    evidence: [
+      { label: "Story-led uploads, avg engagement", value: "9.1% vs 7.8% baseline" },
+      { label: "“Honest / relatable” comment sentiment", value: "3.2× niche average" },
+      { label: "Saves on vulnerable + career uploads", value: "+44% vs channel median" },
+    ],
+    caveat: "Pattern is measured on 90 days of data; a shift in what you publish would change it within weeks.",
   },
   {
     id: "i2",
     text: "Creators in your niche are increasingly producing “day in the life” content. You have never tested this format.",
     highlight: "+18% potential audience increase",
+    basis: "Competitor tracking · 3 creators · updated weekly",
+    evidence: [
+      { label: "Niche adoption of the format", value: "+64% quarter over quarter" },
+      { label: "Your posts in this format", value: "0 of 214" },
+      { label: "Best niche result (Priya Nair)", value: "+24.5% quarterly growth" },
+    ],
+    caveat: "The +18% estimate assumes the format hasn't saturated by the time you enter — competition is already Medium.",
   },
   {
     id: "i3",
     text: "Posting between 6–9 PM EST aligns with your most active viewers — your last 4 off-window posts underperformed by 22%.",
+    basis: "Posting-time analysis · last 60 days",
+    evidence: [
+      { label: "In-window engagement lift", value: "+31% vs off-window" },
+      { label: "Off-window posts, last 60 days", value: "4 of 4 under median (−22% avg)" },
+      { label: "Audience active 6–9 PM EST", value: "41% of daily activity" },
+    ],
+    caveat: "Four posts is a small sample — treat the −22% as directional until more off-window posts exist.",
   },
 ];
+
+/** What theme confidence means — shown wherever the chip appears. */
+export const themeConfidenceNote =
+  "Confidence is the share of a theme's posts the clustering model assigns unambiguously, measured across all 214 analyzed posts. Below 80%, treat the theme's stats as directional.";
 
 /* ---------------- Briefs (Flow 3) ---------------- */
 

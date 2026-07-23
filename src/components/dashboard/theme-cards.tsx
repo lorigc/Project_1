@@ -14,8 +14,9 @@ import {
   MessageCircle,
   Lightbulb,
 } from "lucide-react";
-import { themes, type Theme } from "@/lib/mock";
+import { themes, themeConfidenceNote, type Theme } from "@/lib/mock";
 import { Sparkline } from "@/components/charts/sparkline";
+import { Citation } from "@/components/ai/explain";
 import { FadeIn } from "@/components/motion";
 import { cn } from "@/lib/utils";
 
@@ -38,7 +39,13 @@ const THEME_COLORS = [
 function ExpandedTheme({ theme }: { theme: Theme }) {
   const e = theme.expanded;
   return (
-    <div className="grid gap-5 border-t border-border p-5 md:grid-cols-2">
+    <div className="border-t border-border">
+      <div className="px-5 pt-4">
+        <Citation>
+          Clustered from 214 posts · {theme.confidence}% assigned unambiguously
+        </Citation>
+      </div>
+      <div className="grid gap-5 p-5 md:grid-cols-2">
       <div>
         <p className="mb-2.5 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
           <Play className="size-3" /> Top performing videos
@@ -94,6 +101,7 @@ function ExpandedTheme({ theme }: { theme: Theme }) {
           <p className="mt-1 text-[13px] leading-relaxed">{e.takeaway}</p>
         </div>
       </div>
+      </div>
     </div>
   );
 }
@@ -142,7 +150,10 @@ export function ThemeCards() {
                         Top theme
                       </span>
                     )}
-                    <span className="shrink-0 whitespace-nowrap rounded-full bg-secondary px-2 py-0.5 text-[10.5px] font-medium text-muted-foreground tabular-nums">
+                    <span
+                      title={themeConfidenceNote}
+                      className="shrink-0 cursor-help whitespace-nowrap rounded-full bg-secondary px-2 py-0.5 text-[10.5px] font-medium text-muted-foreground tabular-nums"
+                    >
                       {theme.confidence}% conf.
                     </span>
                   </div>

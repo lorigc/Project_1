@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { ArrowRight, Compass } from "lucide-react";
+import { ArrowRight, CalendarClock, Compass } from "lucide-react";
 import { recommendation, opportunities } from "@/lib/mock";
 import { buttonVariants } from "@/components/ui/button";
+import { Disclosure, Citation, AssumptionsAndRisks } from "@/components/ai/explain";
 import { FadeIn } from "@/components/motion";
 import { cn } from "@/lib/utils";
 
@@ -42,6 +43,48 @@ export function NextMove() {
               <Stat value={opp.competition} label="competition" />
               <Stat value={`${opp.detail.confidenceScore}%`} label="confidence" />
             </div>
+
+            <Disclosure summary="How this was chosen" className="mt-4">
+              <div className="space-y-5 rounded-xl bg-secondary/40 p-4">
+                <div>
+                  <p className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+                    <CalendarClock className="size-3.5" aria-hidden />
+                    Why now
+                  </p>
+                  <p className="mt-1.5 text-[12.5px] leading-relaxed text-foreground/85">
+                    {opp.detail.whyNow}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+                    Strongest evidence
+                  </p>
+                  <ul className="mt-2 space-y-2">
+                    {opp.detail.evidence.slice(0, 2).map(e => (
+                      <li key={e.label} className="text-[12.5px] leading-relaxed">
+                        <span className="font-semibold tabular-nums">{e.value}</span>{" "}
+                        <span className="text-foreground/85">{e.label.toLowerCase()}</span>{" "}
+                        <Citation>{e.source}</Citation>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <AssumptionsAndRisks
+                  assumptions={opp.detail.assumptions.slice(0, 2)}
+                  risks={opp.detail.risks.slice(0, 2)}
+                />
+                <p className="text-[12px] text-muted-foreground">
+                  Full evidence, methodology, and every caveat:{" "}
+                  <Link
+                    href={`/opportunities/${opp.slug}`}
+                    className="rounded-md font-semibold underline underline-offset-4 transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+                  >
+                    see the evidence page
+                  </Link>
+                  .
+                </p>
+              </div>
+            </Disclosure>
           </div>
           <div className="flex shrink-0 flex-wrap items-center gap-2.5">
             <Link
