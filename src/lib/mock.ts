@@ -280,6 +280,11 @@ export type Opportunity = {
   competition: "Low" | "Medium" | "High";
   effort: "Low" | "Medium" | "High";
   confidence: "High" | "Medium" | "Low";
+  /** Recommended platform / format / audience segment — filterable, and
+   *  consistent with the brief setup defaults. */
+  platform: string;
+  format: string;
+  segment: string;
   detail: OpportunityDetail;
 };
 
@@ -287,6 +292,7 @@ export const opportunities: Opportunity[] = [
   {
     id: "o1", slug: "founder-dating", name: "Founder Dating",
     impact: 95, audienceFit: 98, competition: "Low", effort: "Medium", confidence: "High",
+    platform: "TikTok", format: "Talking head", segment: "Dating & career",
     detail: {
       whyRecommended:
         "Founder Dating sits at the intersection of your two strongest themes — dating (9.4% avg engagement, +41% growth) and career (8.2%, +27%). Comment and search demand for “dating founders / tech guys” grew 3× in your niche this quarter, and none of your tracked competitors cover the founder angle.",
@@ -334,6 +340,7 @@ export const opportunities: Opportunity[] = [
   {
     id: "o2", slug: "day-in-the-life", name: "Day in the Life",
     impact: 88, audienceFit: 91, competition: "Medium", effort: "Low", confidence: "High",
+    platform: "Instagram Reels", format: "Voiceover montage", segment: "Aspiring creators",
     detail: {
       whyRecommended:
         "The fastest-growing format in your niche — and the one proven format you've never tested. Priya Nair grew 24.5% this quarter on the back of it, and your Behind the Scenes theme shows your audience already rewards unpolished honesty.",
@@ -380,6 +387,7 @@ export const opportunities: Opportunity[] = [
   {
     id: "o3", slug: "salary-transparency", name: "Salary Transparency Series",
     impact: 84, audienceFit: 89, competition: "Medium", effort: "Low", confidence: "High",
+    platform: "TikTok", format: "Talking head", segment: "Career-curious",
     detail: {
       whyRecommended:
         "Numbers-first career content is your strongest profile-visit converter, and your top career upload (980K views) proves the demand. A recurring series compounds that — viewers return for the next installment.",
@@ -423,6 +431,7 @@ export const opportunities: Opportunity[] = [
   {
     id: "o4", slug: "money-diaries", name: "Creator Money Diaries",
     impact: 79, audienceFit: 85, competition: "Low", effort: "Medium", confidence: "Medium",
+    platform: "TikTok", format: "Voiceover montage", segment: "Finance & career",
     detail: {
       whyRecommended:
         "Finance is your fastest-growing minor theme (+19%) with your highest save rate, and it pairs unusually well with your career storytelling. A diary format turns one-off finance spikes into a habit.",
@@ -466,6 +475,7 @@ export const opportunities: Opportunity[] = [
   {
     id: "o5", slug: "first-dates-debrief", name: "First Dates Debrief",
     impact: 74, audienceFit: 88, competition: "Medium", effort: "Low", confidence: "Medium",
+    platform: "TikTok", format: "Talking head", segment: "Dating",
     detail: {
       whyRecommended:
         "A lighter, recurring spin on your best theme. Dating drives your highest engagement, and a debrief format is low-effort to produce weekly — but it competes in a busier lane than your comparison videos.",
@@ -509,6 +519,7 @@ export const opportunities: Opportunity[] = [
   {
     id: "o6", slug: "career-pivot-stories", name: "Career Pivot Stories",
     impact: 68, audienceFit: 80, competition: "High", effort: "Medium", confidence: "Medium",
+    platform: "Instagram Reels", format: "Talking head", segment: "Career-curious",
     detail: {
       whyRecommended:
         "Career is your #2 theme and pivot stories reliably perform across the niche — but this is the most saturated lane on this list. Worth testing behind the higher-whitespace opportunities above.",
