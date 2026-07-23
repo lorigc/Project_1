@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useMotionValue, useTransform, animate, useReducedMotion } from "framer-motion";
-import { useEffect, type ReactNode } from "react";
+import { motion, animate, useReducedMotion } from "framer-motion";
+import { useEffect, useRef, type ReactNode } from "react";
 
 /** Fade-in + slide-up on mount, staggered by `delay` (seconds). */
 export function FadeIn({
@@ -25,7 +25,11 @@ export function FadeIn({
   );
 }
 
-/** Animated number that counts up on mount. */
+/**
+ * Animated number that counts up on mount.
+ * The real value is rendered into the prerendered HTML (never 0), then the
+ * count-up runs client-side by writing to the DOM node directly.
+ */
 export function Counter({
   value,
   render,
@@ -34,13 +38,29 @@ export function Counter({
   render: (v: number) => string;
 }) {
   const reduced = useReducedMotion();
-  const mv = useMotionValue(reduced ? value : 0);
-  const text = useTransform(mv, v => render(v));
+  const ref = useRef<HTMLSpanElement>(null);
+  const renderRef = useRef(render);
 
   useEffect(() => {
-    const controls = animate(mv, value, { duration: 1.1, ease: [0.16, 1, 0.3, 1] });
-    return controls.stop;
-  }, [mv, value]);
+    renderRef.current = render;
+  });
 
-  return <motion.span className="tabular-nums">{text}</motion.span>;
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || reduced) return;
+    const controls = animate(0, value, {
+      duration: 1.1,
+      ease: [0.16, 1, 0.3, 1],
+      onUpdate: v => {
+        el.textContent = renderRef.current(v);
+      },
+    });
+    return () => controls.stop();
+  }, [value, reduced]);
+
+  return (
+    <span ref={ref} className="tabular-nums">
+      {render(value)}
+    </span>
+  );
 }

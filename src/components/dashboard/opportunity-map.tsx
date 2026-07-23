@@ -20,9 +20,8 @@ function ScoreBar({ value, color }: { value: number; color: string }) {
   );
 }
 
-function LevelBadge({ level, invert = false }: { level: "Low" | "Medium" | "High"; invert?: boolean }) {
-  // For competition, Low is good; for effort, Low is also good — `invert` unused but
-  // kept explicit: good = green, medium = amber, high = muted red.
+function LevelBadge({ level }: { level: "Low" | "Medium" | "High" }) {
+  // For both competition and effort, Low is good: green, amber, muted red.
   const good = level === "Low";
   const bad = level === "High";
   return (
@@ -83,9 +82,14 @@ export function OpportunityMap() {
                   <td className="px-5 py-4">
                     <div className="flex items-center gap-2">
                       {i === 0 && <Sparkles className="size-3.5 text-primary" />}
-                      <span className="text-[14px] font-semibold">{o.name}</span>
+                      <Link
+                        href={`/opportunities/${o.slug}`}
+                        className="rounded-md text-[14px] font-semibold underline-offset-4 transition-colors hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
+                      >
+                        {o.name}
+                      </Link>
                       {i === 0 && (
-                        <span className="rounded-full bg-primary/15 px-2 py-0.5 text-[10px] font-semibold text-[#7eb1f7]">
+                        <span className="rounded-full bg-primary/15 px-2 py-0.5 text-[10px] font-semibold text-accent-foreground">
                           Top pick
                         </span>
                       )}

@@ -252,6 +252,19 @@ export const competitors: Competitor[] = [
 
 /* ---------------- Opportunity map ---------------- */
 
+export type EvidenceStat = { label: string; value: string; sub: string };
+
+export type OpportunityDetail = {
+  whyRecommended: string;
+  evidence: EvidenceStat[];
+  sourceThemeIds: string[];
+  competitorExamples: { competitorId: string; example: string; result: string }[];
+  audienceFitNote: string;
+  expectedImpact: { range: string; vsBaseline: string; note: string };
+  confidenceScore: number; // weighted sum of methodology signals
+  methodology: { signal: string; weight: number; score: number; note: string }[];
+};
+
 export type Opportunity = {
   id: string;
   slug: string;
@@ -261,16 +274,218 @@ export type Opportunity = {
   competition: "Low" | "Medium" | "High";
   effort: "Low" | "Medium" | "High";
   confidence: "High" | "Medium" | "Low";
+  detail: OpportunityDetail;
 };
 
 export const opportunities: Opportunity[] = [
-  { id: "o1", slug: "founder-dating", name: "Founder Dating", impact: 95, audienceFit: 98, competition: "Low", effort: "Medium", confidence: "High" },
-  { id: "o2", slug: "day-in-the-life", name: "Day in the Life", impact: 88, audienceFit: 91, competition: "Medium", effort: "Low", confidence: "High" },
-  { id: "o3", slug: "salary-transparency", name: "Salary Transparency Series", impact: 84, audienceFit: 89, competition: "Medium", effort: "Low", confidence: "High" },
-  { id: "o4", slug: "money-diaries", name: "Creator Money Diaries", impact: 79, audienceFit: 85, competition: "Low", effort: "Medium", confidence: "Medium" },
-  { id: "o5", slug: "first-dates-debrief", name: "First Dates Debrief", impact: 74, audienceFit: 88, competition: "Medium", effort: "Low", confidence: "Medium" },
-  { id: "o6", slug: "career-pivot-stories", name: "Career Pivot Stories", impact: 68, audienceFit: 80, competition: "High", effort: "Medium", confidence: "Medium" },
+  {
+    id: "o1", slug: "founder-dating", name: "Founder Dating",
+    impact: 95, audienceFit: 98, competition: "Low", effort: "Medium", confidence: "High",
+    detail: {
+      whyRecommended:
+        "Founder Dating sits at the intersection of your two strongest themes — dating (9.4% avg engagement, +41% growth) and career (8.2%, +27%). Comment and search demand for “dating founders / tech guys” grew 3× in your niche this quarter, and none of your tracked competitors cover the founder angle.",
+      evidence: [
+        { label: "Dating theme engagement", value: "9.4%", sub: "vs 7.8% channel baseline · +41% growth this quarter" },
+        { label: "Comparative-framing retention", value: "87%", sub: "avg watch retention on your “X vs Y” dating videos" },
+        { label: "Best related upload", value: "1.2M views", sub: "“I dated 5 finance guys” · 11.8% engagement" },
+        { label: "Demand trend", value: "3×", sub: "growth in founder-dating search & comment volume" },
+      ],
+      sourceThemeIds: ["dating", "career"],
+      competitorExamples: [
+        { competitorId: "c1", example: "Tested “dating in tech” street interviews last month", result: "2.1× her median views — validated profession-angle demand" },
+        { competitorId: "c2", example: "Salary breakdowns with on-screen receipts", result: "Proves specifics-on-screen lands with this shared audience" },
+        { competitorId: "c3", example: "No dating content at all", result: "Whitespace — the founder angle is uncovered in your niche" },
+      ],
+      audienceFitNote:
+        "Your core viewers — women 24–29, 68% of your audience — follow you for exactly this dating × career blend. Fit is scored against the viewer profile of your top-decile uploads.",
+      expectedImpact: {
+        range: "900K–1.4M views",
+        vsBaseline: "+42% engagement vs channel baseline",
+        note: "Modeled on your comparative dating uploads, adjusted for the demand trend and the absence of direct competition.",
+      },
+      confidenceScore: 94,
+      methodology: [
+        { signal: "Theme performance", weight: 35, score: 96, note: "Dating and career are your #1 and #2 themes" },
+        { signal: "Audience overlap", weight: 25, score: 98, note: "Matches your top-decile viewer profile" },
+        { signal: "Competitive whitespace", weight: 20, score: 92, note: "No tracked competitor covers the angle" },
+        { signal: "Format fit", weight: 10, score: 90, note: "Talking-head comparison — your proven format" },
+        { signal: "Demand trend", weight: 10, score: 88, note: "3× quarter-over-quarter search growth" },
+      ],
+    },
+  },
+  {
+    id: "o2", slug: "day-in-the-life", name: "Day in the Life",
+    impact: 88, audienceFit: 91, competition: "Medium", effort: "Low", confidence: "High",
+    detail: {
+      whyRecommended:
+        "The fastest-growing format in your niche — and the one proven format you've never tested. Priya Nair grew 24.5% this quarter on the back of it, and your Behind the Scenes theme shows your audience already rewards unpolished honesty.",
+      evidence: [
+        { label: "BTS theme trust signal", value: "73%", sub: "watch retention — your most loyal commenters come from BTS" },
+        { label: "Competitor validation", value: "+24.5%", sub: "Priya Nair's quarterly growth, driven by this format" },
+        { label: "Closest existing upload", value: "398K views", sub: "“A realistic day of content creation” · 6.5% engagement" },
+        { label: "Format gap", value: "0 posts", sub: "you have never published a voiceover day-in-the-life" },
+      ],
+      sourceThemeIds: ["bts", "career", "lifestyle"],
+      competitorExamples: [
+        { competitorId: "c3", example: "“Day in the life” with voiceover storytelling, 3× weekly", result: "+24.5% follower growth this quarter — niche-leading" },
+        { competitorId: "c1", example: "Occasional lifestyle vlogs without voiceover", result: "Underperforms Priya's format — voiceover is the differentiator" },
+      ],
+      audienceFitNote:
+        "91% fit — your audience already watches this format from competitors, so you'd capture existing demand rather than create it.",
+      expectedImpact: {
+        range: "500K–800K views",
+        vsBaseline: "+18% potential audience increase",
+        note: "Above channel median with unusually high follow conversion, based on competitor benchmarks for first-time format adoption.",
+      },
+      confidenceScore: 88,
+      methodology: [
+        { signal: "Theme performance", weight: 35, score: 85, note: "BTS + lifestyle prove the honesty angle" },
+        { signal: "Audience overlap", weight: 25, score: 91, note: "Audience already consumes this format" },
+        { signal: "Competitive whitespace", weight: 20, score: 80, note: "Format is contested, but your angle is open" },
+        { signal: "Format fit", weight: 10, score: 96, note: "Low-effort extension of your BTS strength" },
+        { signal: "Demand trend", weight: 10, score: 98, note: "Fastest-growing format in the niche" },
+      ],
+    },
+  },
+  {
+    id: "o3", slug: "salary-transparency", name: "Salary Transparency Series",
+    impact: 84, audienceFit: 89, competition: "Medium", effort: "Low", confidence: "High",
+    detail: {
+      whyRecommended:
+        "Numbers-first career content is your strongest profile-visit converter, and your top career upload (980K views) proves the demand. A recurring series compounds that — viewers return for the next installment.",
+      evidence: [
+        { label: "Top career upload", value: "980K views", sub: "“What my first year in tech actually paid” · 9.9% engagement" },
+        { label: "Career theme engagement", value: "8.2%", sub: "vs 7.8% baseline · +27% growth this quarter" },
+        { label: "Profile-visit conversion", value: "#1", sub: "career transparency drives your strongest funnel" },
+      ],
+      sourceThemeIds: ["career", "finance"],
+      competitorExamples: [
+        { competitorId: "c2", example: "Salary breakdown with on-screen receipts", result: "His most-shared format — validated, but he posts irregularly" },
+      ],
+      audienceFitNote:
+        "89% fit — career-curious professionals are your second-largest viewer segment and the most likely to save and share.",
+      expectedImpact: {
+        range: "600K–900K views per installment",
+        vsBaseline: "+26% engagement vs channel baseline",
+        note: "Series format adds compounding return viewership; effort stays low by reusing one repeatable template.",
+      },
+      confidenceScore: 87,
+      methodology: [
+        { signal: "Theme performance", weight: 35, score: 92, note: "Career transparency is a proven performer" },
+        { signal: "Audience overlap", weight: 25, score: 89, note: "Core segment saves and shares this content" },
+        { signal: "Competitive whitespace", weight: 20, score: 72, note: "Format exists, but nobody owns the series" },
+        { signal: "Format fit", weight: 10, score: 94, note: "Repeatable template you already use" },
+        { signal: "Demand trend", weight: 10, score: 90, note: "Salary content demand keeps climbing" },
+      ],
+    },
+  },
+  {
+    id: "o4", slug: "money-diaries", name: "Creator Money Diaries",
+    impact: 79, audienceFit: 85, competition: "Low", effort: "Medium", confidence: "Medium",
+    detail: {
+      whyRecommended:
+        "Finance is your fastest-growing minor theme (+19%) with your highest save rate, and it pairs unusually well with your career storytelling. A diary format turns one-off finance spikes into a habit.",
+      evidence: [
+        { label: "Finance theme growth", value: "+19%", sub: "fastest-growing minor theme · 7.5% avg engagement" },
+        { label: "Save behavior", value: "High", sub: "finance uploads lead your save-per-view ratio" },
+        { label: "Best finance upload", value: "610K views", sub: "“Where my first 100K actually went” · 8.9% engagement" },
+      ],
+      sourceThemeIds: ["finance", "career"],
+      competitorExamples: [
+        { competitorId: "c2", example: "Finance content without personal narrative", result: "Lower engagement than your story-led finance uploads" },
+      ],
+      audienceFitNote:
+        "85% fit — strong with your 24–29 core, weaker with under-22 viewers. Best published in your 6–9 PM EST window.",
+      expectedImpact: {
+        range: "450K–700K views",
+        vsBaseline: "+12% engagement vs channel baseline",
+        note: "Medium effort: requires real numbers each installment to preserve the transparency that drives saves.",
+      },
+      confidenceScore: 79,
+      methodology: [
+        { signal: "Theme performance", weight: 35, score: 75, note: "Growing fast, but still a minor theme" },
+        { signal: "Audience overlap", weight: 25, score: 85, note: "Strong with core, weaker with youngest segment" },
+        { signal: "Competitive whitespace", weight: 20, score: 88, note: "Personal money diaries are uncovered" },
+        { signal: "Format fit", weight: 10, score: 70, note: "New recurring format — untested cadence" },
+        { signal: "Demand trend", weight: 10, score: 72, note: "Steady, not spiking" },
+      ],
+    },
+  },
+  {
+    id: "o5", slug: "first-dates-debrief", name: "First Dates Debrief",
+    impact: 74, audienceFit: 88, competition: "Medium", effort: "Low", confidence: "Medium",
+    detail: {
+      whyRecommended:
+        "A lighter, recurring spin on your best theme. Dating drives your highest engagement, and a debrief format is low-effort to produce weekly — but it competes in a busier lane than your comparison videos.",
+      evidence: [
+        { label: "Dating theme engagement", value: "9.4%", sub: "your #1 theme · +41% growth" },
+        { label: "Story-sharing comments", value: "High", sub: "dating uploads drive your most active comment sections" },
+      ],
+      sourceThemeIds: ["dating"],
+      competitorExamples: [
+        { competitorId: "c1", example: "Street-interview dating content weekly", result: "Owns the interview lane — debrief lane is more open" },
+      ],
+      audienceFitNote:
+        "88% fit — same core audience as your dating theme; recurring format builds appointment viewing.",
+      expectedImpact: {
+        range: "400K–650K views",
+        vsBaseline: "+9% engagement vs channel baseline",
+        note: "Low effort per episode; value compounds through cadence rather than single-video spikes.",
+      },
+      confidenceScore: 78,
+      methodology: [
+        { signal: "Theme performance", weight: 35, score: 88, note: "Rides your strongest theme" },
+        { signal: "Audience overlap", weight: 25, score: 88, note: "Same viewers as your dating uploads" },
+        { signal: "Competitive whitespace", weight: 20, score: 55, note: "Dating formats are contested" },
+        { signal: "Format fit", weight: 10, score: 80, note: "Talking-head — your proven format" },
+        { signal: "Demand trend", weight: 10, score: 62, note: "Steady demand, no clear spike" },
+      ],
+    },
+  },
+  {
+    id: "o6", slug: "career-pivot-stories", name: "Career Pivot Stories",
+    impact: 68, audienceFit: 80, competition: "High", effort: "Medium", confidence: "Medium",
+    detail: {
+      whyRecommended:
+        "Career is your #2 theme and pivot stories reliably perform across the niche — but this is the most saturated lane on this list. Worth testing behind the higher-whitespace opportunities above.",
+      evidence: [
+        { label: "Career theme engagement", value: "8.2%", sub: "+27% growth this quarter" },
+        { label: "Related upload", value: "645K views", sub: "“Quitting without a backup plan” · 8.4% engagement" },
+      ],
+      sourceThemeIds: ["career"],
+      competitorExamples: [
+        { competitorId: "c2", example: "Career-change interviews, monthly", result: "Solid but plateauing — format fatigue visible in his comments" },
+        { competitorId: "c3", example: "Pivot-story voiceovers inside day-in-the-life videos", result: "Blended format outperforms standalone pivot stories" },
+      ],
+      audienceFitNote:
+        "80% fit — resonates with the career-curious segment, less with viewers who follow you primarily for dating content.",
+      expectedImpact: {
+        range: "350K–550K views",
+        vsBaseline: "+4% engagement vs channel baseline",
+        note: "High competition compresses the upside; differentiation would need a personal-story angle.",
+      },
+      confidenceScore: 71,
+      methodology: [
+        { signal: "Theme performance", weight: 35, score: 84, note: "Strong theme, familiar territory" },
+        { signal: "Audience overlap", weight: 25, score: 80, note: "Partial overlap with your core" },
+        { signal: "Competitive whitespace", weight: 20, score: 35, note: "Most saturated lane on the list" },
+        { signal: "Format fit", weight: 10, score: 75, note: "Story format fits, angle undifferentiated" },
+        { signal: "Demand trend", weight: 10, score: 68, note: "Mature demand, slowing growth" },
+      ],
+    },
+  },
 ];
+
+/* ---------------- Best next move (Overview hero) ---------------- */
+
+export const recommendation = {
+  slug: "founder-dating",
+  title: "Founder Dating",
+  summary:
+    "Dating and career — your two strongest themes — intersect in a format none of your tracked competitors cover, and search demand is up 3× this quarter.",
+  expectedImpact: "+42% engagement vs baseline",
+  predictedViews: "900K–1.4M predicted views",
+};
 
 /* ---------------- AI insight panel ---------------- */
 
@@ -319,6 +534,8 @@ export type Brief = {
     confidence: number;
   };
   references: { title: string; views: string; engagement: string; reason: string }[];
+  /** Alternate versions cycled by the “Regenerate” action. */
+  alternates: { hook: string; title: string; thumbnail: string; publishTime: string }[];
 };
 
 const briefs: Record<string, Brief> = {
@@ -359,6 +576,20 @@ const briefs: Record<string, Brief> = {
       { title: "Engineers vs consultants: dating edition", views: "764K", engagement: "9.7%", reason: "Proved the “X vs Y” dating format retains 87% of viewers." },
       { title: "Red flags I ignored in my 20s", views: "890K", engagement: "10.1%", reason: "Validated vulnerable first-person storytelling with this audience." },
     ],
+    alternates: [
+      {
+        hook: "“Founders text back at 2 AM — and it’s not the red flag you think it is.”",
+        title: "I Dated a Startup Founder for 6 Months — Honest Review",
+        thumbnail: "Close-up reaction | phone screen at 2:04 AM",
+        publishTime: "Tuesday, 7 PM EST",
+      },
+      {
+        hook: "“The dating-app filter nobody admits to using: job title.”",
+        title: "Ranking the Professions I’ve Dated — Tier List Edition",
+        thumbnail: "Tier-list board with blurred profile photos",
+        publishTime: "Thursday, 8 PM EST",
+      },
+    ],
   },
   "day-in-the-life": {
     slug: "day-in-the-life",
@@ -396,6 +627,20 @@ const briefs: Record<string, Brief> = {
       { title: "What filming a brand deal actually looks like", views: "540K", engagement: "7.6%", reason: "Your BTS content already validates the honesty angle." },
       { title: "A realistic day of content creation", views: "398K", engagement: "6.5%", reason: "Closest existing video — this brief upgrades it with the proven voiceover format." },
       { title: "What my first year in tech actually paid", views: "980K", engagement: "9.9%", reason: "Numbers-on-screen transparency drives your strongest engagement." },
+    ],
+    alternates: [
+      {
+        hook: "“My day starts at 6 AM and no, it’s not aesthetic.”",
+        title: "Full-Time Creator: The Unfiltered 14-Hour Tuesday",
+        thumbnail: "Timestamp grid — four frames across the day",
+        publishTime: "Saturday, 11 AM EST",
+      },
+      {
+        hook: "“Everyone asks what I actually do all day. Fine. Here it is.”",
+        title: "What a Creator’s Calendar Really Looks Like",
+        thumbnail: "Calendar screenshot with one block circled",
+        publishTime: "Sunday, 6 PM EST",
+      },
     ],
   },
 };

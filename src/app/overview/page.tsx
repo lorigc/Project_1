@@ -1,6 +1,7 @@
 import { AppShell } from "@/components/shell/app-shell";
 import { PageHeader, SectionTitle } from "@/components/shell/page-header";
 import { KpiRow } from "@/components/dashboard/kpi-row";
+import { NextMove } from "@/components/dashboard/next-move";
 import { TrendChart } from "@/components/charts/trend-chart";
 import { ThemeCards } from "@/components/dashboard/theme-cards";
 import { AudienceInsights } from "@/components/dashboard/audience";
@@ -19,6 +20,8 @@ export default function OverviewPage() {
           title="Overview"
           description="What's working, why it's working, and what to create next."
         />
+
+        <NextMove />
 
         <KpiRow />
 

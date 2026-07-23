@@ -22,7 +22,7 @@ const NAV = [
   { href: "/themes", label: "Content Themes", icon: Layers },
   { href: "/competitors", label: "Competitor Analysis", icon: Users },
   { href: "/opportunities", label: "Opportunity Map", icon: Map },
-  { href: "/brief/founder-dating", label: "AI Brief Generator", icon: FileText, match: "/brief" },
+  { href: "/brief", label: "AI Brief Generator", icon: FileText, match: "/brief" },
   { href: "/settings", label: "Settings", icon: Settings },
 ];
 
