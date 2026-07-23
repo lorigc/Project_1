@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
@@ -12,6 +11,7 @@ import {
   Settings,
   Search,
   Bell,
+  Sparkles,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { creator } from "@/lib/mock";
@@ -34,14 +34,9 @@ export function AppShell({ children }: { children: ReactNode }) {
       {/* Sidebar */}
       <aside className="sticky top-0 hidden h-dvh w-60 shrink-0 flex-col border-r border-sidebar-border bg-sidebar lg:flex">
         <Link href="/overview" className="flex items-center gap-2.5 px-5 pb-6 pt-6">
-          <Image
-            src="/vale-logo.png"
-            alt="Creator Intelligence logo"
-            width={32}
-            height={32}
-            unoptimized
-            className="size-8"
-          />
+          <div className="bg-brand-gradient flex size-8 items-center justify-center rounded-lg">
+            <Sparkles className="size-4 text-white" />
+          </div>
           <span className="text-[15px] font-semibold tracking-tight text-foreground">
             Creator Intelligence
           </span>
