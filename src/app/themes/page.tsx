@@ -10,7 +10,7 @@ export default function ThemesPage() {
       <div className="mx-auto max-w-7xl space-y-8 px-6 py-8">
         <PageHeader
           title="Content Themes"
-          description="AI-clustered themes across your last 214 posts. Expand a theme to see what makes it work."
+          description="What's working across your last 214 posts, strongest first. Expand any theme for the evidence behind it."
         />
         <ThemeCards />
       </div>

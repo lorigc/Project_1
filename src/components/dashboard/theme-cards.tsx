@@ -107,11 +107,14 @@ export function ThemeCards() {
         const Icon = ICONS[theme.icon] ?? Sparkles;
         const color = THEME_COLORS[i % THEME_COLORS.length];
         const isOpen = open === theme.id;
+        // The strongest theme leads full-width with its takeaway visible;
+        // the remaining four form a clean 2×2 grid.
+        const featured = i === 0;
         return (
           <FadeIn
             key={theme.id}
             delay={i * 0.05}
-            className={cn(isOpen && "lg:col-span-2")}
+            className={cn((isOpen || featured) && "lg:col-span-2")}
           >
             <div
               className={cn(
@@ -134,6 +137,11 @@ export function ThemeCards() {
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2">
                     <p className="whitespace-nowrap text-[15px] font-semibold">{theme.name}</p>
+                    {featured && (
+                      <span className="shrink-0 whitespace-nowrap rounded-full bg-primary/15 px-2 py-0.5 text-[10px] font-semibold text-accent-foreground">
+                        Top theme
+                      </span>
+                    )}
                     <span className="shrink-0 whitespace-nowrap rounded-full bg-secondary px-2 py-0.5 text-[10.5px] font-medium text-muted-foreground tabular-nums">
                       {theme.confidence}% conf.
                     </span>
@@ -142,6 +150,11 @@ export function ThemeCards() {
                     {theme.share}% of content · {theme.avgEngagement}% avg engagement ·{" "}
                     <span className="text-[#3ecf9a]">+{theme.growth}% growth</span>
                   </p>
+                  {featured && !isOpen && (
+                    <p className="mt-1.5 hidden text-[12.5px] leading-relaxed text-foreground/80 sm:block">
+                      {theme.expanded.takeaway}
+                    </p>
+                  )}
                 </div>
                 <div className="hidden w-24 shrink-0 sm:block">
                   <Sparkline id={`theme-${theme.id}`} data={theme.spark} color={color} height={30} />
