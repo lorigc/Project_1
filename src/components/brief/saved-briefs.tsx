@@ -4,6 +4,7 @@ import { useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { Copy, FileText, Map, Pencil, TextCursorInput, Trash2 } from "lucide-react";
 import {
+  currentVersionOf,
   duplicateBrief,
   getSavedBriefsServerSnapshot,
   getSavedBriefsSnapshot,
@@ -105,7 +106,9 @@ export function SavedBriefs() {
           {actionError}
         </p>
       )}
-      {briefs.map((b, i) => (
+      {briefs.map((b, i) => {
+        const cur = currentVersionOf(b);
+        return (
         <FadeIn key={b.id} delay={Math.min(i * 0.04, 0.2)}>
           <div className="group rounded-2xl border border-border bg-card p-5 transition-colors hover:border-white/15">
             <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-3">
@@ -125,7 +128,7 @@ export function SavedBriefs() {
                   />
                 ) : (
                   <p className="truncate text-[15px] font-semibold tracking-tight">
-                    {b.fields.workingTitle}
+                    {cur.fields.workingTitle}
                   </p>
                 )}
                 <p className="mt-1 flex flex-wrap items-center gap-x-1.5 text-[12.5px] text-muted-foreground">
@@ -136,8 +139,10 @@ export function SavedBriefs() {
                     {b.opportunityName}
                   </Link>
                   · <span>{b.setup.platform}</span> · <span>{b.setup.format}</span> ·{" "}
-                  <span className="tabular-nums">v{b.version}</span> ·{" "}
-                  <span>Edited {formatSavedAt(b.savedAt)}</span>
+                  <span className="tabular-nums">
+                    {b.versions.length} version{b.versions.length === 1 ? "" : "s"}
+                  </span>{" "}
+                  · <span>Edited {formatSavedAt(b.savedAt)}</span>
                 </p>
               </div>
 
@@ -160,9 +165,9 @@ export function SavedBriefs() {
                 <button
                   onClick={() => {
                     setRenamingId(b.id);
-                    setRenameValue(b.fields.workingTitle);
+                    setRenameValue(cur.fields.workingTitle);
                   }}
-                  aria-label={`Rename brief: ${b.fields.workingTitle}`}
+                  aria-label={`Rename brief: ${cur.fields.workingTitle}`}
                   title="Rename"
                   className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-2 focus-visible:outline-ring"
                 >
@@ -170,7 +175,7 @@ export function SavedBriefs() {
                 </button>
                 <button
                   onClick={() => guard(() => duplicateBrief(b.id))}
-                  aria-label={`Duplicate brief: ${b.fields.workingTitle}`}
+                  aria-label={`Duplicate brief: ${cur.fields.workingTitle}`}
                   title="Duplicate"
                   className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-2 focus-visible:outline-ring"
                 >
@@ -178,7 +183,7 @@ export function SavedBriefs() {
                 </button>
                 <button
                   onClick={() => guard(() => removeSavedBrief(b.id))}
-                  aria-label={`Delete brief: ${b.fields.workingTitle}`}
+                  aria-label={`Delete brief: ${cur.fields.workingTitle}`}
                   title="Delete"
                   className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-destructive focus-visible:outline-2 focus-visible:outline-ring"
                 >
@@ -188,7 +193,8 @@ export function SavedBriefs() {
             </div>
           </div>
         </FadeIn>
-      ))}
+        );
+      })}
     </div>
   );
 }

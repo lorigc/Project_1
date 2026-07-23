@@ -140,3 +140,26 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Export-to-PDF via the browser print dialog: flip to a light, ink-friendly
+   palette and let the brief content flow as a document. */
+@media print {
+  :root, .dark {
+    --background: #ffffff;
+    --foreground: #161616;
+    --card: #ffffff;
+    --card-foreground: #161616;
+    --secondary: #f3f4f1;
+    --secondary-foreground: #333333;
+    --muted-foreground: #555555;
+    --accent: #eef6e6;
+    --accent-foreground: #2e5d10;
+    --border: rgba(0, 0, 0, 0.16);
+  }
+  .ambient-glow {
+    background: none;
+  }
+  textarea {
+    color: #161616 !important;
+  }
+}

@@ -32,7 +32,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   return (
     <div className="flex min-h-dvh">
       {/* Sidebar */}
-      <aside className="sticky top-0 hidden h-dvh w-60 shrink-0 flex-col border-r border-sidebar-border bg-sidebar lg:flex">
+      <aside className="print:hidden sticky top-0 hidden h-dvh w-60 shrink-0 flex-col border-r border-sidebar-border bg-sidebar lg:flex">
         <Link href="/overview" className="flex items-center gap-2.5 px-5 pb-6 pt-6">
           <div className="bg-brand-gradient flex size-8 items-center justify-center rounded-lg">
             <Sparkles className="size-4 text-white" />
@@ -81,7 +81,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       {/* Main column */}
       <div className="flex min-w-0 flex-1 flex-col">
         {/* Top nav */}
-        <header className="glass sticky top-0 z-20 flex h-14 items-center justify-between border-b border-border px-6">
+        <header className="glass print:hidden sticky top-0 z-20 flex h-14 items-center justify-between border-b border-border px-6">
           <div className="flex items-center gap-2 text-[13px] text-muted-foreground">
             <Search className="size-4" />
             <span className="hidden sm:inline">Search insights, themes, briefs…</span>

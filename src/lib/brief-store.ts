@@ -1,4 +1,5 @@
-// Client-side persistence for saved briefs (localStorage).
+// Client-side persistence for saved briefs (localStorage), with version
+// history and per-field edit-origin tracking.
 // Mutating functions throw on storage failure — callers surface the error state.
 
 import type { BriefSetup } from "@/lib/mock";
@@ -17,21 +18,36 @@ export type BriefFields = {
   postingWindow: string;
 };
 
+/** true = the user edited this field; absent/false = AI-generated as-is. */
+export type FieldOrigin = Partial<Record<keyof BriefFields, boolean>>;
+
+export type BriefVersion = {
+  n: number;
+  label: string; // "Original", "New hook", "Tone: Playful & bold", …
+  createdAt: string;
+  fields: BriefFields;
+  edited: FieldOrigin;
+};
+
 export type StoredBrief = {
   id: string;
   slug: string;
   opportunityName: string;
   setup: BriefSetup;
-  fields: BriefFields;
   status: BriefStatus;
-  version: number;
   savedAt: string; // ISO timestamp of last save
+  versions: BriefVersion[];
+  current: number; // n of the active version
 };
 
-const KEY = "ci:saved-briefs:v2";
+const KEY = "ci:saved-briefs:v3";
 
 export function newBriefId(slug: string): string {
   return `${slug}-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}`;
+}
+
+export function currentVersionOf(b: StoredBrief): BriefVersion {
+  return b.versions.find(v => v.n === b.current) ?? b.versions[b.versions.length - 1];
 }
 
 // --- Subscription + cached snapshot (useSyncExternalStore-compatible) ---
@@ -80,12 +96,12 @@ function isStoredBrief(x: unknown): x is StoredBrief {
     typeof b.id === "string" &&
     typeof b.slug === "string" &&
     typeof b.savedAt === "string" &&
-    typeof b.version === "number" &&
+    typeof b.current === "number" &&
     (b.status === "draft" || b.status === "ready" || b.status === "published") &&
     typeof b.setup === "object" &&
     b.setup !== null &&
-    typeof b.fields === "object" &&
-    b.fields !== null
+    Array.isArray(b.versions) &&
+    b.versions.length > 0
   );
 }
 
@@ -130,24 +146,41 @@ export function removeSavedBrief(id: string): void {
   emit();
 }
 
-/** Copy an existing brief as a new draft. Returns the copy. Throws on failure. */
+/** Copy an existing brief (full history) as a new draft. Throws on failure. */
 export function duplicateBrief(id: string): StoredBrief | undefined {
   const src = loadBriefById(id);
   if (!src) return undefined;
+  const cur = currentVersionOf(src);
   const copy: StoredBrief = {
     ...src,
     id: newBriefId(src.slug),
-    fields: { ...src.fields, workingTitle: src.fields.workingTitle + " (copy)" },
     status: "draft",
     savedAt: new Date().toISOString(),
+    versions: src.versions.map(v =>
+      v.n === cur.n
+        ? { ...v, fields: { ...v.fields, workingTitle: v.fields.workingTitle + " (copy)" } }
+        : v
+    ),
   };
   saveBrief(copy);
   return copy;
 }
 
-/** Rename = update the working title in place. Throws on failure. */
+/** Rename = update the active version's working title. Throws on failure. */
 export function renameBrief(id: string, workingTitle: string): void {
   const src = loadBriefById(id);
   if (!src) return;
-  saveBrief({ ...src, fields: { ...src.fields, workingTitle }, savedAt: new Date().toISOString() });
+  saveBrief({
+    ...src,
+    savedAt: new Date().toISOString(),
+    versions: src.versions.map(v =>
+      v.n === src.current
+        ? {
+            ...v,
+            fields: { ...v.fields, workingTitle },
+            edited: { ...v.edited, workingTitle: true },
+          }
+        : v
+    ),
+  });
 }
