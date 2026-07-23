@@ -507,158 +507,421 @@ export const aiInsights = [
 
 /* ---------------- Briefs (Flow 3) ---------------- */
 
+export type BriefSetup = {
+  platform: string;
+  format: string;
+  audience: string;
+  objective: string;
+  tone: string;
+};
+
+export type StructureBeat = { time: string; beat: string };
+
+export type BriefContentData = {
+  workingTitle: string;
+  coreIdea: string;
+  hook: string;
+  opening: string; // the first 15 seconds
+  structure: StructureBeat[];
+  talkingPoints: string[];
+  shotList: string[];
+  bRoll: string[];
+  thumbnail: string;
+  caption: string;
+  cta: string;
+  postingWindow: string;
+  successMetric: string;
+};
+
 export type Brief = {
   slug: string;
-  title: string;
+  title: string; // source opportunity name
+  setup: BriefSetup;
   summary: {
     why: string;
     predictedPerformance: string;
     audienceOverlap: string;
     confidence: number;
   };
-  video: {
-    hook: string;
-    title: string;
-    description: string;
-    targetAudience: string;
-    length: string;
-    format: string;
-    thumbnail: string;
-    publishTime: string;
-  };
-  talkingPoints: string[];
-  whyAi: {
-    explanation: string;
-    themes: string[];
-    stat: string;
-    confidence: number;
-  };
-  references: { title: string; views: string; engagement: string; reason: string }[];
-  /** Alternate versions cycled by the “Regenerate” action. */
-  alternates: { hook: string; title: string; thumbnail: string; publishTime: string }[];
+  content: BriefContentData;
+  connection: { explanation: string; themes: string[]; stat: string; confidence: number };
+  /** Alternate versions cycled by “New version”. */
+  alternates: { hook: string; workingTitle: string; thumbnail: string; postingWindow: string }[];
 };
 
-const briefs: Record<string, Brief> = {
+export const SETUP_OPTIONS = {
+  platform: ["TikTok", "Instagram Reels", "YouTube Shorts"],
+  format: ["Talking head", "Voiceover montage", "Vlog-style", "Interview"],
+  objective: ["Deepen engagement", "Reach new viewers", "Convert followers", "Launch a series"],
+  tone: ["Honest & personal", "Playful & bold", "Analytical & calm", "Unfiltered & real"],
+};
+
+const authoredBriefs: Record<string, Brief> = {
   "founder-dating": {
     slug: "founder-dating",
     title: "Founder Dating",
+    setup: {
+      platform: "TikTok",
+      format: "Talking head",
+      audience: "Women 22–35 · dating & career",
+      objective: "Deepen engagement",
+      tone: "Honest & personal",
+    },
     summary: {
       why: "Combines your two highest-performing themes — dating and career — in a framing your competitors haven't touched. Search and comment demand for “dating founders/tech guys” has grown 3× in your niche this quarter.",
       predictedPerformance: "Top 5% of your recent uploads (predicted 900K–1.4M views)",
       audienceOverlap: "98% fit with your core audience: women 22–35 interested in dating and career",
       confidence: 94,
     },
-    video: {
+    content: {
+      workingTitle: "Startup Founders vs Finance Guys — Which Makes a Better Partner?",
+      coreIdea:
+        "A comparative story ranking the professions you've dated, built to spark comment debate between team founder and team finance — and to end on a career insight only you can deliver.",
       hook: "“I dated engineers, finance guys, and startup founders — here’s what surprised me.”",
-      title: "Startup Founders vs Finance Guys — Which Makes a Better Partner?",
-      description: "A comparative storytelling video contrasting dating experiences across professions, ending with one unexpected takeaway that invites comment debate.",
-      targetAudience: "Women 22–35, interested in dating and career",
-      length: "60 seconds",
-      format: "Talking head",
+      opening:
+        "Name all three professions to camera in the first three seconds, then promise the payoff: “one of them shocked me — and it’s not who you think.” No intro card, no logo — cut straight into the first story by 0:15.",
+      structure: [
+        { time: "0:00–0:03", beat: "Hook — all three professions named to camera" },
+        { time: "0:03–0:15", beat: "Stakes + promise of the surprise pick" },
+        { time: "0:15–0:40", beat: "One concrete story per profession, fastest first" },
+        { time: "0:40–0:52", beat: "The founder trait nobody expects — hold the reveal" },
+        { time: "0:52–1:00", beat: "Career tie-back + comment question" },
+      ],
+      talkingPoints: [
+        "Open with the hook — name all three professions in the first 3 seconds.",
+        "One concrete, specific story per profession (30 seconds total).",
+        "The surprise: the founder trait nobody expects — hold it until 0:40.",
+        "Tie back to career: what dating each profession taught you about ambition.",
+        "End with a question to the audience: “Which would you pick?”",
+      ],
+      shotList: [
+        "Talking head, eye-level, natural window light",
+        "Punch-in at 0:40 for the reveal beat",
+        "On-screen text naming each profession as it comes up",
+        "Reaction cutaway on the surprise line",
+      ],
+      bRoll: [
+        "Coffee-date table close-up (staged)",
+        "Phone screen: 2 AM text thread",
+        "City commute walk-by",
+        "Laptop-in-café founder shot",
+      ],
       thumbnail: "Split image — Finance | Founder",
-      publishTime: "Thursday, 7 PM EST",
+      caption:
+        "I dated an engineer, a finance guy, and a founder. One of them surprised me. Which team are you? 👇",
+      cta: "Comment which profession you’d pick — the winner gets the next video.",
+      postingWindow: "Thursday, 7–9 PM EST",
+      successMetric: "Beat 9.4% engagement — your dating-theme average — within 48 hours",
     },
-    talkingPoints: [
-      "Open with the hook — name all three professions in the first 3 seconds.",
-      "One concrete, specific story per profession (30 seconds total).",
-      "The surprise: the founder trait nobody expects — hold it until 0:40.",
-      "Tie back to career: what dating each profession taught you about ambition.",
-      "End with a question to the audience: “Which would you pick?”",
-    ],
-    whyAi: {
-      explanation: "This topic combines your highest-performing themes: dating, career, and personal storytelling. Videos in these categories average 42% higher engagement than your channel baseline. Competitors have recently validated audience demand for profession-comparison dating content, but none have the founder angle.",
+    connection: {
+      explanation:
+        "This topic combines your highest-performing themes: dating, career, and personal storytelling. Videos in these categories average 42% higher engagement than your channel baseline. Competitors have validated profession-comparison dating content, but none have the founder angle.",
       themes: ["Dating", "Career", "Personal storytelling"],
       stat: "+42% engagement vs channel baseline",
       confidence: 94,
     },
-    references: [
-      { title: "I dated 5 finance guys — here’s what I learned", views: "1.2M", engagement: "11.8%", reason: "Same comparative-professions framing; your best performer this quarter." },
-      { title: "Engineers vs consultants: dating edition", views: "764K", engagement: "9.7%", reason: "Proved the “X vs Y” dating format retains 87% of viewers." },
-      { title: "Red flags I ignored in my 20s", views: "890K", engagement: "10.1%", reason: "Validated vulnerable first-person storytelling with this audience." },
-    ],
     alternates: [
       {
         hook: "“Founders text back at 2 AM — and it’s not the red flag you think it is.”",
-        title: "I Dated a Startup Founder for 6 Months — Honest Review",
+        workingTitle: "I Dated a Startup Founder for 6 Months — Honest Review",
         thumbnail: "Close-up reaction | phone screen at 2:04 AM",
-        publishTime: "Tuesday, 7 PM EST",
+        postingWindow: "Tuesday, 7–9 PM EST",
       },
       {
         hook: "“The dating-app filter nobody admits to using: job title.”",
-        title: "Ranking the Professions I’ve Dated — Tier List Edition",
+        workingTitle: "Ranking the Professions I’ve Dated — Tier List Edition",
         thumbnail: "Tier-list board with blurred profile photos",
-        publishTime: "Thursday, 8 PM EST",
+        postingWindow: "Thursday, 8–10 PM EST",
       },
     ],
   },
   "day-in-the-life": {
     slug: "day-in-the-life",
     title: "Day in the Life",
+    setup: {
+      platform: "Instagram Reels",
+      format: "Voiceover montage",
+      audience: "Women 22–35 · aspiring creators",
+      objective: "Reach new viewers",
+      tone: "Unfiltered & real",
+    },
     summary: {
       why: "The fastest-growing format in your niche — and the one proven format you’ve never tested. Competitor Priya Nair grew 24.5% this quarter on the back of it.",
       predictedPerformance: "Above channel median (predicted 500K–800K views), with high follow conversion",
       audienceOverlap: "91% fit — your audience already watches this format from competitors",
       confidence: 88,
     },
-    video: {
+    content: {
+      workingTitle: "A Realistic Day as a Full-Time Creator (No Aesthetic Edit)",
+      coreIdea:
+        "An honest, voiceover-driven day-in-the-life contrasting the perception vs reality of creator work, with one real number on screen to anchor the transparency.",
       hook: "“6 AM: everyone thinks being a creator isn’t a real job. Watch this.”",
-      title: "A Realistic Day as a Full-Time Creator (No Aesthetic Edit)",
-      description: "An honest, voiceover-driven day-in-the-life contrasting the perception vs reality of creator work, with real numbers on screen.",
-      targetAudience: "Women 22–35, aspiring creators and career-curious professionals",
-      length: "75 seconds",
-      format: "Voiceover montage",
+      opening:
+        "Cold-open on the least glamorous moment of your day — no getting-ready montage. Voiceover states the thesis by 0:08: perception vs reality. First real timestamp on screen by 0:15.",
+      structure: [
+        { time: "0:00–0:05", beat: "Cold open — least glamorous moment first" },
+        { time: "0:05–0:15", beat: "Voiceover thesis: perception vs reality" },
+        { time: "0:15–0:45", beat: "Timestamped day beats, one real number on screen" },
+        { time: "0:45–0:60", beat: "BTS beat — reuse what works from your BTS theme" },
+        { time: "0:60–0:75", beat: "Soft close: “follow for the honest version”" },
+      ],
+      talkingPoints: [
+        "Cold-open on the least glamorous moment of your day.",
+        "Voiceover thesis: perception vs reality of creator life.",
+        "Show one real number on screen (hours worked or revenue).",
+        "A BTS beat — reuse what already works from your BTS theme.",
+        "Close with a soft CTA: “follow for the honest version.”",
+      ],
+      shotList: [
+        "Handheld phone footage — deliberately unpolished",
+        "Timestamp overlays at each day beat",
+        "Static tripod shot of the editing desk",
+        "Mirror or reflection shot for the thesis line",
+      ],
+      bRoll: [
+        "Unmade bed / 6 AM alarm screen",
+        "Cold coffee next to the keyboard",
+        "Inbox scroll with brand emails (blurred)",
+        "Golden-hour walk — the one nice shot, used ironically",
+      ],
       thumbnail: "Split — “what you think” | “what it is”",
-      publishTime: "Sunday, 6 PM EST",
+      caption: "The version of this job nobody posts. One real number inside. ⏱️",
+      cta: "Follow for the honest version — next week: what this day actually paid.",
+      postingWindow: "Sunday, 5–7 PM EST",
+      successMetric: "Top-quartile follow conversion (your BTS uploads average 1.8× channel norm)",
     },
-    talkingPoints: [
-      "Cold-open on the least glamorous moment of your day.",
-      "Voiceover thesis: perception vs reality of creator life.",
-      "Show one real number on screen (hours worked or revenue).",
-      "A BTS beat — reuse what already works from your BTS theme.",
-      "Close with a soft CTA: “follow for the honest version.”",
-    ],
-    whyAi: {
-      explanation: "Your audience already consumes this format from competitors — you’d capture existing demand rather than create it. Your BTS theme proves honest, unpolished content builds loyalty; this format scales that strength to a proven high-reach package.",
+    connection: {
+      explanation:
+        "Your audience already consumes this format from competitors — you’d capture existing demand rather than create it. Your BTS theme proves honest, unpolished content builds loyalty; this format scales that strength to a proven high-reach package.",
       themes: ["Behind the Scenes", "Career", "Lifestyle"],
       stat: "+18% potential audience increase",
       confidence: 88,
     },
-    references: [
-      { title: "What filming a brand deal actually looks like", views: "540K", engagement: "7.6%", reason: "Your BTS content already validates the honesty angle." },
-      { title: "A realistic day of content creation", views: "398K", engagement: "6.5%", reason: "Closest existing video — this brief upgrades it with the proven voiceover format." },
-      { title: "What my first year in tech actually paid", views: "980K", engagement: "9.9%", reason: "Numbers-on-screen transparency drives your strongest engagement." },
-    ],
     alternates: [
       {
         hook: "“My day starts at 6 AM and no, it’s not aesthetic.”",
-        title: "Full-Time Creator: The Unfiltered 14-Hour Tuesday",
+        workingTitle: "Full-Time Creator: The Unfiltered 14-Hour Tuesday",
         thumbnail: "Timestamp grid — four frames across the day",
-        publishTime: "Saturday, 11 AM EST",
+        postingWindow: "Saturday, 10 AM–12 PM EST",
       },
       {
         hook: "“Everyone asks what I actually do all day. Fine. Here it is.”",
-        title: "What a Creator’s Calendar Really Looks Like",
+        workingTitle: "What a Creator’s Calendar Really Looks Like",
         thumbnail: "Calendar screenshot with one block circled",
-        publishTime: "Sunday, 6 PM EST",
+        postingWindow: "Sunday, 6–8 PM EST",
       },
     ],
   },
 };
 
-// Fallback: generate a reasonable brief for opportunities without a hand-written one.
-export function getBrief(slug: string): Brief {
-  if (briefs[slug]) return briefs[slug];
-  const opp = opportunities.find(o => o.slug === slug) ?? opportunities[0];
+/* Creative kernels for opportunities without a fully authored brief.
+   Everything else is derived from the opportunity's own detail data. */
+type BriefKernel = {
+  setup: BriefSetup;
+  workingTitle: string;
+  coreIdea: string;
+  hook: string;
+  caption: string;
+  cta: string;
+  thumbnail: string;
+  alternates: { hook: string; workingTitle: string; thumbnail: string; postingWindow: string }[];
+};
+
+const briefKernels: Record<string, BriefKernel> = {
+  "salary-transparency": {
+    setup: {
+      platform: "TikTok",
+      format: "Talking head",
+      audience: "Women 22–35 · career-curious professionals",
+      objective: "Launch a series",
+      tone: "Honest & personal",
+    },
+    workingTitle: "What Each of My Jobs Actually Paid — Ep. 1",
+    coreIdea:
+      "A recurring series revealing the real salary numbers from each era of your career, receipts on screen — the numbers-first transparency your audience already rewards.",
+    hook: "“Here’s the number nobody shares — my actual first-year salary.”",
+    caption: "Real numbers, no vibes. Episode 1: my first tech salary. 📊",
+    cta: "Follow for Episode 2 — the raise-negotiation numbers.",
+    thumbnail: "Big blurred number mid-reveal, “EP. 1” badge",
+    alternates: [
+      {
+        hook: "“I’m sharing the exact number my manager told me to keep quiet.”",
+        workingTitle: "The Salary Nobody Would Tell Me — So Here’s Mine",
+        thumbnail: "Offer letter close-up, number circled",
+        postingWindow: "Tuesday, 6–8 PM EST",
+      },
+    ],
+  },
+  "money-diaries": {
+    setup: {
+      platform: "TikTok",
+      format: "Voiceover montage",
+      audience: "Women 24–29 · finance & career",
+      objective: "Deepen engagement",
+      tone: "Analytical & calm",
+    },
+    workingTitle: "Creator Money Diary: Where Last Month’s Income Went",
+    coreIdea:
+      "A monthly diary tracking real creator income and spending, anchored by the actual spreadsheet on screen — turning your highest-save-rate theme into a habit.",
+    hook: "“Let me show you the actual spreadsheet — every dollar from last month.”",
+    caption: "Every dollar from last month, on screen. Save this one. 💸",
+    cta: "Save this and follow — next month’s diary drops on the 1st.",
+    thumbnail: "Spreadsheet close-up with one circled total",
+    alternates: [
+      {
+        hook: "“Creators don’t show you this part of the money.”",
+        workingTitle: "The Honest Creator Income Breakdown",
+        thumbnail: "Split — invoice | reality",
+        postingWindow: "First Monday, 6–8 PM EST",
+      },
+    ],
+  },
+  "first-dates-debrief": {
+    setup: {
+      platform: "TikTok",
+      format: "Talking head",
+      audience: "Women 22–35 · dating",
+      objective: "Launch a series",
+      tone: "Playful & bold",
+    },
+    workingTitle: "First Date Debrief: The Good, The Weird, The Never Again",
+    coreIdea:
+      "A weekly just-got-home debrief that turns your dating stories into appointment viewing — low lift per episode, compounding through cadence.",
+    hook: "“I just got home from a first date — let’s debrief while it’s fresh.”",
+    caption: "Fresh off a first date. You will not believe the check moment. ☕",
+    cta: "Drop your worst first-date story — best one gets next week’s shoutout.",
+    thumbnail: "Coat-still-on couch shot, “DEBRIEF” text",
+    alternates: [
+      {
+        hook: "“He said WHAT at dinner? Full debrief, right now.”",
+        workingTitle: "First Date Red Flags: The Live Debrief",
+        thumbnail: "Mid-gasp reaction frame, timestamp corner",
+        postingWindow: "Friday, 8–10 PM EST",
+      },
+    ],
+  },
+  "career-pivot-stories": {
+    setup: {
+      platform: "Instagram Reels",
+      format: "Talking head",
+      audience: "Women 24–29 · career-curious",
+      objective: "Reach new viewers",
+      tone: "Honest & personal",
+    },
+    workingTitle: "I Quit Tech With No Backup Plan — 1 Year Later",
+    coreIdea:
+      "A personal pivot retrospective with real numbers — what the leap cost, what it returned, and the honest math in between. Differentiation comes from your specifics.",
+    hook: "“One year ago I quit with no backup plan. Here’s the honest math.”",
+    caption: "One year since the leap. The honest math inside. 🧮",
+    cta: "Ask your pivot questions below — answering the top 3 in a follow-up.",
+    thumbnail: "Then/now split with a handwritten timeline",
+    alternates: [
+      {
+        hook: "“Everyone said quitting would ruin me. Here’s my bank account.”",
+        workingTitle: "The Real Cost of Quitting Tech (With Numbers)",
+        thumbnail: "Bank-app screenshot, key figure blurred",
+        postingWindow: "Wednesday, 6–8 PM EST",
+      },
+    ],
+  },
+};
+
+const SHOTS_BY_FORMAT: Record<string, string[]> = {
+  "Talking head": [
+    "Talking head, eye-level, natural window light",
+    "Punch-in for the reveal beat",
+    "On-screen text overlays for key numbers",
+    "Reaction cutaway for the payoff line",
+  ],
+  "Voiceover montage": [
+    "Handheld phone footage — deliberately unpolished",
+    "Overlay text synced to each voiceover beat",
+    "Static tripod anchor shot to return to",
+    "Close-up insert for the on-screen number",
+  ],
+};
+
+const BROLL_BY_THEME: Record<string, string> = {
+  dating: "Coffee-date table close-up (staged)",
+  career: "Laptop + notebook desk scene",
+  finance: "Spreadsheet scroll with one cell highlighted",
+  bts: "Ring light and mic setup in frame",
+  lifestyle: "Morning routine beat — kettle, window light",
+};
+
+function deriveBrief(opp: Opportunity): Brief {
+  const k = briefKernels[opp.slug];
+  const d = opp.detail;
+  const themeNames = themes.filter(t => d.sourceThemeIds.includes(t.id)).map(t => t.name);
+  const setup = k?.setup ?? {
+    platform: "TikTok",
+    format: "Talking head",
+    audience: "Women 22–35",
+    objective: "Deepen engagement",
+    tone: "Honest & personal",
+  };
+  const kernel: Omit<BriefKernel, "setup"> = k ?? {
+    workingTitle: opp.name,
+    coreIdea: d.whyRecommended,
+    hook: `“${opp.name} — here’s why nobody in this niche is talking about it.”`,
+    caption: `${opp.name}. The full breakdown inside.`,
+    cta: "Follow for the next installment.",
+    thumbnail: "Bold title card with one key number",
+    alternates: [],
+  };
   return {
-    ...briefs["founder-dating"],
     slug: opp.slug,
     title: opp.name,
+    setup,
     summary: {
-      ...briefs["founder-dating"].summary,
-      why: `${opp.name} scores ${opp.impact} predicted impact with ${opp.audienceFit}% audience fit and ${opp.competition.toLowerCase()} competition — a gap your competitors haven’t filled.`,
-      confidence: opp.impact,
+      why: d.whyRecommended,
+      predictedPerformance: `${d.expectedImpact.range} predicted`,
+      audienceOverlap: d.audienceFitNote,
+      confidence: d.confidenceScore,
     },
+    content: {
+      workingTitle: kernel.workingTitle,
+      coreIdea: kernel.coreIdea,
+      hook: kernel.hook,
+      opening: `Deliver the hook to camera inside the first three seconds, then set the stakes in one line. Promise the payoff — the number, the reveal, the answer — before 0:15, then cut straight into the first beat. No intro card.`,
+      structure: [
+        { time: "0:00–0:03", beat: "Hook, straight to camera" },
+        { time: "0:03–0:15", beat: "Stakes + promise of the payoff" },
+        { time: "0:15–0:40", beat: "The core story or numbers, specifics first" },
+        { time: "0:40–0:50", beat: "Payoff or reveal — the moment worth sharing" },
+        { time: "0:50–end", beat: "CTA question to the audience" },
+      ],
+      talkingPoints: [
+        "Open on the hook — no warm-up, no context-setting.",
+        `Anchor the middle with your strongest proof point: ${d.evidence[0]?.label.toLowerCase() ?? "your best related upload"} (${d.evidence[0]?.value ?? ""}).`,
+        "Keep one concrete, personal detail per beat — specificity is what your audience shares.",
+        "Hold the payoff until at least 0:40 to protect retention.",
+        "Close with a comment question, not a summary.",
+      ],
+      shotList: SHOTS_BY_FORMAT[setup.format] ?? SHOTS_BY_FORMAT["Talking head"],
+      bRoll: d.sourceThemeIds.map(id => BROLL_BY_THEME[id]).filter(Boolean).slice(0, 4),
+      thumbnail: kernel.thumbnail,
+      caption: kernel.caption,
+      cta: kernel.cta,
+      postingWindow: `Weeknights, ${audience.activeHours}`,
+      successMetric: `${d.expectedImpact.vsBaseline} within the first 48 hours`,
+    },
+    connection: {
+      explanation: `${d.whyRecommended} Strongest supporting signal: ${d.evidence[0]?.label.toLowerCase() ?? "theme performance"} at ${d.evidence[0]?.value ?? "—"}.`,
+      themes: themeNames,
+      stat: d.expectedImpact.vsBaseline,
+      confidence: d.confidenceScore,
+    },
+    alternates: kernel.alternates,
   };
+}
+
+/** Returns the brief for an opportunity — authored where available, otherwise
+ *  derived from that opportunity's own evidence (never another opportunity's). */
+export function getBrief(slug: string): Brief {
+  if (authoredBriefs[slug]) return authoredBriefs[slug];
+  const opp = opportunities.find(o => o.slug === slug) ?? opportunities[0];
+  return deriveBrief(opp);
 }
 
 export const creator = {

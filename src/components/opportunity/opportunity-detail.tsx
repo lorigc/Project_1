@@ -1,6 +1,5 @@
 import Link from "next/link";
 import {
-  ArrowLeft,
   ArrowRight,
   BarChart3,
   FileText,
@@ -12,6 +11,7 @@ import {
 import type { Opportunity } from "@/lib/mock";
 import { audience, competitors, themes } from "@/lib/mock";
 import { buttonVariants } from "@/components/ui/button";
+import { Breadcrumbs } from "@/components/shell/breadcrumbs";
 import { FadeIn } from "@/components/motion";
 import { cn } from "@/lib/utils";
 
@@ -58,16 +58,16 @@ export function OpportunityDetail({ opportunity }: { opportunity: Opportunity })
     <div className="mx-auto max-w-5xl space-y-6 px-6 py-8">
       {/* Header */}
       <FadeIn>
-        <Link
-          href="/opportunities"
-          className="inline-flex items-center gap-1.5 rounded-md text-[13px] font-medium text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
-        >
-          <ArrowLeft className="size-3.5" aria-hidden /> Opportunity Map
-        </Link>
-        <div className="mt-4 flex flex-wrap items-end justify-between gap-5">
+        <Breadcrumbs
+          crumbs={[
+            { label: "Opportunity Map", href: "/opportunities" },
+            { label: opportunity.name },
+          ]}
+        />
+        <div className="mt-5 flex flex-wrap items-end justify-between gap-5">
           <div className="min-w-0 max-w-2xl">
             <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
-              Opportunity
+              Opportunity · the evidence behind this recommendation
             </p>
             <h1 className="mt-1.5 text-3xl font-bold tracking-tight text-balance">
               {opportunity.name}
@@ -238,9 +238,10 @@ export function OpportunityDetail({ opportunity }: { opportunity: Opportunity })
       <FadeIn delay={0.2}>
         <div className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-primary/30 bg-card p-6">
           <div>
-            <p className="text-[15px] font-semibold tracking-tight">Ready to make this?</p>
+            <p className="text-[15px] font-semibold tracking-tight">Convinced by the evidence?</p>
             <p className="mt-1 text-[13px] text-muted-foreground">
-              Generate a full production brief — hook, structure, talking points, and publish plan.
+              The brief setup opens prefilled from this page — platform, format, audience, and
+              rationale carry over.
             </p>
           </div>
           <Link

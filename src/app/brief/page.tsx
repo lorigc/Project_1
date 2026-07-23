@@ -9,8 +9,8 @@ export default function BriefIndexPage() {
     <AppShell>
       <div className="mx-auto max-w-4xl space-y-8 px-6 py-8">
         <PageHeader
-          title="AI Brief Generator"
-          description="Briefs you've saved, ready to shoot. Generate new ones from the Opportunity Map."
+          title="Your Briefs"
+          description="Everything you've generated — drafts, ready to shoot, and published. New briefs start from an opportunity."
         />
         <SavedBriefs />
       </div>

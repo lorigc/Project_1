@@ -114,12 +114,13 @@ export function OpportunityMap() {
                     <Link
                       href={`/brief/${o.slug}`}
                       className={cn(
-                        "inline-flex items-center gap-1.5 rounded-lg border border-border bg-secondary px-3.5 py-2 text-[12.5px] font-semibold",
+                        "inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-[12.5px] font-semibold text-muted-foreground",
                         "opacity-70 transition-all duration-200 group-hover:opacity-100",
-                        "hover:border-primary/40 hover:bg-accent hover:text-accent-foreground"
+                        "hover:bg-secondary hover:text-foreground",
+                        "focus-visible:opacity-100 focus-visible:outline-2 focus-visible:outline-ring"
                       )}
                     >
-                      Generate Brief
+                      Generate brief
                       <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
                     </Link>
                   </td>

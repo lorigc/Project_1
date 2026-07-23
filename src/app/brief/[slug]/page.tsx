@@ -8,7 +8,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  return { title: `${getBrief(slug).title} — AI Brief` };
+  return { title: `${getBrief(slug).title} · Brief — Creator Intelligence` };
 }
 
 export default async function BriefPage({ params }: { params: Promise<{ slug: string }> }) {
