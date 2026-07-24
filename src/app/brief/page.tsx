@@ -10,7 +10,7 @@ export default function BriefIndexPage() {
       <div className="mx-auto max-w-4xl space-y-8 px-6 py-8">
         <PageHeader
           title="Your Briefs"
-          description="Everything you've generated — drafts, ready to shoot, and published. New briefs start from an opportunity."
+          description="Everything you’ve generated — drafts, ready to shoot, and published. New briefs start from an opportunity."
         />
         <SavedBriefs />
       </div>
