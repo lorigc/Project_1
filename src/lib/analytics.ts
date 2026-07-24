@@ -7,7 +7,13 @@ export type AnalyticsEvent =
   | "insight_dismissed"
   | "insight_restored"
   | "insight_related_opportunity_viewed"
-  | "insight_experiment_brief_created";
+  | "insight_experiment_brief_created"
+  | "map_filter_applied"
+  | "map_sort_changed"
+  | "map_compare_selected"
+  | "map_compare_opened"
+  | "map_detail_viewed"
+  | "map_brief_created";
 
 export function track(event: AnalyticsEvent, props: Record<string, string> = {}): void {
   if (process.env.NODE_ENV === "development") {

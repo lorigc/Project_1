@@ -275,6 +275,12 @@ export type Opportunity = {
   id: string;
   slug: string;
   name: string;
+  /** What the content direction is, in one sentence. */
+  description: string;
+  /** Why the system surfaced it — one concise clause. */
+  reason: string;
+  /** The primary tradeoff, kept short for list and comparison views. */
+  caveat: string;
   impact: number;
   audienceFit: number;
   competition: "Low" | "Medium" | "High";
@@ -291,6 +297,9 @@ export type Opportunity = {
 export const opportunities: Opportunity[] = [
   {
     id: "o1", slug: "founder-dating", name: "Founder Dating",
+    description: "A dating series about what it’s really like to date startup founders.",
+    reason: "Your two strongest themes intersect in a lane no tracked competitor covers.",
+    caveat: "First-mover upside shrinks fast if a competitor ships the angle first.",
     impact: 95, audienceFit: 98, competition: "Low", effort: "Medium", confidence: "High",
     platform: "TikTok", format: "Talking head", segment: "Dating & career",
     detail: {
@@ -339,6 +348,9 @@ export const opportunities: Opportunity[] = [
   },
   {
     id: "o2", slug: "day-in-the-life", name: "Day in the Life",
+    description: "A voiceover-montage look at your real creator workday, unpolished on purpose.",
+    reason: "The niche’s fastest-growing format — and the one proven format you’ve never tested.",
+    caveat: "The prediction leans on competitor results, not your own history with the format.",
     impact: 88, audienceFit: 91, competition: "Medium", effort: "Low", confidence: "High",
     platform: "Instagram Reels", format: "Voiceover montage", segment: "Aspiring creators",
     detail: {
@@ -386,6 +398,9 @@ export const opportunities: Opportunity[] = [
   },
   {
     id: "o3", slug: "salary-transparency", name: "Salary Transparency Series",
+    description: "A recurring series of real salary numbers and negotiation stories from your career.",
+    reason: "Numbers-first career content is your strongest profile-visit converter.",
+    caveat: "Transparency formats punish padding — every episode needs genuinely new numbers.",
     impact: 84, audienceFit: 89, competition: "Medium", effort: "Low", confidence: "High",
     platform: "TikTok", format: "Talking head", segment: "Career-curious",
     detail: {
@@ -430,6 +445,9 @@ export const opportunities: Opportunity[] = [
   },
   {
     id: "o4", slug: "money-diaries", name: "Creator Money Diaries",
+    description: "A weekly diary tracking real creator income and spending, line by line.",
+    reason: "Finance is your fastest-growing minor theme, with your highest save rate.",
+    caveat: "Finance is only 10% of your content — the strong average sits on a small base.",
     impact: 79, audienceFit: 85, competition: "Low", effort: "Medium", confidence: "Medium",
     platform: "TikTok", format: "Voiceover montage", segment: "Finance & career",
     detail: {
@@ -474,6 +492,9 @@ export const opportunities: Opportunity[] = [
   },
   {
     id: "o5", slug: "first-dates-debrief", name: "First Dates Debrief",
+    description: "A light weekly debrief unpacking one real first date and what it taught you.",
+    reason: "A low-effort, recurring spin on dating — your highest-engagement theme.",
+    caveat: "Dating is the most contested lane among your tracked competitors.",
     impact: 74, audienceFit: 88, competition: "Medium", effort: "Low", confidence: "Medium",
     platform: "TikTok", format: "Talking head", segment: "Dating",
     detail: {
@@ -518,6 +539,9 @@ export const opportunities: Opportunity[] = [
   },
   {
     id: "o6", slug: "career-pivot-stories", name: "Career Pivot Stories",
+    description: "First-person stories of career changes — yours and your audience’s.",
+    reason: "Career is your #2 theme, and pivot stories reliably perform across the niche.",
+    caveat: "The most saturated lane on this list — it needs a personal-story angle to stand out.",
     impact: 68, audienceFit: 80, competition: "High", effort: "Medium", confidence: "Medium",
     platform: "Instagram Reels", format: "Talking head", segment: "Career-curious",
     detail: {

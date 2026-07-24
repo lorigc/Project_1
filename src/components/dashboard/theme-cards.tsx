@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 import {
   Heart,
   Briefcase,
@@ -13,8 +14,9 @@ import {
   Quote,
   MessageCircle,
   Lightbulb,
+  Map,
 } from "lucide-react";
-import { themes, themeConfidenceNote, type Theme } from "@/lib/mock";
+import { themes, themeConfidenceNote, opportunities, type Theme } from "@/lib/mock";
 import { Sparkline } from "@/components/charts/sparkline";
 import { Citation } from "@/components/ai/explain";
 import { FadeIn } from "@/components/motion";
@@ -38,6 +40,7 @@ const THEME_COLORS = [
 
 function ExpandedTheme({ theme }: { theme: Theme }) {
   const e = theme.expanded;
+  const related = opportunities.filter(o => o.detail.sourceThemeIds.includes(theme.id));
   return (
     <div className="border-t border-border">
       <div className="px-5 pt-4">
@@ -102,6 +105,24 @@ function ExpandedTheme({ theme }: { theme: Theme }) {
         </div>
       </div>
       </div>
+      {related.length > 0 && (
+        <div className="border-t border-border/60 px-5 py-4">
+          <p className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+            <Map className="size-3" aria-hidden /> Opportunities built on this theme
+          </p>
+          <div className="mt-2 flex flex-wrap gap-1.5">
+            {related.map(o => (
+              <Link
+                key={o.id}
+                href={`/opportunities/${o.slug}`}
+                className="rounded-full border border-border bg-secondary/60 px-2.5 py-1 text-[11.5px] font-medium text-secondary-foreground transition-colors hover:border-primary/40 hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+              >
+                {o.name} · impact {o.impact}
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

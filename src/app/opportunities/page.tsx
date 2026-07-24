@@ -10,7 +10,7 @@ export default function OpportunitiesPage() {
       <div className="mx-auto max-w-7xl space-y-8 px-6 py-8">
         <PageHeader
           title="Opportunity Map"
-          description="What to make next, ranked by predicted impact. Open one to see the evidence, or generate its brief straight away."
+          description="Compare content directions by audience fit, predicted impact, competition, and effort — then turn the winner into a brief."
         />
         <OpportunityMap />
       </div>
