@@ -159,7 +159,7 @@ export function ThemeCards() {
                   </div>
                   <p className="mt-0.5 text-xs text-muted-foreground tabular-nums">
                     {theme.share}% of content · {theme.avgEngagement}% avg engagement ·{" "}
-                    <span className="text-[#3ecf9a]">+{theme.growth}% growth</span>
+                    <span className="text-success-fg">+{theme.growth}% growth</span>
                   </p>
                   {featured && !isOpen && (
                     <p className="mt-1.5 hidden text-[12.5px] leading-relaxed text-foreground/80 sm:block">

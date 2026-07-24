@@ -35,7 +35,11 @@ function TrendTooltip({
 /** 90-day views trend — single series, crosshair tooltip, recessive grid. */
 export function TrendChart() {
   return (
-    <div className="h-[280px] w-full">
+    <div
+      className="h-[280px] w-full"
+      role="img"
+      aria-label="Area chart of daily views over the last 90 days, rising from about 35 thousand in late April to a peak near 140 thousand in late June, settling around 120 thousand in July."
+    >
       <ResponsiveContainer width="100%" height="100%">
         <AreaChart data={performanceTrend} margin={{ top: 8, right: 8, bottom: 0, left: 0 }}>
           <defs>

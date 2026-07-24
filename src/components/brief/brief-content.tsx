@@ -112,7 +112,7 @@ function FieldLabel({
       {edited ? (
         <span
           title="You edited this field"
-          className="rounded-full bg-warning/15 px-1.5 py-0.5 text-[9.5px] font-semibold text-[#e2b25a]"
+          className="rounded-full bg-warning/15 px-1.5 py-0.5 text-[9.5px] font-semibold text-warning-fg"
         >
           Edited
         </span>
@@ -140,22 +140,31 @@ function FieldLabel({
   );
 }
 
-/** Always-editable text styled as display copy. Border appears on hover/focus. */
+/** Always-editable text styled as display copy. Border appears on hover/focus.
+ *  `singleLine` fields commit on Enter instead of inserting a newline. */
 function EditableText({
   value,
   onChange,
   label,
   className,
+  singleLine = false,
 }: {
   value: string;
   onChange: (v: string) => void;
   label: string;
   className?: string;
+  singleLine?: boolean;
 }) {
   return (
     <textarea
       value={value}
-      onChange={e => onChange(e.target.value)}
+      onChange={e => onChange(singleLine ? e.target.value.replace(/\n/g, " ") : e.target.value)}
+      onKeyDown={e => {
+        if (singleLine && e.key === "Enter") {
+          e.preventDefault();
+          e.currentTarget.blur();
+        }
+      }}
       aria-label={`Edit ${label}`}
       rows={1}
       className={cn(
@@ -169,8 +178,8 @@ function EditableText({
 
 const STATUS_META: Record<BriefStatus, { label: string; dot: string }> = {
   draft: { label: "Draft", dot: "bg-muted-foreground" },
-  ready: { label: "Ready", dot: "bg-[#e2b25a]" },
-  published: { label: "Published", dot: "bg-[#3ecf9a]" },
+  ready: { label: "Ready", dot: "bg-warning-fg" },
+  published: { label: "Published", dot: "bg-success-fg" },
 };
 
 function fieldsFromBrief(brief: Brief): BriefFields {
@@ -703,7 +712,7 @@ function BriefFlow({ brief, stored }: { brief: Brief; stored: StoredBrief | unde
                     )}
                   >
                     {i < genStage ? (
-                      <Check className="size-3.5 text-[#3ecf9a]" aria-hidden />
+                      <Check className="size-3.5 text-success-fg" aria-hidden />
                     ) : (
                       <Loader2 className={cn("size-3.5", i === genStage && "animate-spin")} aria-hidden />
                     )}
@@ -921,6 +930,7 @@ function BriefFlow({ brief, stored }: { brief: Brief; stored: StoredBrief | unde
             />
             <EditableText
               label="working title"
+              singleLine
               value={fields.workingTitle}
               onChange={v => edit({ workingTitle: v })}
               className="mt-0.5 text-[15px] font-semibold"
@@ -946,7 +956,7 @@ function BriefFlow({ brief, stored }: { brief: Brief; stored: StoredBrief | unde
               <Quote className="size-3" aria-hidden /> Hook
             </p>
             {edited.hook ? (
-              <span className="rounded-full bg-warning/15 px-1.5 py-0.5 text-[9.5px] font-semibold text-[#e2b25a]">
+              <span className="rounded-full bg-warning/15 px-1.5 py-0.5 text-[9.5px] font-semibold text-warning-fg">
                 Edited
               </span>
             ) : (
@@ -972,6 +982,7 @@ function BriefFlow({ brief, stored }: { brief: Brief; stored: StoredBrief | unde
           ) : (
             <EditableText
               label="hook"
+              singleLine
               value={fields.hook}
               onChange={v => edit({ hook: v })}
               className="mt-1.5 text-[15.5px] font-medium leading-relaxed"
@@ -1067,6 +1078,7 @@ function BriefFlow({ brief, stored }: { brief: Brief; stored: StoredBrief | unde
           ) : (
             <EditableText
               label="thumbnail concept"
+              singleLine
               value={fields.thumbnail}
               onChange={v => edit({ thumbnail: v })}
               className="mt-0.5 text-[13.5px] font-medium leading-relaxed"
@@ -1107,6 +1119,7 @@ function BriefFlow({ brief, stored }: { brief: Brief; stored: StoredBrief | unde
               />
               <EditableText
                 label="posting window"
+                singleLine
                 value={fields.postingWindow}
                 onChange={v => edit({ postingWindow: v })}
                 className="mt-0.5 text-[13.5px] font-medium leading-relaxed"
@@ -1141,7 +1154,7 @@ function BriefFlow({ brief, stored }: { brief: Brief; stored: StoredBrief | unde
               {t}
             </span>
           ))}
-          <span className="ml-auto rounded-full bg-success/15 px-3 py-1 text-[12px] font-semibold text-[#3ecf9a]">
+          <span className="ml-auto rounded-full bg-success/15 px-3 py-1 text-[12px] font-semibold text-success-fg">
             {brief.connection.stat}
           </span>
         </div>
@@ -1181,7 +1194,7 @@ function BriefFlow({ brief, stored }: { brief: Brief; stored: StoredBrief | unde
               className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-2 focus-visible:outline-ring active:translate-y-px disabled:opacity-40"
             >
               {copyState === "copied" ? (
-                <Check className="size-4 text-[#3ecf9a]" aria-hidden />
+                <Check className="size-4 text-success-fg" aria-hidden />
               ) : copyState === "error" ? (
                 <AlertCircle className="size-4 text-destructive" aria-hidden />
               ) : (
@@ -1243,7 +1256,7 @@ function BriefFlow({ brief, stored }: { brief: Brief; stored: StoredBrief | unde
             {saveError ? (
               <AlertCircle className="size-3.5" aria-hidden />
             ) : !dirty && savedAt ? (
-              <Check className="size-3.5 text-[#3ecf9a]" aria-hidden />
+              <Check className="size-3.5 text-success-fg" aria-hidden />
             ) : null}
             {statusText}
           </span>

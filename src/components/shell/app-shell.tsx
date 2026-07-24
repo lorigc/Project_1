@@ -9,10 +9,10 @@ import {
   Map,
   FileText,
   Settings,
-  Search,
   Bell,
   Sparkles,
 } from "lucide-react";
+import { CommandMenu } from "@/components/shell/command-menu";
 import { cn } from "@/lib/utils";
 import { creator } from "@/lib/mock";
 import type { ReactNode } from "react";
@@ -31,6 +31,12 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   return (
     <div className="flex min-h-dvh">
+      <a
+        href="#main"
+        className="sr-only rounded-lg bg-primary px-4 py-2 font-semibold text-primary-foreground focus-visible:not-sr-only focus-visible:fixed focus-visible:left-4 focus-visible:top-4 focus-visible:z-50"
+      >
+        Skip to content
+      </a>
       {/* Sidebar */}
       <aside className="print:hidden sticky top-0 hidden h-dvh w-60 shrink-0 flex-col border-r border-sidebar-border bg-sidebar lg:flex">
         <Link href="/overview" className="flex items-center gap-2.5 px-5 pb-6 pt-6">
@@ -83,20 +89,13 @@ export function AppShell({ children }: { children: ReactNode }) {
       <div className="flex min-w-0 flex-1 flex-col">
         {/* Top nav */}
         <header className="glass print:hidden sticky top-0 z-20 flex h-14 items-center justify-between border-b border-border px-6">
-          <div className="flex items-center gap-2 text-[13px] text-muted-foreground">
-            <Search className="size-4" />
-            <span className="hidden sm:inline">Search insights, themes, briefs…</span>
-            <kbd className="ml-2 hidden rounded border border-border bg-secondary px-1.5 py-0.5 text-[10px] font-medium sm:inline">
-              ⌘K
-            </kbd>
-          </div>
+          <CommandMenu />
           <div className="flex items-center gap-4">
             <button
               aria-label="Notifications"
               className="relative rounded-lg p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-2 focus-visible:outline-ring active:translate-y-px"
             >
               <Bell className="size-4" />
-              <span className="absolute right-1.5 top-1.5 size-1.5 rounded-full bg-primary" />
             </button>
             <div className="bg-brand-gradient flex size-8 items-center justify-center rounded-full text-[11px] font-semibold text-white lg:hidden">
               {creator.initials}
@@ -104,7 +103,9 @@ export function AppShell({ children }: { children: ReactNode }) {
           </div>
         </header>
 
-        <main className="ambient-glow min-w-0 flex-1">{children}</main>
+        <main id="main" className="ambient-glow min-w-0 flex-1">
+          {children}
+        </main>
       </div>
     </div>
   );

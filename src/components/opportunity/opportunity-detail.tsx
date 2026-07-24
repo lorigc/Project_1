@@ -197,7 +197,7 @@ export function OpportunityDetail({ opportunity }: { opportunity: Opportunity })
               <p className="text-3xl font-bold tabular-nums tracking-tight">{d.expectedImpact.range}</p>
               <p className="mt-0.5 text-[12px] text-muted-foreground">predicted view range</p>
             </div>
-            <p className="inline-flex rounded-full bg-success/15 px-3 py-1 text-[12.5px] font-semibold text-[#3ecf9a]">
+            <p className="inline-flex rounded-full bg-success/15 px-3 py-1 text-[12.5px] font-semibold text-success-fg">
               {d.expectedImpact.vsBaseline}
             </p>
             <p className="text-[13px] leading-relaxed text-muted-foreground">{d.expectedImpact.note}</p>

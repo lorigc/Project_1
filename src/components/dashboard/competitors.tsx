@@ -51,7 +51,7 @@ export function CompetitorPanel() {
                   <p className="text-[10.5px] font-medium uppercase tracking-wide text-muted-foreground">
                     Growth
                   </p>
-                  <p className="flex items-center gap-1 text-sm font-bold text-[#3ecf9a] tabular-nums">
+                  <p className="flex items-center gap-1 text-sm font-bold text-success-fg tabular-nums">
                     <TrendingUp className="size-3" aria-hidden /> +{c.growth}%
                   </p>
                 </div>

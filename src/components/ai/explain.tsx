@@ -80,14 +80,14 @@ export function AssumptionsAndRisks({
         </ul>
       </div>
       <div>
-        <p className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wide text-[#e2b25a]">
+        <p className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wide text-warning-fg">
           <AlertTriangle className="size-3.5" aria-hidden />
           What could make this fail
         </p>
         <ul className="mt-2 space-y-1.5">
           {risks.map(r => (
             <li key={r} className="flex items-start gap-2 text-[12.5px] leading-relaxed text-foreground/85">
-              <span className="mt-[7px] size-1 shrink-0 rounded-full bg-[#e2b25a]/70" aria-hidden />
+              <span className="mt-[7px] size-1 shrink-0 rounded-full bg-warning-fg/70" aria-hidden />
               {r}
             </li>
           ))}

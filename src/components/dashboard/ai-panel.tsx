@@ -22,7 +22,7 @@ export function AiInsightsPanel() {
             <li key={insight.id} className="py-3.5 last:pb-0">
               <p className="text-[13px] leading-relaxed text-foreground/90">{insight.text}</p>
               {insight.highlight && (
-                <p className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-success/15 px-2.5 py-1 text-[12px] font-semibold text-[#3ecf9a]">
+                <p className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-success/15 px-2.5 py-1 text-[12px] font-semibold text-success-fg">
                   <TrendingUp className="size-3" aria-hidden />
                   {insight.highlight}
                 </p>

@@ -21,8 +21,8 @@ import { cn } from "@/lib/utils";
 
 const STATUS_META: Record<BriefStatus, { label: string; className: string }> = {
   draft: { label: "Draft", className: "bg-secondary text-muted-foreground" },
-  ready: { label: "Ready", className: "bg-warning/15 text-[#e2b25a]" },
-  published: { label: "Published", className: "bg-success/15 text-[#3ecf9a]" },
+  ready: { label: "Ready", className: "bg-warning/15 text-warning-fg" },
+  published: { label: "Published", className: "bg-success/15 text-success-fg" },
 };
 
 function formatSavedAt(iso: string): string {
@@ -44,6 +44,18 @@ export function SavedBriefs() {
   const [actionError, setActionError] = useState<string | null>(null);
   const [renamingId, setRenamingId] = useState<string | null>(null);
   const [renameValue, setRenameValue] = useState("");
+  const [confirmingId, setConfirmingId] = useState<string | null>(null);
+
+  const requestDelete = (id: string) => {
+    if (confirmingId === id) {
+      guard(() => removeSavedBrief(id));
+      setConfirmingId(null);
+    } else {
+      setConfirmingId(id);
+      // Quietly withdraw the confirm state if the user moves on.
+      setTimeout(() => setConfirmingId(c => (c === id ? null : c)), 3000);
+    }
+  };
 
   const guard = (fn: () => void) => {
     try {
@@ -182,12 +194,24 @@ export function SavedBriefs() {
                   <Copy className="size-4" aria-hidden />
                 </button>
                 <button
-                  onClick={() => guard(() => removeSavedBrief(b.id))}
-                  aria-label={`Delete brief: ${cur.fields.workingTitle}`}
-                  title="Delete"
-                  className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-destructive focus-visible:outline-2 focus-visible:outline-ring active:translate-y-px"
+                  onClick={() => requestDelete(b.id)}
+                  aria-label={
+                    confirmingId === b.id
+                      ? `Confirm delete: ${cur.fields.workingTitle}`
+                      : `Delete brief: ${cur.fields.workingTitle}`
+                  }
+                  title={confirmingId === b.id ? "Click again to confirm" : "Delete"}
+                  className={cn(
+                    "flex items-center gap-1.5 rounded-lg p-2 transition-colors focus-visible:outline-2 focus-visible:outline-ring active:translate-y-px",
+                    confirmingId === b.id
+                      ? "bg-destructive/15 text-destructive-fg"
+                      : "text-muted-foreground hover:bg-secondary hover:text-destructive-fg"
+                  )}
                 >
                   <Trash2 className="size-4" aria-hidden />
+                  {confirmingId === b.id && (
+                    <span className="text-[11.5px] font-semibold">Delete?</span>
+                  )}
                 </button>
               </div>
             </div>

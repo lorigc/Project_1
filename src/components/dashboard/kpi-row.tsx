@@ -23,7 +23,7 @@ export function KpiRow() {
                 <span
                   className={cn(
                     "flex items-center gap-0.5 text-xs font-semibold tabular-nums",
-                    up ? "text-[#3ecf9a]" : "text-destructive"
+                    up ? "text-success-fg" : "text-destructive"
                   )}
                 >
                   {up ? <TrendingUp className="size-3" /> : <TrendingDown className="size-3" />}

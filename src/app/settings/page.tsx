@@ -4,54 +4,34 @@ import { FadeIn } from "@/components/motion";
 import { creator } from "@/lib/mock";
 import { Music2, Moon, Bell, Shield } from "lucide-react";
 import { YoutubeIcon as Youtube, InstagramIcon as Instagram } from "@/components/brand-icons";
+import { ToggleList, type ToggleItem } from "@/components/settings/toggle-list";
 
 export const metadata = { title: "Settings — Creator Intelligence" };
 
-const CONNECTIONS = [
-  { icon: Youtube, name: "YouTube", detail: "Connected · syncs daily at 4 AM", on: true },
-  { icon: Music2, name: "TikTok", detail: "Connected · syncs daily at 4 AM", on: true },
-  { icon: Instagram, name: "Instagram", detail: "Not connected", on: false },
+const CONNECTIONS: ToggleItem[] = [
+  { id: "youtube", name: "YouTube", detail: "Connected · syncs daily at 4 AM", on: true },
+  { id: "tiktok", name: "TikTok", detail: "Connected · syncs daily at 4 AM", on: true },
+  { id: "instagram", name: "Instagram", detail: "Not connected", on: false },
 ];
 
-const PREFS = [
-  { icon: Moon, name: "Dark mode", detail: "Always on — Creator Intelligence is designed dark", on: true },
-  { icon: Bell, name: "Weekly insight digest", detail: "Every Monday, 9 AM", on: true },
-  { icon: Shield, name: "Share anonymized benchmarks", detail: "Improves niche comparisons", on: false },
+const PREFS: ToggleItem[] = [
+  {
+    id: "dark",
+    name: "Dark mode",
+    detail: "Always on — Creator Intelligence is designed dark",
+    on: true,
+    locked: true,
+  },
+  { id: "digest", name: "Weekly insight digest", detail: "Every Monday, 9 AM", on: true },
+  {
+    id: "benchmarks",
+    name: "Share anonymized benchmarks",
+    detail: "Improves niche comparisons",
+    on: false,
+  },
 ];
 
-function ToggleRow({
-  icon: Icon,
-  name,
-  detail,
-  on,
-}: {
-  icon: React.ComponentType<{ className?: string }>;
-  name: string;
-  detail: string;
-  on: boolean;
-}) {
-  return (
-    <div className="flex items-center gap-4 px-5 py-4">
-      <div className="flex size-9 items-center justify-center rounded-lg bg-secondary">
-        <Icon className="size-4 text-secondary-foreground" />
-      </div>
-      <div className="min-w-0 flex-1">
-        <p className="text-[14px] font-medium">{name}</p>
-        <p className="text-xs text-muted-foreground">{detail}</p>
-      </div>
-      <div
-        role="switch"
-        aria-checked={on}
-        aria-label={name}
-        className={`relative h-5.5 w-10 rounded-full transition-colors ${on ? "bg-primary" : "bg-secondary"}`}
-      >
-        <span
-          className={`absolute top-0.5 size-4.5 rounded-full bg-white transition-transform ${on ? "translate-x-5" : "translate-x-0.5"}`}
-        />
-      </div>
-    </div>
-  );
-}
+const ICON_CLASS = "size-4 text-secondary-foreground";
 
 export default function SettingsPage() {
   return (
@@ -64,11 +44,14 @@ export default function SettingsPage() {
             <h2 className="border-b border-border px-5 py-3.5 text-[13px] font-semibold uppercase tracking-wide text-muted-foreground">
               Connected platforms
             </h2>
-            <div className="divide-y divide-border/60">
-              {CONNECTIONS.map(c => (
-                <ToggleRow key={c.name} {...c} />
-              ))}
-            </div>
+            <ToggleList
+              items={CONNECTIONS}
+              icons={{
+                youtube: <Youtube className={ICON_CLASS} />,
+                tiktok: <Music2 className={ICON_CLASS} />,
+                instagram: <Instagram className={ICON_CLASS} />,
+              }}
+            />
           </section>
         </FadeIn>
 
@@ -77,11 +60,14 @@ export default function SettingsPage() {
             <h2 className="border-b border-border px-5 py-3.5 text-[13px] font-semibold uppercase tracking-wide text-muted-foreground">
               Preferences
             </h2>
-            <div className="divide-y divide-border/60">
-              {PREFS.map(p => (
-                <ToggleRow key={p.name} {...p} />
-              ))}
-            </div>
+            <ToggleList
+              items={PREFS}
+              icons={{
+                dark: <Moon className={ICON_CLASS} />,
+                digest: <Bell className={ICON_CLASS} />,
+                benchmarks: <Shield className={ICON_CLASS} />,
+              }}
+            />
           </section>
         </FadeIn>
       </div>

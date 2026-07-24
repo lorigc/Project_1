@@ -48,7 +48,7 @@ export function Signals() {
         <div className="flex items-center gap-2.5">
           <Heart className="size-4 text-[var(--chart-1)]" aria-hidden />
           <p className="text-[15px] font-semibold">{topTheme.name}</p>
-          <span className="text-[12px] font-semibold text-[#3ecf9a] tabular-nums">
+          <span className="text-[12px] font-semibold text-success-fg tabular-nums">
             +{topTheme.growth}%
           </span>
         </div>
@@ -68,7 +68,7 @@ export function Signals() {
             {leader.initials}
           </span>
           <p className="text-[15px] font-semibold">{leader.name}</p>
-          <span className="text-[12px] font-semibold text-[#3ecf9a] tabular-nums">
+          <span className="text-[12px] font-semibold text-success-fg tabular-nums">
             +{leader.growth}%
           </span>
         </div>

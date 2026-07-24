@@ -44,9 +44,9 @@ function LevelBadge({ level }: { level: "Low" | "Medium" | "High" }) {
     <span
       className={cn(
         "rounded-full px-2.5 py-1 text-[11px] font-semibold",
-        good && "bg-success/15 text-[#3ecf9a]",
-        level === "Medium" && "bg-warning/15 text-[#e2b25a]",
-        bad && "bg-destructive/15 text-[#f28b8e]"
+        good && "bg-success/15 text-success-fg",
+        level === "Medium" && "bg-warning/15 text-warning-fg",
+        bad && "bg-destructive/15 text-destructive-fg"
       )}
     >
       {level}
@@ -221,7 +221,7 @@ function ComparePanel({ items, onClose }: { items: Opportunity[]; onClose: () =>
                       key={o.id}
                       className={cn(
                         "px-4 py-2.5 text-[13px] font-semibold tabular-nums",
-                        highlight && nums[i] === bestVal && "text-[#3ecf9a]"
+                        highlight && nums[i] === bestVal && "text-success-fg"
                       )}
                     >
                       {row.value(o)}

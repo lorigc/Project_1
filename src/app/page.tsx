@@ -128,7 +128,7 @@ export default function ImportPage() {
                           className={cn(
                             "flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-medium",
                             isConnected
-                              ? "bg-success/15 text-[#3ecf9a]"
+                              ? "bg-success/15 text-success-fg"
                               : "bg-secondary text-muted-foreground"
                           )}
                         >
@@ -199,7 +199,7 @@ export default function ImportPage() {
                   >
                     <span className="flex size-5 items-center justify-center">
                       {done ? (
-                        <Check className="size-4 text-[#3ecf9a]" />
+                        <Check className="size-4 text-success-fg" />
                       ) : current ? (
                         <Loader2 className="size-4 animate-spin text-primary" />
                       ) : (
