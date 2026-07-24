@@ -13,7 +13,12 @@ export type AnalyticsEvent =
   | "map_compare_selected"
   | "map_compare_opened"
   | "map_detail_viewed"
-  | "map_brief_created";
+  | "map_brief_created"
+  | "competitor_filter_applied"
+  | "competitor_sort_changed"
+  | "competitor_observation_saved"
+  | "competitor_compare_opened"
+  | "competitor_experiment_clicked";
 
 export function track(event: AnalyticsEvent, props: Record<string, string> = {}): void {
   if (process.env.NODE_ENV === "development") {

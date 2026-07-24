@@ -87,13 +87,13 @@ export const themes: Theme[] = [
     spark: series(101, 16, 60, 4, 18),
     expanded: {
       topVideos: [
-        { title: "I dated 5 finance guys — here's what I learned", views: "1.2M", engagement: "11.8%" },
+        { title: "I dated 5 finance guys — here’s what I learned", views: "1.2M", engagement: "11.8%" },
         { title: "Red flags I ignored in my 20s", views: "890K", engagement: "10.1%" },
         { title: "Engineers vs consultants: dating edition", views: "764K", engagement: "9.7%" },
       ],
       avgWatchDuration: "52s of 60s (87%)",
       titlePatterns: ["Comparative framing (\"X vs Y\")", "First-person confession", "Numbered lists"],
-      bestHooks: ["\"I wasn't going to post this, but…\"", "\"Nobody talks about this part of dating…\""],
+      bestHooks: ["\"I wasn’t going to post this, but…\"", "\"Nobody talks about this part of dating…\""],
       audienceReactions: ["Story-sharing in comments", "High saves + sends to friends"],
       takeaway: "Videos where you compare dating experiences consistently outperform informational videos by 41%.",
     },
@@ -115,7 +115,7 @@ export const themes: Theme[] = [
       ],
       avgWatchDuration: "49s of 60s (82%)",
       titlePatterns: ["Salary transparency", "\"How I…\" process framing"],
-      bestHooks: ["\"Here's the number nobody shares…\"", "\"My manager didn't expect this…\""],
+      bestHooks: ["\"Here’s the number nobody shares…\"", "\"My manager didn’t expect this…\""],
       audienceReactions: ["Questions about specifics", "High profile visits after viewing"],
       takeaway: "Transparent, numbers-first career content drives your strongest profile-visit conversion.",
     },
@@ -137,7 +137,7 @@ export const themes: Theme[] = [
       ],
       avgWatchDuration: "44s of 60s (73%)",
       titlePatterns: ["\"What X actually looks like\"", "Honest/realistic qualifiers"],
-      bestHooks: ["\"This is the part you don't see…\""],
+      bestHooks: ["\"This is the part you don’t see…\""],
       audienceReactions: ["Trust-building comments", "Aspiring-creator questions"],
       takeaway: "BTS builds durable trust — lower reach, but your most loyal commenters come from here.",
     },
@@ -159,7 +159,7 @@ export const themes: Theme[] = [
       ],
       avgWatchDuration: "41s of 60s (68%)",
       titlePatterns: ["\"Realistic\" qualifiers", "Routine formats"],
-      bestHooks: ["\"POV: it's Sunday and…\""],
+      bestHooks: ["\"POV: it’s Sunday and…\""],
       audienceReactions: ["Relatability comments", "Steady but unspectacular shares"],
       takeaway: "Lifestyle sustains cadence between spikes — best used as connective tissue, not headliners.",
     },
@@ -206,6 +206,16 @@ export const audience = {
 
 /* ---------------- Competitors ---------------- */
 
+/** One recurring, evidence-backed pattern in a competitor’s content. */
+export type CompetitorObservation = {
+  id: string;
+  text: string;
+  /** Supporting evidence — qualitative and coherent, no invented precision. */
+  evidence: string;
+  /** Where the evidence comes from — rendered as a citation. */
+  source: string;
+};
+
 export type Competitor = {
   id: string;
   name: string;
@@ -215,6 +225,18 @@ export type Competitor = {
   engagement: number;
   topThemes: string[];
   latestFormat: string;
+  /** One-line answer to “why are they succeeding?” */
+  whySucceeding: string;
+  observations: CompetitorObservation[];
+  /** Techniques that transfer into another creator’s voice. */
+  adaptable: string[];
+  /** Advantages specific to this creator — not worth copying. */
+  notTransferable: string[];
+  cadence: string;
+  hookStyle: string;
+  ctaStyle: string;
+  /** Experiments to run because of this profile — each links into the workflow. */
+  tryNext: { text: string; href: string; linkLabel: string }[];
 };
 
 export const competitors: Competitor[] = [
@@ -227,6 +249,56 @@ export const competitors: Competitor[] = [
     engagement: 8.9,
     topThemes: ["Dating", "Lifestyle"],
     latestFormat: "Street interviews with a twist question",
+    whySucceeding:
+      "Ava manufactures curiosity — every video is built around one question viewers can’t answer themselves, and the payoff lands only at the end.",
+    observations: [
+      {
+        id: "c1-hook",
+        text: "Introduces a twist question in the first five seconds — conflict before context.",
+        evidence:
+          "Her ten most-viewed interviews all cut to the question before showing faces or location; the slower opens sit in her bottom quartile.",
+        source: "Top-uploads review · last 90 days",
+      },
+      {
+        id: "c1-interrupts",
+        text: "Adds a visual pattern interrupt every eight to ten seconds.",
+        evidence:
+          "Cuts, zooms, and caption changes cluster at regular intervals across recent uploads — retention curves flatten right after each one.",
+        source: "Format analysis · 15 uploads",
+      },
+      {
+        id: "c1-payoff",
+        text: "Holds the strongest answer for the final third of the video.",
+        evidence:
+          "Comments on her top videos overwhelmingly reference the last interviewee — payoff placement is doing the retention work.",
+        source: "Comment mining · top 10 uploads",
+      },
+    ],
+    adaptable: [
+      "Lead with a question the viewer can’t answer alone",
+      "Change something on screen every ten seconds",
+      "Hold the best moment for the final third",
+    ],
+    notTransferable: [
+      "The street-interview format itself — it needs strangers, a city, and a camera operator",
+      "A recognizable on-camera interviewer persona built over two years",
+      "Reshare loops from interviewees posting their own clips",
+    ],
+    cadence: "Theme weeks — daily for five days, then a pause",
+    hookStyle: "A twist question in the first breath",
+    ctaStyle: "Comment bait — “whose answer was right?”",
+    tryNext: [
+      {
+        text: "Apply her twist-question open to your founder-dating angle",
+        href: "/opportunities/founder-dating",
+        linkLabel: "View opportunity",
+      },
+      {
+        text: "Test a debate-style comment CTA on your next dating post",
+        href: "/brief/first-dates-debrief",
+        linkLabel: "Generate brief",
+      },
+    ],
   },
   {
     id: "c2",
@@ -237,6 +309,56 @@ export const competitors: Competitor[] = [
     engagement: 7.2,
     topThemes: ["Career", "Finance"],
     latestFormat: "Salary breakdown with on-screen receipts",
+    whySucceeding:
+      "Jordan wins on receipts — every claim is backed by a number on screen, which makes the advice feel verifiable instead of aspirational.",
+    observations: [
+      {
+        id: "c2-number",
+        text: "Shows the actual number on screen within the first ten seconds.",
+        evidence:
+          "Salary reveals in the open line up with his highest-saved uploads; videos that tease the number to the end sit under his median.",
+        source: "Upload comparison · this quarter",
+      },
+      {
+        id: "c2-raw",
+        text: "Raw behind-the-scenes money content outperforms his polished explainers.",
+        evidence:
+          "“Here’s my actual dashboard” uploads out-engage scripted explainers roughly three-to-two, and the comments skew grateful rather than skeptical.",
+        source: "Engagement review · 18 uploads",
+      },
+      {
+        id: "c2-cta",
+        text: "Ends every video with one copyable action.",
+        evidence:
+          "His pinned comment repeats one script or template per video; saves peak on uploads with a concrete takeaway.",
+        source: "CTA audit · last 20 uploads",
+      },
+    ],
+    adaptable: [
+      "Put the real number on screen early",
+      "Show the raw screen instead of a cleaned-up graphic",
+      "End on one copyable action, not a summary",
+    ],
+    notTransferable: [
+      "A decade of finance-industry credibility behind the claims",
+      "Anonymized salary data sourced from his newsletter audience",
+      "An audience already trained to expect receipts every week",
+    ],
+    cadence: "Weekly, same slot — Sunday evenings, plus a monthly interview",
+    hookStyle: "The number first, the story second",
+    ctaStyle: "One copyable script or template per video",
+    tryNext: [
+      {
+        text: "Put a real number on screen in the first ten seconds of a salary post",
+        href: "/opportunities/salary-transparency",
+        linkLabel: "View opportunity",
+      },
+      {
+        text: "Test a receipts-style money diary in your own voice",
+        href: "/brief/money-diaries",
+        linkLabel: "Generate brief",
+      },
+    ],
   },
   {
     id: "c3",
@@ -247,6 +369,77 @@ export const competitors: Competitor[] = [
     engagement: 9.6,
     topThemes: ["Day in the Life", "Career"],
     latestFormat: "\"Day in the life\" with voiceover storytelling",
+    whySucceeding:
+      "Priya turned an oversaturated format into a retention machine by narrating ordinary days like short stories — a beginning, a snag, a payoff.",
+    observations: [
+      {
+        id: "c3-snag",
+        text: "Opens on the day’s complication before anything else.",
+        evidence:
+          "Nine of her last twelve uploads open on a snag; those nine hold clearly more of the audience than the three that open with a greeting.",
+        source: "12 uploads · last 60 days",
+      },
+      {
+        id: "c3-alternate",
+        text: "Alternates educational posts with personal storytelling — one story for every how-to.",
+        evidence:
+          "Her strongest stretch this quarter was a strict alternation; engagement dipped when three how-tos ran back-to-back.",
+        source: "Posting history · this quarter",
+      },
+      {
+        id: "c3-length",
+        text: "Longer cuts outperform her short clips.",
+        evidence:
+          "Uploads over 90 seconds hold noticeably more of her audience than sub-60-second clips — viewers show up for the narrative, not the format.",
+        source: "Watch-time comparison · 24 uploads",
+      },
+    ],
+    adaptable: [
+      "Open on the complication, not a greeting",
+      "Alternate how-tos with personal stories",
+      "Narrate with specifics — times, numbers, names",
+      "Let quiet moments breathe instead of cutting them",
+    ],
+    notTransferable: [
+      "Three years of daily-vlog back catalog feeding recommendations",
+      "A “day with Priya” ritual her audience already expects",
+      "A partner who films B-roll every day",
+    ],
+    cadence: "Three fixed slots a week — Mon / Wed / Fri",
+    hookStyle: "Conflict first — the day’s snag in one line",
+    ctaStyle: "Soft ask — “come back Friday to see how it went”",
+    tryNext: [
+      {
+        text: "Test one day-in-the-life montage narrated in your own voice",
+        href: "/opportunities/day-in-the-life",
+        linkLabel: "View opportunity",
+      },
+      {
+        text: "Open your next educational post on the snag — story before advice",
+        href: "/insights/storytelling-gap",
+        linkLabel: "See your related observation",
+      },
+    ],
+  },
+];
+
+/** Patterns that hold across every tracked competitor — synthesis, not stats.
+ *  The storytelling item’s completion numbers are appended at render time from
+ *  the insight model, so they can never drift from it. */
+export const nichePatterns: { text: string; evidence: string; href?: string; linkLabel?: string }[] = [
+  {
+    text: "Nobody warms up — all three open with conflict, a question, or a hard number inside the first five seconds.",
+    evidence: "Hook audit · 40+ recent uploads across all three creators",
+  },
+  {
+    text: "Story-led content outperforms straight explainers across the niche — the same pattern detected on your own channel.",
+    evidence: "Matches your storytelling observation",
+    href: "/insights/storytelling-gap",
+    linkLabel: "See your observation",
+  },
+  {
+    text: "Predictable cadence beats raw volume — each posts on fixed, expected slots rather than daily.",
+    evidence: "Posting-time analysis · last 90 days",
   },
 ];
 
@@ -355,32 +548,32 @@ export const opportunities: Opportunity[] = [
     platform: "Instagram Reels", format: "Voiceover montage", segment: "Aspiring creators",
     detail: {
       whyRecommended:
-        "The fastest-growing format in your niche — and the one proven format you've never tested. Priya Nair grew 24.5% this quarter on the back of it, and your Behind the Scenes theme shows your audience already rewards unpolished honesty.",
+        "The fastest-growing format in your niche — and the one proven format you’ve never tested. Priya Nair grew 24.5% this quarter on the back of it, and your Behind the Scenes theme shows your audience already rewards unpolished honesty.",
       whyNow:
         "The format is peaking in your niche right now — the +18% reach estimate assumes adoption before saturation, and competition is already rated Medium.",
       assumptions: [
         "Format demand transfers from competitor audiences to yours (the 91% overlap is measured on viewing behavior, not follows).",
         "The trust your unpolished BTS content earns extends to a full-day format.",
-        "Your voiceover production lands comparably to Priya Nair's — the benchmark trajectory is hers.",
+        "Your voiceover production lands comparably to Priya Nair’s — the benchmark trajectory is hers.",
       ],
       risks: [
         "The format saturates before you enter — it is the most-copied format in the niche this quarter.",
         "Your audience may follow you for topics (dating, career), not lifestyle formats.",
-        "The reach estimate leans heavily on one competitor's trajectory rather than a broad sample.",
+        "The reach estimate leans heavily on one competitor’s trajectory rather than a broad sample.",
       ],
       evidence: [
         { label: "BTS theme trust signal", value: "73%", sub: "watch retention — your most loyal commenters come from BTS", source: "90-day channel analytics · 38 BTS posts" },
-        { label: "Competitor validation", value: "+24.5%", sub: "Priya Nair's quarterly growth, driven by this format", source: "Competitor tracking · weekly · Q3 2026" },
+        { label: "Competitor validation", value: "+24.5%", sub: "Priya Nair’s quarterly growth, driven by this format", source: "Competitor tracking · weekly · Q3 2026" },
         { label: "Closest existing upload", value: "398K views", sub: "“A realistic day of content creation” · 6.5% engagement", source: "Channel history · May 2026" },
         { label: "Format gap", value: "0 posts", sub: "you have never published a voiceover day-in-the-life", source: "Format audit · all 214 posts" },
       ],
       sourceThemeIds: ["bts", "career", "lifestyle"],
       competitorExamples: [
         { competitorId: "c3", example: "“Day in the life” with voiceover storytelling, 3× weekly", result: "+24.5% follower growth this quarter — niche-leading" },
-        { competitorId: "c1", example: "Occasional lifestyle vlogs without voiceover", result: "Underperforms Priya's format — voiceover is the differentiator" },
+        { competitorId: "c1", example: "Occasional lifestyle vlogs without voiceover", result: "Underperforms Priya’s format — voiceover is the differentiator" },
       ],
       audienceFitNote:
-        "91% fit — your audience already watches this format from competitors, so you'd capture existing demand rather than create it.",
+        "91% fit — your audience already watches this format from competitors, so you’d capture existing demand rather than create it.",
       expectedImpact: {
         range: "500K–800K views",
         vsBaseline: "+18% potential audience increase",
@@ -410,7 +603,7 @@ export const opportunities: Opportunity[] = [
         "Salary-content demand keeps climbing and your proven top performer in the lane is now 90 days old — the series slot is open ahead of year-end review season, when this topic peaks.",
       assumptions: [
         "Numbers-first content keeps converting profile visits at its current rate.",
-        "You're comfortable disclosing real figures every episode — the format's engagement depends on specifics.",
+        "You’re comfortable disclosing real figures every episode — the format’s engagement depends on specifics.",
         "A repeatable template keeps per-episode effort low enough to sustain the cadence.",
       ],
       risks: [
@@ -501,7 +694,7 @@ export const opportunities: Opportunity[] = [
       whyRecommended:
         "A lighter, recurring spin on your best theme. Dating drives your highest engagement, and a debrief format is low-effort to produce weekly — but it competes in a busier lane than your comparison videos.",
       whyNow:
-        "Dating engagement is at a 90-day high (+41%) — recurring formats capture the most value when launched at a theme's peak, not after it cools.",
+        "Dating engagement is at a 90-day high (+41%) — recurring formats capture the most value when launched at a theme’s peak, not after it cools.",
       assumptions: [
         "You have a steady weekly supply of first-date stories worth telling.",
         "The debrief lane stays open — Ava Torres owns street interviews, not debriefs.",
@@ -509,7 +702,7 @@ export const opportunities: Opportunity[] = [
       ],
       risks: [
         "Dating formats are the most contested lane among your tracked competitors.",
-        "Episode quality depends on that week's story — cadence formats amplify weak weeks.",
+        "Episode quality depends on that week’s story — cadence formats amplify weak weeks.",
         "Scores here derive from theme-level data; this exact format is untested on your channel.",
       ],
       evidence: [
@@ -556,7 +749,7 @@ export const opportunities: Opportunity[] = [
       risks: [
         "Most saturated lane on the list — competitive whitespace scores just 35/100.",
         "Without a differentiated angle, expect baseline performance, not the +4% modeled.",
-        "Opportunity cost: the same slot spent here can't go to a higher-whitespace pick.",
+        "Opportunity cost: the same slot spent here can’t go to a higher-whitespace pick.",
       ],
       evidence: [
         { label: "Career theme engagement", value: "8.2%", sub: "+27% growth this quarter", source: "90-day channel analytics · 56 career posts" },
@@ -633,7 +826,7 @@ export const aiInsights: AiInsight[] = [
       { label: "Your posts in this format", value: "0 of 214" },
       { label: "Best niche result (Priya Nair)", value: "+24.5% quarterly growth" },
     ],
-    caveat: "The +18% estimate assumes the format hasn't saturated by the time you enter — competition is already Medium.",
+    caveat: "The +18% estimate assumes the format hasn’t saturated by the time you enter — competition is already Medium.",
   },
   {
     id: "i3",
@@ -650,7 +843,7 @@ export const aiInsights: AiInsight[] = [
 
 /** What theme confidence means — shown wherever the chip appears. */
 export const themeConfidenceNote =
-  "Confidence is the share of a theme's posts the clustering model assigns unambiguously, measured across all 214 analyzed posts. Below 80%, treat the theme's stats as directional.";
+  "Confidence is the share of a theme’s posts the clustering model assigns unambiguously, measured across all 214 analyzed posts. Below 80%, treat the theme’s stats as directional.";
 
 /* ---------------- Briefs (Flow 3) ---------------- */
 
@@ -680,7 +873,7 @@ export type BriefContentData = {
   successMetric: string;
 };
 
-/** Where a brief came from, when it wasn't started directly from its
+/** Where a brief came from, when it wasn’t started directly from its
  *  opportunity — shown as source context in the editor and saved list. */
 export type BriefOrigin = {
   kind: "observation";
@@ -727,7 +920,7 @@ const authoredBriefs: Record<string, Brief> = {
       tone: "Honest & personal",
     },
     summary: {
-      why: "Combines your two highest-performing themes — dating and career — in a framing your competitors haven't touched. Search and comment demand for “dating founders/tech guys” has grown 3× in your niche this quarter.",
+      why: "Combines your two highest-performing themes — dating and career — in a framing your competitors haven’t touched. Search and comment demand for “dating founders/tech guys” has grown 3× in your niche this quarter.",
       predictedPerformance: "Top 5% of your recent uploads (predicted 900K–1.4M views)",
       audienceOverlap: "98% fit with your core audience: women 22–35 interested in dating and career",
       confidence: 94,
@@ -735,7 +928,7 @@ const authoredBriefs: Record<string, Brief> = {
     content: {
       workingTitle: "Startup Founders vs Finance Guys — Which Makes a Better Partner?",
       coreIdea:
-        "A comparative story ranking the professions you've dated, built to spark comment debate between team founder and team finance — and to end on a career insight only you can deliver.",
+        "A comparative story ranking the professions you’ve dated, built to spark comment debate between team founder and team finance — and to end on a career insight only you can deliver.",
       hook: "“I dated engineers, finance guys, and startup founders — here’s what surprised me.”",
       opening:
         "Name all three professions to camera in the first three seconds, then promise the payoff: “one of them shocked me — and it’s not who you think.” No intro card, no logo — cut straight into the first story by 0:15.",
@@ -874,7 +1067,7 @@ const authoredBriefs: Record<string, Brief> = {
 };
 
 /* Creative kernels for opportunities without a fully authored brief.
-   Everything else is derived from the opportunity's own detail data. */
+   Everything else is derived from the opportunity’s own detail data. */
 type BriefKernel = {
   setup: BriefSetup;
   workingTitle: string;
@@ -1076,7 +1269,7 @@ function deriveBrief(opp: Opportunity): Brief {
 }
 
 /** Returns the brief for an opportunity — authored where available, otherwise
- *  derived from that opportunity's own evidence (never another opportunity's). */
+ *  derived from that opportunity’s own evidence (never another opportunity’s). */
 export function getBrief(slug: string): Brief {
   if (authoredBriefs[slug]) return authoredBriefs[slug];
   const opp = opportunities.find(o => o.slug === slug) ?? opportunities[0];
