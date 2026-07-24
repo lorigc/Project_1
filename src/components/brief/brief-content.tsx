@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import {
   Sparkles,
   Target,
@@ -32,6 +33,7 @@ import {
 } from "lucide-react";
 import type { Brief, BriefSetup } from "@/lib/mock";
 import { SETUP_OPTIONS, opportunities } from "@/lib/mock";
+import { insightBriefFor } from "@/lib/insights";
 import {
   duplicateBrief,
   latestBriefForSlug,
@@ -318,13 +320,27 @@ function ComparePanel({
 
 export function BriefContent({ brief }: { brief: Brief }) {
   const hydrated = useHydrated();
+  // useSearchParams (not window.location) so client-side navigations see the
+  // query immediately — the URL bar updates after render.
+  const params = useSearchParams();
+  let effective = brief;
   let stored: StoredBrief | undefined;
   if (hydrated) {
-    const id = new URLSearchParams(window.location.search).get("b");
-    stored = (id ? loadBriefById(id) : undefined) ?? latestBriefForSlug(brief.slug);
-    if (stored && stored.slug !== brief.slug) stored = latestBriefForSlug(brief.slug);
+    const id = params.get("b");
+    // Arriving from an AI observation: prepopulate the experiment brief and
+    // start fresh instead of resuming an unrelated saved brief.
+    const insightSlug = params.get("insight");
+    const fromInsight = insightSlug ? insightBriefFor(insightSlug, brief.slug) : undefined;
+    if (fromInsight) {
+      effective = fromInsight;
+      stored = id ? loadBriefById(id) : undefined;
+      if (stored && stored.slug !== brief.slug) stored = undefined;
+    } else {
+      stored = (id ? loadBriefById(id) : undefined) ?? latestBriefForSlug(brief.slug);
+      if (stored && stored.slug !== brief.slug) stored = latestBriefForSlug(brief.slug);
+    }
   }
-  return <BriefFlow key={hydrated ? "client" : "server"} brief={brief} stored={stored} />;
+  return <BriefFlow key={hydrated ? "client" : "server"} brief={effective} stored={stored} />;
 }
 
 /* ---------- the flow ---------- */
@@ -394,6 +410,16 @@ function BriefFlow({ brief, stored }: { brief: Brief; stored: StoredBrief | unde
     ...patch,
   });
 
+  // Keep ?b= in sync with the saved record so a refresh resumes this exact
+  // brief (matters most when arriving via ?insight=, which otherwise starts fresh).
+  const syncUrl = (id: string) => {
+    const url = new URL(window.location.href);
+    if (url.searchParams.get("b") !== id) {
+      url.searchParams.set("b", id);
+      window.history.replaceState(null, "", url);
+    }
+  };
+
   const persist = (patch?: Partial<StoredBrief>): boolean => {
     const record = buildRecord(patch);
     try {
@@ -403,6 +429,7 @@ function BriefFlow({ brief, stored }: { brief: Brief; stored: StoredBrief | unde
       setStatus(record.status);
       setDirty(false);
       setSaveError(null);
+      syncUrl(record.id);
       return true;
     } catch {
       setSaveError("Couldn't save — storage is unavailable in this browser.");
@@ -454,6 +481,7 @@ function BriefFlow({ brief, stored }: { brief: Brief; stored: StoredBrief | unde
           setSavedAt(record.savedAt);
           setDirty(false);
           setSaveError(null);
+          syncUrl(record.id);
         } catch {
           setSaveError("Generated, but couldn't auto-save — storage is unavailable.");
           setDirty(true);

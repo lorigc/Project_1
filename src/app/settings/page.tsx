@@ -5,6 +5,7 @@ import { creator } from "@/lib/mock";
 import { Music2, Moon, Bell, Shield } from "lucide-react";
 import { YoutubeIcon as Youtube, InstagramIcon as Instagram } from "@/components/brand-icons";
 import { ToggleList, type ToggleItem } from "@/components/settings/toggle-list";
+import { DismissedInsights } from "@/components/settings/dismissed-insights";
 
 export const metadata = { title: "Settings — Creator Intelligence" };
 
@@ -68,6 +69,15 @@ export default function SettingsPage() {
                 benchmarks: <Shield className={ICON_CLASS} />,
               }}
             />
+          </section>
+        </FadeIn>
+
+        <FadeIn delay={0.15}>
+          <section className="overflow-hidden rounded-2xl border border-border bg-card">
+            <h2 className="border-b border-border px-5 py-3.5 text-[13px] font-semibold uppercase tracking-wide text-muted-foreground">
+              AI observations
+            </h2>
+            <DismissedInsights />
           </section>
         </FadeIn>
       </div>

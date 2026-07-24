@@ -2,6 +2,7 @@ import { AppShell } from "@/components/shell/app-shell";
 import { PageHeader, SectionTitle } from "@/components/shell/page-header";
 import { KpiRow } from "@/components/dashboard/kpi-row";
 import { NextMove } from "@/components/dashboard/next-move";
+import { InsightTeaser } from "@/components/dashboard/insight-teaser";
 import { TrendChart } from "@/components/charts/trend-chart";
 import { AudienceInsights } from "@/components/dashboard/audience";
 import { Signals } from "@/components/dashboard/signals";
@@ -20,6 +21,8 @@ export default function OverviewPage() {
         />
 
         <NextMove />
+
+        <InsightTeaser />
 
         <KpiRow />
 

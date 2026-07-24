@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { AppShell } from "@/components/shell/app-shell";
 import { getBrief, opportunities } from "@/lib/mock";
 import { BriefContent } from "@/components/brief/brief-content";
@@ -16,7 +17,9 @@ export default async function BriefPage({ params }: { params: Promise<{ slug: st
   const brief = getBrief(slug);
   return (
     <AppShell>
-      <BriefContent brief={brief} />
+      <Suspense>
+        <BriefContent brief={brief} />
+      </Suspense>
     </AppShell>
   );
 }
