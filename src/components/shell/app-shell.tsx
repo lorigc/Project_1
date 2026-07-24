@@ -53,6 +53,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                 className={cn(
                   "flex items-center gap-3 rounded-lg px-3 py-2 text-[13.5px] font-medium text-sidebar-foreground transition-colors",
                   "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
+                  "focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring active:translate-y-px",
                   active &&
                     "bg-sidebar-accent text-sidebar-accent-foreground shadow-[inset_2px_0_0_var(--sidebar-primary)]"
                 )}
@@ -74,7 +75,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               <p className="truncate text-xs text-muted-foreground">{creator.workspace}</p>
             </div>
           </div>
-          <p className="mt-3 text-[11px] text-muted-foreground/70">Dark mode enabled</p>
+          <p className="mt-3 text-[11px] text-muted-foreground/70">Dark by design</p>
         </div>
       </aside>
 
@@ -92,7 +93,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           <div className="flex items-center gap-4">
             <button
               aria-label="Notifications"
-              className="relative rounded-lg p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+              className="relative rounded-lg p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-2 focus-visible:outline-ring active:translate-y-px"
             >
               <Bell className="size-4" />
               <span className="absolute right-1.5 top-1.5 size-1.5 rounded-full bg-primary" />

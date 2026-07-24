@@ -104,6 +104,20 @@
   html {
     @apply font-sans;
   }
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+  /* Quiet, theme-matched scrollbars for internal scroll areas. */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.14) transparent;
+  }
+  ::selection {
+    background: color-mix(in srgb, var(--primary) 40%, transparent);
+    color: #ffffff;
+  }
 }
 
 @layer utilities {

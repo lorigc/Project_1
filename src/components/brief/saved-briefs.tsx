@@ -169,7 +169,7 @@ export function SavedBriefs() {
                   }}
                   aria-label={`Rename brief: ${cur.fields.workingTitle}`}
                   title="Rename"
-                  className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-2 focus-visible:outline-ring"
+                  className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-2 focus-visible:outline-ring active:translate-y-px"
                 >
                   <TextCursorInput className="size-4" aria-hidden />
                 </button>
@@ -177,7 +177,7 @@ export function SavedBriefs() {
                   onClick={() => guard(() => duplicateBrief(b.id))}
                   aria-label={`Duplicate brief: ${cur.fields.workingTitle}`}
                   title="Duplicate"
-                  className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-2 focus-visible:outline-ring"
+                  className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-2 focus-visible:outline-ring active:translate-y-px"
                 >
                   <Copy className="size-4" aria-hidden />
                 </button>
@@ -185,7 +185,7 @@ export function SavedBriefs() {
                   onClick={() => guard(() => removeSavedBrief(b.id))}
                   aria-label={`Delete brief: ${cur.fields.workingTitle}`}
                   title="Delete"
-                  className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-destructive focus-visible:outline-2 focus-visible:outline-ring"
+                  className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-destructive focus-visible:outline-2 focus-visible:outline-ring active:translate-y-px"
                 >
                   <Trash2 className="size-4" aria-hidden />
                 </button>

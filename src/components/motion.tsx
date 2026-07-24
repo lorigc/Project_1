@@ -3,7 +3,9 @@
 import { motion, animate, useReducedMotion } from "framer-motion";
 import { useEffect, useRef, type ReactNode } from "react";
 
-/** Fade-in + slide-up on mount, staggered by `delay` (seconds). */
+/** Fade-in + slide-up on mount, staggered by `delay` (seconds).
+ *  Under prefers-reduced-motion the same element snaps straight to its final
+ *  state (keeping motion.div so Framer clears the SSR-baked initial styles). */
 export function FadeIn({
   children,
   delay = 0,
@@ -13,12 +15,15 @@ export function FadeIn({
   delay?: number;
   className?: string;
 }) {
+  const reduced = useReducedMotion();
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y: 14 }}
+      initial={reduced ? false : { opacity: 0, y: 14 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.45, delay, ease: [0.21, 0.68, 0.32, 0.99] }}
+      transition={
+        reduced ? { duration: 0 } : { duration: 0.45, delay, ease: [0.21, 0.68, 0.32, 0.99] }
+      }
     >
       {children}
     </motion.div>

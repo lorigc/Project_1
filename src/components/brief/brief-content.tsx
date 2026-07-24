@@ -131,7 +131,7 @@ function FieldLabel({
           disabled={busy}
           aria-label={regenLabel}
           title={regenLabel}
-          className="ml-auto rounded-md p-1 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-2 focus-visible:outline-ring disabled:opacity-40"
+          className="ml-auto rounded-md p-1 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-2 focus-visible:outline-ring active:translate-y-px disabled:opacity-40"
         >
           <RefreshCw className={cn("size-3", busy && "animate-spin")} aria-hidden />
         </button>
@@ -860,14 +860,14 @@ function BriefFlow({ brief, stored }: { brief: Brief; stored: StoredBrief | unde
             <button
               onClick={() => runAi("Shortened", shorten)}
               disabled={!!busy}
-              className="inline-flex h-8 items-center gap-1 rounded-lg border border-border bg-secondary/40 px-2.5 text-[12px] font-semibold text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-ring disabled:opacity-50"
+              className="inline-flex h-8 items-center gap-1 rounded-lg border border-border bg-secondary/40 px-2.5 text-[12px] font-semibold text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-ring active:translate-y-px disabled:opacity-50"
             >
               <Minimize2 className="size-3" aria-hidden /> Shorten
             </button>
             <button
               onClick={() => runAi("Expanded", expand)}
               disabled={!!busy}
-              className="inline-flex h-8 items-center gap-1 rounded-lg border border-border bg-secondary/40 px-2.5 text-[12px] font-semibold text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-ring disabled:opacity-50"
+              className="inline-flex h-8 items-center gap-1 rounded-lg border border-border bg-secondary/40 px-2.5 text-[12px] font-semibold text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-ring active:translate-y-px disabled:opacity-50"
             >
               <Maximize2 className="size-3" aria-hidden /> Expand
             </button>
@@ -902,7 +902,11 @@ function BriefFlow({ brief, stored }: { brief: Brief; stored: StoredBrief | unde
         </div>
       </FadeIn>
 
-      {compareVersion && <ComparePanel a={compareVersion} b={cur} onClose={() => setCompareWith(null)} />}
+      {compareVersion && (
+        <FadeIn>
+          <ComparePanel a={compareVersion} b={cur} onClose={() => setCompareWith(null)} />
+        </FadeIn>
+      )}
 
       {/* Title & idea */}
       <SectionCard icon={Target} title="Working Title & Core Idea" hint="Click any field to edit" delay={0.05}>
@@ -957,7 +961,7 @@ function BriefFlow({ brief, stored }: { brief: Brief; stored: StoredBrief | unde
                 disabled={!!busy}
                 aria-label="Regenerate hook"
                 title="Regenerate hook"
-                className="ml-auto rounded-md p-1 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-2 focus-visible:outline-ring disabled:opacity-40"
+                className="ml-auto rounded-md p-1 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-2 focus-visible:outline-ring active:translate-y-px disabled:opacity-40"
               >
                 <RefreshCw className={cn("size-3", busy === REGEN_LABELS.hook && "animate-spin")} aria-hidden />
               </button>
@@ -1174,7 +1178,7 @@ function BriefFlow({ brief, stored }: { brief: Brief; stored: StoredBrief | unde
               disabled={!!busy}
               aria-label={copyState === "copied" ? "Copied to clipboard" : "Copy as Markdown"}
               title="Copy as Markdown"
-              className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-2 focus-visible:outline-ring disabled:opacity-40"
+              className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-2 focus-visible:outline-ring active:translate-y-px disabled:opacity-40"
             >
               {copyState === "copied" ? (
                 <Check className="size-4 text-[#3ecf9a]" aria-hidden />
@@ -1189,7 +1193,7 @@ function BriefFlow({ brief, stored }: { brief: Brief; stored: StoredBrief | unde
               disabled={!!busy}
               aria-label="Download as Markdown file"
               title="Download .md"
-              className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-2 focus-visible:outline-ring disabled:opacity-40"
+              className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-2 focus-visible:outline-ring active:translate-y-px disabled:opacity-40"
             >
               <FileDown className="size-4" aria-hidden />
             </button>
@@ -1198,7 +1202,7 @@ function BriefFlow({ brief, stored }: { brief: Brief; stored: StoredBrief | unde
               disabled={!!busy}
               aria-label="Export as PDF via the print dialog"
               title="Export PDF"
-              className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-2 focus-visible:outline-ring disabled:opacity-40"
+              className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-2 focus-visible:outline-ring active:translate-y-px disabled:opacity-40"
             >
               <Printer className="size-4" aria-hidden />
             </button>
@@ -1207,7 +1211,7 @@ function BriefFlow({ brief, stored }: { brief: Brief; stored: StoredBrief | unde
               disabled={!!busy}
               aria-label="Duplicate this brief"
               title="Duplicate"
-              className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-2 focus-visible:outline-ring disabled:opacity-40"
+              className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-2 focus-visible:outline-ring active:translate-y-px disabled:opacity-40"
             >
               <CopyPlus className="size-4" aria-hidden />
             </button>
@@ -1220,7 +1224,7 @@ function BriefFlow({ brief, stored }: { brief: Brief; stored: StoredBrief | unde
                 onClick={() => setStatusAndSave(s)}
                 aria-pressed={status === s}
                 className={cn(
-                  "rounded-md px-2.5 py-1 text-[11.5px] font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-ring",
+                  "rounded-md px-2.5 py-1 text-[11.5px] font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-ring active:translate-y-px",
                   status === s ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
                 )}
               >

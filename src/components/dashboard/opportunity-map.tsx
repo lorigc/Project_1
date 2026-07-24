@@ -94,7 +94,7 @@ function ChipGroup({
             onClick={() => onToggle(opt)}
             aria-pressed={on}
             className={cn(
-              "rounded-full border px-2.5 py-1 text-[11.5px] font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-ring",
+              "rounded-full border px-2.5 py-1 text-[11.5px] font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-ring active:translate-y-px",
               on
                 ? "border-primary/50 bg-primary/15 text-accent-foreground"
                 : "border-border bg-secondary/40 text-muted-foreground hover:text-foreground"
@@ -144,6 +144,13 @@ function best(values: number[], higherIsBetter: boolean): number {
 }
 
 function ComparePanel({ items, onClose }: { items: Opportunity[]; onClose: () => void }) {
+  // Bring the panel into view when it opens — it mounts above the table
+  // while the trigger lives in the bar below it.
+  const scrollTo = (el: HTMLElement | null) => {
+    if (!el) return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    el.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "nearest" });
+  };
   const rows: {
     label: string;
     value: (o: Opportunity) => string;
@@ -160,6 +167,7 @@ function ComparePanel({ items, onClose }: { items: Opportunity[]; onClose: () =>
 
   return (
     <section
+      ref={scrollTo}
       aria-label={`Comparing ${items.map(i => i.name).join(", ")}`}
       className="overflow-hidden rounded-2xl border border-primary/30 bg-card"
     >
@@ -171,7 +179,7 @@ function ComparePanel({ items, onClose }: { items: Opportunity[]; onClose: () =>
         <button
           onClick={onClose}
           aria-label="Close comparison"
-          className="rounded-lg p-1.5 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-2 focus-visible:outline-ring"
+          className="rounded-lg p-1.5 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground focus-visible:outline-2 focus-visible:outline-ring active:translate-y-px"
         >
           <X className="size-4" aria-hidden />
         </button>
@@ -328,7 +336,7 @@ export function OpportunityMap() {
       <th scope="col" aria-sort={ariaSort} className="px-4 py-3.5">
         <button
           onClick={() => headerSort(key)}
-          className="inline-flex items-center gap-1 rounded-md text-[11px] font-semibold uppercase tracking-wide text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+          className="inline-flex items-center gap-1 rounded-md text-[11px] font-semibold uppercase tracking-wide text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring active:translate-y-px"
         >
           {label}
           {active ? (
@@ -472,7 +480,7 @@ export function OpportunityMap() {
                             ? "Compare up to 3 at a time"
                             : undefined
                         }
-                        className="size-4 cursor-pointer accent-[var(--primary)] disabled:cursor-not-allowed disabled:opacity-40"
+                        className="size-4 cursor-pointer accent-[var(--primary)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-40"
                       />
                     </td>
                     <td className="px-2 py-4">

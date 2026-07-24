@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import {
   FileSpreadsheet,
   Music2,
@@ -30,7 +30,7 @@ const SOURCES = [
     description: "Videos, watch time, retention and audience data.",
     icon: Youtube,
     tint: "text-[#ff5b5b]",
-    status: "OAuth",
+    status: "1-tap connect",
   },
   {
     id: "tiktok",
@@ -38,7 +38,7 @@ const SOURCES = [
     description: "Short-form performance, hooks and completion rates.",
     icon: Music2,
     tint: "text-chart-3",
-    status: "OAuth",
+    status: "1-tap connect",
   },
   {
     id: "instagram",
@@ -46,7 +46,7 @@ const SOURCES = [
     description: "Reels, stories and follower demographics.",
     icon: Instagram,
     tint: "text-[#e56ba1]",
-    status: "OAuth",
+    status: "1-tap connect",
   },
 ];
 
@@ -60,6 +60,7 @@ const STAGES = [
 
 export default function ImportPage() {
   const router = useRouter();
+  const reduced = useReducedMotion();
   const [connected, setConnected] = useState<string[]>([]);
   const [processing, setProcessing] = useState(false);
   const [stage, setStage] = useState(0);
@@ -111,9 +112,11 @@ export default function ImportPage() {
                           c.includes(s.id) ? c.filter(x => x !== s.id) : [...c, s.id]
                         )
                       }
+                      aria-pressed={isConnected}
                       className={cn(
                         "group w-full rounded-2xl border border-border bg-card p-5 text-left transition-all duration-300",
                         "hover:-translate-y-0.5 hover:border-white/15 hover:shadow-[0_12px_40px_-16px_rgba(0,0,0,0.7)]",
+                        "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring active:translate-y-0",
                         isConnected && "border-glow border-primary/40"
                       )}
                     >
@@ -148,9 +151,9 @@ export default function ImportPage() {
                 size="lg"
                 disabled={connected.length === 0}
                 onClick={() => setProcessing(true)}
-                className="bg-brand-gradient h-12 rounded-xl px-8 text-[15px] font-semibold text-white shadow-[0_8px_30px_-8px_rgba(59,130,246,0.55)] transition-transform hover:scale-[1.02] disabled:opacity-40"
+                className="bg-brand-gradient h-12 rounded-xl px-8 text-[15px] font-semibold text-white shadow-[0_8px_30px_-8px_rgba(62,147,0,0.55)] transition-transform hover:scale-[1.02] active:scale-100 disabled:opacity-40"
               >
-                Import Creator Data
+                Import creator data
               </Button>
               <p className="mt-3 text-xs text-muted-foreground">
                 {connected.length === 0
@@ -168,9 +171,9 @@ export default function ImportPage() {
           >
             <div className="mb-10 flex flex-col items-center">
               <motion.div
-                animate={{ rotate: 360 }}
+                animate={reduced ? undefined : { rotate: 360 }}
                 transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
-                className="bg-brand-gradient flex size-14 items-center justify-center rounded-2xl shadow-[0_0_60px_-10px_rgba(139,92,246,0.6)]"
+                className="bg-brand-gradient flex size-14 items-center justify-center rounded-2xl shadow-[0_0_60px_-10px_rgba(62,147,0,0.6)]"
               >
                 <Sparkles className="size-6 text-white" />
               </motion.div>
