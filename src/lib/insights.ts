@@ -247,6 +247,12 @@ export function insightBriefFor(insightSlug: string, briefSlug: string): Brief |
   return {
     ...base,
     title: x.name,
+    origin: {
+      kind: "observation",
+      label: "Under-investing in storytelling",
+      href: `/insights/${insight.slug}`,
+      evidence: `${highlighted.completionRate}% vs ${baseline.completionRate}% completion on educational posts`,
+    },
     setup: {
       platform: x.platform,
       format: x.format,

@@ -13,6 +13,7 @@ import {
   Users,
 } from "lucide-react";
 import { opportunities } from "@/lib/mock";
+import { proactiveInsights } from "@/lib/insights";
 import { cn } from "@/lib/utils";
 
 type Item = {
@@ -41,6 +42,15 @@ const ALL_ITEMS: Item[] = [
     href: `/opportunities/${o.slug}`,
     icon: Sparkles,
   })),
+  ...proactiveInsights
+    .filter(i => i.status === "active")
+    .map(i => ({
+      id: `insight-${i.slug}`,
+      label: "AI observation — storytelling pattern",
+      hint: "Observation",
+      href: `/insights/${i.slug}`,
+      icon: Sparkles,
+    })),
 ];
 
 /** Minimal keyboard-first quick-open: ⌘K / Ctrl+K, arrows, Enter, Esc. */

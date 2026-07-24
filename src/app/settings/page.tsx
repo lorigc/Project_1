@@ -23,7 +23,7 @@ const PREFS: ToggleItem[] = [
     on: true,
     locked: true,
   },
-  { id: "digest", name: "Weekly insight digest", detail: "Every Monday, 9 AM", on: true },
+  { id: "digest", name: "Weekly digest", detail: "Every Monday, 9 AM", on: true },
   {
     id: "benchmarks",
     name: "Share anonymized benchmarks",

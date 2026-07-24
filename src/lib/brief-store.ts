@@ -2,7 +2,7 @@
 // history and per-field edit-origin tracking.
 // Mutating functions throw on storage failure — callers surface the error state.
 
-import type { BriefSetup } from "@/lib/mock";
+import type { BriefOrigin, BriefSetup } from "@/lib/mock";
 
 export type BriefStatus = "draft" | "ready" | "published";
 
@@ -33,6 +33,9 @@ export type StoredBrief = {
   id: string;
   slug: string;
   opportunityName: string;
+  /** Present when the brief was created from an AI observation. Optional and
+   *  ignored by the v3 parser, so older stored records stay valid. */
+  origin?: BriefOrigin;
   setup: BriefSetup;
   status: BriefStatus;
   savedAt: string; // ISO timestamp of last save

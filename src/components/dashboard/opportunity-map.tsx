@@ -238,6 +238,7 @@ function ComparePanel({ items, onClose }: { items: Opportunity[]; onClose: () =>
                 <td key={o.id} className="px-4 py-3">
                   <Link
                     href={`/brief/${o.slug}`}
+                    aria-label={`Generate brief for ${o.name}`}
                     className={cn(buttonVariants({ variant: "secondary" }), "h-7 px-2.5 text-[12px] font-semibold")}
                   >
                     Generate brief
@@ -522,6 +523,7 @@ export function OpportunityMap() {
                     <td className="px-4 py-4 text-right">
                       <Link
                         href={`/brief/${o.slug}`}
+                        aria-label={`Generate brief for ${o.name}`}
                         className={cn(
                           "inline-flex items-center gap-1.5 whitespace-nowrap rounded-lg px-3 py-2 text-[12.5px] font-semibold text-muted-foreground",
                           "opacity-70 transition-all duration-200 group-hover:opacity-100",

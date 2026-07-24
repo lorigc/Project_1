@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import type { Opportunity } from "@/lib/mock";
 import { audience, competitors, themes } from "@/lib/mock";
+import { proactiveInsights } from "@/lib/insights";
 import { buttonVariants } from "@/components/ui/button";
 import { Breadcrumbs } from "@/components/shell/breadcrumbs";
 import { Citation, AssumptionsAndRisks } from "@/components/ai/explain";
@@ -56,6 +57,9 @@ function ScorePill({ label, value }: { label: string; value: string }) {
 export function OpportunityDetail({ opportunity }: { opportunity: Opportunity }) {
   const d = opportunity.detail;
   const sourceThemes = themes.filter(t => d.sourceThemeIds.includes(t.id));
+  const relatedInsight = proactiveInsights.find(
+    i => i.relatedOpportunitySlug === opportunity.slug && i.status === "active"
+  );
 
   return (
     <div className="mx-auto max-w-5xl space-y-6 px-6 py-8">
@@ -103,6 +107,21 @@ export function OpportunityDetail({ opportunity }: { opportunity: Opportunity })
           </p>
           <p className="mt-1.5 text-[13.5px] leading-relaxed text-foreground/85">{d.whyNow}</p>
         </div>
+        {relatedInsight && (
+          <div className="mt-4 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 rounded-xl border border-primary/20 bg-secondary/40 p-4">
+            <p className="min-w-0 text-[13px] leading-relaxed text-foreground/85">
+              <span className="font-semibold text-accent-foreground">Related AI observation: </span>
+              {relatedInsight.contrast}
+            </p>
+            <Link
+              href={`/insights/${relatedInsight.slug}`}
+              className="inline-flex shrink-0 items-center gap-1 rounded-md text-[12.5px] font-semibold text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
+            >
+              See the observation
+              <ArrowRight className="size-3" aria-hidden />
+            </Link>
+          </div>
+        )}
         <div className="mt-4 flex flex-wrap items-center gap-2">
           <span className="text-[12px] text-muted-foreground">Built on your themes:</span>
           {sourceThemes.map(t => (

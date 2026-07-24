@@ -11,7 +11,7 @@ export function AiInsightsPanel() {
       <div className="rounded-2xl border border-primary/25 bg-card p-5">
         <div className="flex items-center gap-2">
           <Sparkles className="size-4 text-primary" aria-hidden />
-          <h3 className="text-[15px] font-semibold tracking-tight">AI Insights</h3>
+          <h3 className="text-[15px] font-semibold tracking-tight">AI observations</h3>
           <span className="ml-auto rounded-full bg-secondary px-2 py-0.5 text-[10px] font-medium text-muted-foreground">
             Updated today
           </span>

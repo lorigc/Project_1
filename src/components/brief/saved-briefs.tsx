@@ -118,7 +118,7 @@ export function SavedBriefs() {
           {actionError}
         </p>
       )}
-      {briefs.map((b, i) => {
+      {[...briefs].sort((a, b) => b.savedAt.localeCompare(a.savedAt)).map((b, i) => {
         const cur = currentVersionOf(b);
         return (
         <FadeIn key={b.id} delay={Math.min(i * 0.04, 0.2)}>
@@ -150,6 +150,17 @@ export function SavedBriefs() {
                   >
                     {b.opportunityName}
                   </Link>
+                  {b.origin && (
+                    <>
+                      ·{" "}
+                      <Link
+                        href={b.origin.href}
+                        className="rounded-md font-medium underline-offset-4 transition-colors hover:text-foreground hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+                      >
+                        From AI observation
+                      </Link>
+                    </>
+                  )}
                   · <span>{b.setup.platform}</span> · <span>{b.setup.format}</span> ·{" "}
                   <span className="tabular-nums">
                     {b.versions.length} version{b.versions.length === 1 ? "" : "s"}
@@ -169,6 +180,7 @@ export function SavedBriefs() {
                 </span>
                 <Link
                   href={`/brief/${b.slug}?b=${b.id}`}
+                  aria-label={`Continue editing: ${cur.fields.workingTitle}`}
                   className={cn(buttonVariants({ variant: "secondary" }), "h-8 px-3 font-semibold")}
                 >
                   <Pencil className="size-3.5" aria-hidden />

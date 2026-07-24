@@ -17,7 +17,7 @@ export default function OverviewPage() {
       <div className="mx-auto max-w-7xl space-y-10 px-6 py-8">
         <PageHeader
           title="Overview"
-          description="Your channel at a glance — and the one move to make next."
+          description="Creator Intelligence analyzes your content, finds opportunities, and turns them into production-ready briefs. Here's what matters now."
         />
 
         <NextMove />

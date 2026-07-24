@@ -656,9 +656,21 @@ export type BriefContentData = {
   successMetric: string;
 };
 
+/** Where a brief came from, when it wasn't started directly from its
+ *  opportunity — shown as source context in the editor and saved list. */
+export type BriefOrigin = {
+  kind: "observation";
+  /** Short human name of the source, e.g. the observed pattern. */
+  label: string;
+  href: string;
+  /** The one number that justified it, e.g. "67% vs 54% completion". */
+  evidence?: string;
+};
+
 export type Brief = {
   slug: string;
   title: string; // source opportunity name
+  origin?: BriefOrigin;
   setup: BriefSetup;
   summary: {
     why: string;

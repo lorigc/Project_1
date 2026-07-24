@@ -382,6 +382,9 @@ function BriefFlow({ brief, stored }: { brief: Brief; stored: StoredBrief | unde
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
 
   const opportunity = opportunities.find(o => o.slug === brief.slug);
+  // Source context survives reloads: a reopened saved brief carries its own
+  // origin; a fresh ?insight= arrival gets it from the derived brief.
+  const origin = stored?.origin ?? brief.origin;
   const baseFields = fieldsFromBrief(brief);
   const cur = versions.find(v => v.n === current) ?? versions[versions.length - 1];
 
@@ -402,6 +405,7 @@ function BriefFlow({ brief, stored }: { brief: Brief; stored: StoredBrief | unde
     id: briefId ?? newBriefId(brief.slug),
     slug: brief.slug,
     opportunityName: brief.title,
+    origin,
     setup,
     status,
     savedAt: new Date().toISOString(),
@@ -627,9 +631,10 @@ function BriefFlow({ brief, stored }: { brief: Brief; stored: StoredBrief | unde
     persist({ status: s });
   };
 
+  // The middle crumb names its destination — the opportunity, not the brief.
   const crumbs = [
     { label: "Opportunity Map", href: "/opportunities" },
-    { label: brief.title, href: `/opportunities/${brief.slug}` },
+    { label: opportunity?.name ?? brief.title, href: `/opportunities/${brief.slug}` },
     { label: phase === "setup" && versions.length === 0 ? "Brief setup" : "Brief" },
   ];
 
@@ -646,7 +651,9 @@ function BriefFlow({ brief, stored }: { brief: Brief; stored: StoredBrief | unde
           </p>
           <h1 className="mt-1.5 text-3xl font-bold tracking-tight text-balance">{brief.title}</h1>
           <p className="mt-2 max-w-xl text-[14px] leading-relaxed text-muted-foreground">
-            Prefilled from the opportunity evidence — adjust anything before generating.
+            {origin
+              ? "Prefilled from the observation and its related opportunity — adjust anything before generating."
+              : "Prefilled from the opportunity evidence — adjust anything before generating."}
           </p>
           <div className="mt-3">
             <Citation>90-day channel analytics · competitor tracking · comment mining</Citation>
@@ -655,19 +662,46 @@ function BriefFlow({ brief, stored }: { brief: Brief; stored: StoredBrief | unde
 
         <FadeIn delay={0.05}>
           <section aria-label="Brief setup" className="rounded-2xl border border-border bg-card p-6">
-            <div className="flex items-center justify-between gap-4 border-b border-border/60 pb-4">
-              <div className="min-w-0">
-                <p className="text-[10.5px] font-semibold uppercase tracking-wide text-muted-foreground">
-                  Opportunity
-                </p>
-                <p className="mt-0.5 text-[14.5px] font-semibold">{brief.title}</p>
+            <div className="space-y-3 border-b border-border/60 pb-4">
+              {origin && (
+                <div className="flex items-center justify-between gap-4">
+                  <div className="min-w-0">
+                    <p className="text-[10.5px] font-semibold uppercase tracking-wide text-muted-foreground">
+                      Source observation
+                    </p>
+                    <p className="mt-0.5 text-[14.5px] font-semibold">
+                      {origin.label}
+                      {origin.evidence && (
+                        <span className="ml-2 text-[12px] font-medium text-muted-foreground">
+                          {origin.evidence}
+                        </span>
+                      )}
+                    </p>
+                  </div>
+                  <Link
+                    href={origin.href}
+                    className="shrink-0 rounded-md text-[12.5px] font-medium text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
+                  >
+                    View the observation
+                  </Link>
+                </div>
+              )}
+              <div className="flex items-center justify-between gap-4">
+                <div className="min-w-0">
+                  <p className="text-[10.5px] font-semibold uppercase tracking-wide text-muted-foreground">
+                    {origin ? "Related opportunity" : "Opportunity"}
+                  </p>
+                  <p className="mt-0.5 text-[14.5px] font-semibold">
+                    {opportunity?.name ?? brief.title}
+                  </p>
+                </div>
+                <Link
+                  href={`/opportunities/${brief.slug}`}
+                  className="shrink-0 rounded-md text-[12.5px] font-medium text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
+                >
+                  Review the evidence
+                </Link>
               </div>
-              <Link
-                href={`/opportunities/${brief.slug}`}
-                className="shrink-0 rounded-md text-[12.5px] font-medium text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
-              >
-                Review the evidence
-              </Link>
             </div>
 
             <div className="mt-5 grid gap-4 sm:grid-cols-2">
@@ -780,9 +814,20 @@ function BriefFlow({ brief, stored }: { brief: Brief; stored: StoredBrief | unde
         <div className="mt-5 flex flex-wrap items-end justify-between gap-4">
           <div className="min-w-0">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-accent/60 px-3 py-1 text-[11.5px] font-semibold text-accent-foreground">
-                <Sparkles className="size-3" aria-hidden /> Generated from {brief.title}
-              </span>
+              {origin ? (
+                <Link
+                  href={origin.href}
+                  className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-accent/60 px-3 py-1 text-[11.5px] font-semibold text-accent-foreground transition-colors hover:border-primary/50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+                >
+                  <Sparkles className="size-3" aria-hidden />
+                  From AI observation: {origin.label}
+                </Link>
+              ) : (
+                <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-accent/60 px-3 py-1 text-[11.5px] font-semibold text-accent-foreground">
+                  <Sparkles className="size-3" aria-hidden /> Generated from{" "}
+                  {opportunity?.name ?? brief.title}
+                </span>
+              )}
               <span className="inline-flex items-center gap-1.5 rounded-full bg-secondary px-2.5 py-1 text-[11px] font-semibold text-secondary-foreground">
                 <span className={cn("size-1.5 rounded-full", STATUS_META[status].dot)} aria-hidden />
                 {STATUS_META[status].label}
