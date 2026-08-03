@@ -99,6 +99,14 @@
   --color-destructive-fg: #f28b8e;
 }
 
+/* Vale dashboard carousel: intentionally hidden horizontal scrollbar. */
+.vale-no-scrollbar {
+  scrollbar-width: none;
+}
+.vale-no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
