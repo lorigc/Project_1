@@ -530,3 +530,4 @@ export const valeSchedule = {
     },
   ] satisfies ValeScheduledPost[],
 };
+

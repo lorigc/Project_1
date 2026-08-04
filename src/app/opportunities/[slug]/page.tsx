@@ -1,12 +1,15 @@
-import Link from "next/link";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import { AppShell } from "@/components/shell/app-shell";
 import { opportunities } from "@/lib/mock";
 import { valeOpportunities } from "@/lib/vale";
 import { OpportunityDetail } from "@/components/opportunity/opportunity-detail";
+import { ValeOpportunityDetail } from "@/components/vale/opportunity-detail";
 
-// One route serves both worlds: full Creator Intelligence evidence pages, and
-// placeholder pages for the Vale dashboard's recommended opportunities until
-// their detail experience is built.
+const inter = Inter({ subsets: ["latin"], variable: "--font-vale" });
+const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-vale-mono" });
+
+// One route serves both worlds: the Creator Intelligence evidence pages and
+// the Vale trend-detail experience for dashboard recommendations.
 export function generateStaticParams() {
   const slugs = new Set([
     ...opportunities.map(o => o.slug),
@@ -19,25 +22,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const opp = opportunities.find(o => o.slug === slug);
   const vale = valeOpportunities.find(o => o.slug === slug);
-  return { title: `${opp?.name ?? vale?.title ?? "Opportunity"} — Creator Intelligence` };
-}
-
-function ValeOpportunityPlaceholder({ slug }: { slug: string }) {
-  const o = valeOpportunities.find(v => v.slug === slug)!;
-  return (
-    <div className="flex min-h-screen w-full flex-col items-start bg-[#09090b] px-[40px] py-[40px] text-[#fafafa]">
-      <Link
-        href="/overview"
-        className="rounded-md text-[13px] font-medium leading-[16px] text-[#71717a] transition-colors hover:text-[#fafafa] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3e9300]"
-      >
-        ← Back to Overview
-      </Link>
-      <h1 className="mt-[24px] text-[28px] font-semibold leading-[34px]">{o.title}</h1>
-      <p className="mt-[8px] text-[14px] leading-[20px] text-[#71717a]">
-        Detail experience coming next.
-      </p>
-    </div>
-  );
+  if (vale && !opp) return { title: `${vale.title} — Vale` };
+  return { title: `${opp?.name ?? "Opportunity"} — Creator Intelligence` };
 }
 
 export default async function OpportunityDetailPage({
@@ -47,8 +33,13 @@ export default async function OpportunityDetailPage({
 }) {
   const { slug } = await params;
   const opp = opportunities.find(o => o.slug === slug);
-  if (!opp && valeOpportunities.some(v => v.slug === slug)) {
-    return <ValeOpportunityPlaceholder slug={slug} />;
+  const vale = valeOpportunities.find(v => v.slug === slug);
+  if (!opp && vale) {
+    return (
+      <div className={`${inter.variable} ${jetbrainsMono.variable} font-[family-name:var(--font-vale)] antialiased`}>
+        <ValeOpportunityDetail opportunity={vale} />
+      </div>
+    );
   }
   return (
     <AppShell>
