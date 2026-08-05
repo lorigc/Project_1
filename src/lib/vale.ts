@@ -297,7 +297,7 @@ export const valeKpis: ValeKpi[] = [
     delta: "+12.4%",
     deltaUp: true,
     badgeBg: "rgba(168,85,247,0.08)",
-    sparkColor: "#3e9300",
+    sparkColor: "#33db70",
     spark: [0.12, 0.22, 0.3, 0.27, 0.45, 0.55, 0.5, 0.7, 0.82, 0.95],
   },
   {
@@ -307,7 +307,7 @@ export const valeKpis: ValeKpi[] = [
     delta: "+8.2%",
     deltaUp: true,
     badgeBg: "rgba(6,182,212,0.1)",
-    sparkColor: "#06b6d4",
+    sparkColor: "#33db70",
     spark: [0.3, 0.18, 0.45, 0.35, 0.6, 0.42, 0.75, 0.62, 0.9, 1],
   },
   {
@@ -326,8 +326,8 @@ export const valeKpis: ValeKpi[] = [
     value: "$14.2k",
     delta: "+18.5%",
     deltaUp: true,
-    badgeBg: "rgba(16,185,129,0.1)",
-    sparkColor: "#10b981",
+    badgeBg: "rgba(51,219,112,0.1)",
+    sparkColor: "#33db70",
     spark: [0.2, 0.3, 0.28, 0.42, 0.5, 0.46, 0.6, 0.7, 0.78, 0.9],
   },
 ];
@@ -479,7 +479,7 @@ export type ValeDemo = {
 };
 
 export const valeDemographics: ValeDemo[] = [
-  { country: "United States", percent: "42%", barPx: 59, color: "#3e9300" },
+  { country: "United States", percent: "42%", barPx: 59, color: "#33db70" },
   { country: "United Kingdom", percent: "24%", barPx: 34, color: "#06b6d4" },
   { country: "Germany", percent: "14%", barPx: 20, color: "#f97316" },
   { country: "Japan", percent: "9%", barPx: 13, color: "#10b981" },

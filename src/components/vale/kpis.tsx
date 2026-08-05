@@ -26,7 +26,7 @@ export function ValeKpis() {
             <h3 className="text-[12px] font-semibold uppercase leading-[15px] text-[#a1a1aa]">{kpi.label}</h3>
             <span
               className="rounded-[6px] px-[6px] py-[2px] font-[family-name:var(--font-vale-mono)] text-[11px] font-bold leading-[15px]"
-              style={{ background: kpi.badgeBg, color: kpi.deltaUp ? "#10b981" : "#ef4444" }}
+              style={{ background: kpi.badgeBg, color: kpi.deltaUp ? "#33db70" : "#ef4444" }}
             >
               {kpi.delta}
               <span className="sr-only">{kpi.deltaUp ? " increase" : " decrease"} vs previous period</span>

@@ -19,6 +19,7 @@ import {
 } from "@/lib/vale-store";
 import { ValeMediaCarousel } from "@/components/vale/media-carousel";
 import { ValeThumb } from "@/components/vale/thumbnails";
+import { ValeMark } from "@/components/vale/logo";
 import { useHydrated } from "@/lib/use-hydrated";
 import { cn } from "@/lib/utils";
 
@@ -34,7 +35,7 @@ const ICONS: Record<ValeIcon, typeof Zap> = {
 };
 
 const TONE: Record<ValeTone, { fg: string; bg: string; border: string }> = {
-  green: { fg: "#4ade80", bg: "rgba(74,222,128,0.1)", border: "#4ade80" },
+  green: { fg: "#33db70", bg: "rgba(51,219,112,0.1)", border: "#33db70" },
   orange: { fg: "#fb923c", bg: "rgba(251,146,60,0.1)", border: "#fb923c" },
   sky: { fg: "#38bdf8", bg: "rgba(56,189,248,0.1)", border: "#38bdf8" },
   red: { fg: "#f87171", bg: "rgba(248,113,113,0.1)", border: "#f87171" },
@@ -48,7 +49,7 @@ function SectionHeader({ eyebrow, title, aside }: { eyebrow: string; title: stri
   return (
     <div className="flex w-full flex-wrap items-end justify-between gap-[8px]">
       <div className="flex flex-col gap-[8px]">
-        <p className="text-[13px] font-semibold uppercase leading-[16px] text-[#4ade80]">{eyebrow}</p>
+        <p className="text-[13px] font-semibold uppercase leading-[16px] text-[#33db70]">{eyebrow}</p>
         <h2 className={cn(GEIST, "text-[18px] font-semibold leading-[23px] text-white")}>{title}</h2>
       </div>
       {aside && <p className="text-[13px] leading-[16px] text-[#71717a]">{aside}</p>}
@@ -60,7 +61,7 @@ function SectionHeader({ eyebrow, title, aside }: { eyebrow: string; title: stri
 
 function ShotArt({ visual }: { visual: ValeShotVisual }) {
   const stroke = "#3f3f46";
-  const subject = "#4ade80";
+  const subject = "#33db70";
   return (
     <svg viewBox="0 0 288 130" className="block h-[130px] w-full bg-[#18181b]" aria-hidden preserveAspectRatio="xMidYMid slice">
       <line x1="96" y1="0" x2="96" y2="130" stroke="#222226" strokeWidth="1" />
@@ -230,8 +231,8 @@ export function ValeOpportunityDetail({ opportunity }: { opportunity: ValeOpport
     <button
       onClick={generate}
       className={cn(
-        "flex items-center gap-[8px] rounded-[8px] bg-[#4ade80] px-[28px] py-[14px] text-[15px] font-semibold leading-[18px] text-[#09090b]",
-        "transition-colors hover:bg-[#65e39a] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4ade80]",
+        "flex items-center gap-[8px] rounded-[8px] bg-[#33db70] px-[28px] py-[14px] text-[15px] font-semibold leading-[18px] text-[#09090b]",
+        "transition-colors hover:bg-[#50e08c] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#33db70]",
         extra
       )}
     >
@@ -247,10 +248,10 @@ export function ValeOpportunityDetail({ opportunity }: { opportunity: ValeOpport
       className={cn(
         "flex items-center justify-center gap-[8px] rounded-[8px] border border-[#222226] bg-[#121214] px-[28px] py-[14px]",
         "text-[15px] font-semibold leading-[18px] text-white transition-colors hover:bg-[#18181b]",
-        "focus-visible:outline-2 focus-visible:outline-[#4ade80]"
+        "focus-visible:outline-2 focus-visible:outline-[#33db70]"
       )}
     >
-      {isSaved ? <BookmarkCheck className="size-[20px] text-[#4ade80]" aria-hidden /> : <Bookmark className="size-[20px]" aria-hidden />}
+      {isSaved ? <BookmarkCheck className="size-[20px] text-[#33db70]" aria-hidden /> : <Bookmark className="size-[20px]" aria-hidden />}
       {isSaved ? "Saved" : label}
     </button>
   );
@@ -264,23 +265,21 @@ export function ValeOpportunityDetail({ opportunity }: { opportunity: ValeOpport
         <div className={cn(CONTENT, "flex h-[80px] items-center justify-between")}>
           <Link
             href="/overview"
-            className="flex items-center gap-[8px] rounded-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4ade80]"
+            className="flex items-center gap-[8px] rounded-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#33db70]"
           >
-            <span className="flex size-[28px] items-center justify-center rounded-[8px] bg-[#4ade80]">
-              <Zap className="size-[14px] text-[#09090b]" aria-hidden />
-            </span>
+            <ValeMark className="size-[28px] shrink-0" />
             <span className="text-[18px] font-extrabold leading-[22px] text-[#fafafa]">
-              Vale<span className="text-[#4ade80]">.</span>
+              Vale<span className="text-[#33db70]">.</span>
             </span>
           </Link>
           <nav aria-label="Site" className="hidden items-center gap-[32px] md:flex">
             {["Product", "Pricing", "Blog", "Creators"].map(l => (
-              <a key={l} href="#" className="rounded-md text-[14px] font-medium leading-[17px] text-[#a1a1aa] transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4ade80]">
+              <a key={l} href="#" className="rounded-md text-[14px] font-medium leading-[17px] text-[#a1a1aa] transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#33db70]">
                 {l}
               </a>
             ))}
           </nav>
-          <a href="#" className="rounded-[8px] bg-[#4ade80] px-[20px] py-[10px] text-[14px] font-semibold leading-[17px] text-[#09090b] transition-colors hover:bg-[#65e39a] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4ade80]">
+          <a href="#" className="rounded-[8px] bg-[#33db70] px-[20px] py-[10px] text-[14px] font-semibold leading-[17px] text-[#09090b] transition-colors hover:bg-[#50e08c] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#33db70]">
             Request Access
           </a>
         </div>
@@ -293,7 +292,7 @@ export function ValeOpportunityDetail({ opportunity }: { opportunity: ValeOpport
             <Link
               href="/overview"
               aria-label="Back to Overview"
-              className="flex size-[36px] items-center justify-center rounded-full border border-[#222226] bg-[#121214] transition-colors hover:bg-[#18181b] focus-visible:outline-2 focus-visible:outline-[#4ade80]"
+              className="flex size-[36px] items-center justify-center rounded-full border border-[#222226] bg-[#121214] transition-colors hover:bg-[#18181b] focus-visible:outline-2 focus-visible:outline-[#33db70]"
             >
               <ArrowLeft className="size-[16px]" aria-hidden />
             </Link>
@@ -317,7 +316,7 @@ export function ValeOpportunityDetail({ opportunity }: { opportunity: ValeOpport
                 <span aria-hidden>·</span>
                 <span>{d.meta.creators}</span>
                 <span aria-hidden>·</span>
-                <span className="font-medium text-[#4ade80]">{d.meta.fit}</span>
+                <span className="font-medium text-[#33db70]">{d.meta.fit}</span>
               </p>
             </div>
             <div className="flex w-[280px] max-w-full shrink-0 flex-col gap-[10px] rounded-[12px] border border-[#222226] bg-[#121214] p-[16px]">
@@ -332,9 +331,9 @@ export function ValeOpportunityDetail({ opportunity }: { opportunity: ValeOpport
                 aria-valuemax={100}
                 aria-label="Share of the trend window already elapsed"
               >
-                <span className="h-full rounded-[3px] bg-[#4ade80]" style={{ width: `${d.timing.percentUsed}%` }} />
+                <span className="h-full rounded-[3px] bg-[#33db70]" style={{ width: `${d.timing.percentUsed}%` }} />
               </div>
-              <p className="text-[13px] font-semibold leading-[16px] text-[#4ade80]">{d.timing.remaining}</p>
+              <p className="text-[13px] font-semibold leading-[16px] text-[#33db70]">{d.timing.remaining}</p>
             </div>
           </div>
 
@@ -349,7 +348,7 @@ export function ValeOpportunityDetail({ opportunity }: { opportunity: ValeOpport
       <section aria-label="Opportunity summary" className="w-full py-[40px]">
         <div className={cn(CONTENT, "flex flex-col gap-[32px] lg:flex-row lg:items-stretch")}>
           <div className="flex min-w-0 flex-1 flex-col gap-[16px] rounded-[16px] border border-[#222226] bg-[#121214] p-[32px]">
-            <p className="text-[14px] font-semibold uppercase leading-[17px] text-[#4ade80]">The Opportunity</p>
+            <p className="text-[14px] font-semibold uppercase leading-[17px] text-[#33db70]">The Opportunity</p>
             <h2 className={cn(GEIST, "text-[28px] font-semibold leading-[36px] text-white")}>{d.summary.thesis}</h2>
             <p className="text-[15px] leading-[24px] text-[#a1a1aa]">{d.summary.body}</p>
           </div>
@@ -440,10 +439,10 @@ export function ValeOpportunityDetail({ opportunity }: { opportunity: ValeOpport
                 className={cn(
                   "group/card absolute inset-x-0 top-0 flex flex-col overflow-hidden rounded-[16px] border border-[#222226] bg-[#121214]",
                   "transition-[translate,scale,box-shadow,border-color] duration-200 ease-out motion-reduce:transition-none",
-                  "hover:z-20 hover:scale-[1.03] hover:border-[#4ade80]/70 hover:shadow-[0_0_0_1px_rgba(9,9,11,1),0_24px_48px_-12px_rgba(0,0,0,0.75),0_0_24px_rgba(74,222,128,0.25)]",
-                  "focus-within:z-20 focus-within:scale-[1.03] focus-within:border-[#4ade80]/70 focus-within:shadow-[0_0_0_1px_rgba(9,9,11,1),0_24px_48px_-12px_rgba(0,0,0,0.75),0_0_24px_rgba(74,222,128,0.25)]",
+                  "hover:z-20 hover:scale-[1.03] hover:border-[#33db70]/70 hover:shadow-[0_0_0_1px_rgba(9,9,11,1),0_24px_48px_-12px_rgba(0,0,0,0.75),0_0_24px_rgba(51,219,112,0.25)]",
+                  "focus-within:z-20 focus-within:scale-[1.03] focus-within:border-[#33db70]/70 focus-within:shadow-[0_0_0_1px_rgba(9,9,11,1),0_24px_48px_-12px_rgba(0,0,0,0.75),0_0_24px_rgba(51,219,112,0.25)]",
                   expandedVideo === vi &&
-                    "z-20 scale-[1.03] border-[#4ade80]/70 shadow-[0_0_0_1px_rgba(9,9,11,1),0_24px_48px_-12px_rgba(0,0,0,0.75),0_0_24px_rgba(74,222,128,0.25)]"
+                    "z-20 scale-[1.03] border-[#33db70]/70 shadow-[0_0_0_1px_rgba(9,9,11,1),0_24px_48px_-12px_rgba(0,0,0,0.75),0_0_24px_rgba(51,219,112,0.25)]"
                 )}
               >
                 <div className="aspect-video w-full" aria-hidden>
@@ -467,7 +466,7 @@ export function ValeOpportunityDetail({ opportunity }: { opportunity: ValeOpport
                     </div>
                     <div>
                       <dt className="text-[11px] uppercase leading-[13px] text-[#71717a]">AVD Retention</dt>
-                      <dd className="mt-[4px] text-[14px] font-semibold leading-[17px] text-[#4ade80]">{v.retention}</dd>
+                      <dd className="mt-[4px] text-[14px] font-semibold leading-[17px] text-[#33db70]">{v.retention}</dd>
                     </div>
                     <div>
                       <dt className="text-[11px] uppercase leading-[13px] text-[#71717a]">Engagement</dt>
@@ -487,17 +486,17 @@ export function ValeOpportunityDetail({ opportunity }: { opportunity: ValeOpport
                   <div className="overflow-hidden">
                     <div data-reveal-inner className="border-t border-[#222226] bg-[#0e0e10] px-[20px] pb-[12px] pt-[10px]">
                       <p className="line-clamp-2 text-[12px] leading-[16px] text-[#a1a1aa]">
-                        <span className="font-semibold text-[#4ade80]">Why it worked · </span>
+                        <span className="font-semibold text-[#33db70]">Why it worked · </span>
                         {v.insight}
                       </p>
                       <p className="mt-[6px] line-clamp-2 text-[12px] leading-[16px] text-[#a1a1aa]">
-                        <span className="font-semibold text-[#4ade80]">Pattern to adapt · </span>
+                        <span className="font-semibold text-[#33db70]">Pattern to adapt · </span>
                         {v.pattern}
                       </p>
                       <Link
                         href={`/opportunities/${o.slug}/examples/${vi + 1}`}
                         onClick={e => e.stopPropagation()}
-                        className="mt-[8px] inline-flex items-center gap-[6px] rounded-md text-[12px] font-semibold leading-[15px] text-[#4ade80] hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4ade80]"
+                        className="mt-[8px] inline-flex items-center gap-[6px] rounded-md text-[12px] font-semibold leading-[15px] text-[#33db70] hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#33db70]"
                       >
                         View full breakdown
                         <ArrowRight className="size-[12px]" aria-hidden />
@@ -521,7 +520,7 @@ export function ValeOpportunityDetail({ opportunity }: { opportunity: ValeOpport
               return (
                 <div key={a.title} className="flex flex-col gap-[16px] rounded-[12px] border border-[#222226] bg-[#121214] p-[24px]">
                   <span className="flex size-[40px] items-center justify-center rounded-[8px] border border-[#222226] bg-[#18181b]">
-                    <Icon className="size-[18px] text-[#4ade80]" aria-hidden />
+                    <Icon className="size-[18px] text-[#33db70]" aria-hidden />
                   </span>
                   <div className="flex flex-col gap-[8px]">
                     <h3 className="text-[15px] font-semibold leading-[18px] text-white">{a.title}</h3>
@@ -540,8 +539,8 @@ export function ValeOpportunityDetail({ opportunity }: { opportunity: ValeOpport
           {/* Left: adaptation */}
           <div className="flex min-w-0 flex-1 flex-col gap-[32px] rounded-[24px] border border-[#222226] bg-[#18181b] p-[28px] sm:p-[48px]">
             <div className="flex flex-col gap-[10px]">
-              <p className="flex items-center gap-[8px] text-[13px] font-semibold uppercase leading-[16px] text-[#4ade80]">
-                <span className="h-[6px] w-[16px] rounded-[3px] bg-[#4ade80]" aria-hidden />
+              <p className="flex items-center gap-[8px] text-[13px] font-semibold uppercase leading-[16px] text-[#33db70]">
+                <span className="h-[6px] w-[16px] rounded-[3px] bg-[#33db70]" aria-hidden />
                 Your Opportunity
               </p>
               <h2 className={cn(GEIST, "text-[18px] font-semibold leading-[23px] text-white")}>Tailored adaptation plan</h2>
@@ -565,7 +564,10 @@ export function ValeOpportunityDetail({ opportunity }: { opportunity: ValeOpport
                 return (
                   <div key={row.label} className="flex items-start gap-[20px] rounded-[12px] border border-[#222226] bg-[#121214] p-[20px]">
                     <span
-                      className="flex h-[32px] w-[36px] shrink-0 items-center justify-center rounded-[6px] border text-[14px]"
+                      className={cn(
+                        "flex h-[32px] w-[36px] shrink-0 items-center justify-center rounded-[6px] border",
+                        row.label === "Avoid" ? "text-[15px] font-bold" : "text-[14px]"
+                      )}
                       style={{ background: tone.bg.replace("0.1", "0.07"), borderColor: tone.border, color: tone.fg }}
                       aria-hidden
                     >
@@ -586,8 +588,8 @@ export function ValeOpportunityDetail({ opportunity }: { opportunity: ValeOpport
           <div className="flex w-full shrink-0 flex-col gap-[32px] xl:w-[518px]">
             <div className="flex flex-col gap-[32px] rounded-[24px] border border-[#222226] bg-[#18181b] p-[28px] sm:p-[48px]">
               <div className="flex flex-col gap-[10px]">
-                <p className="flex items-center gap-[8px] text-[13px] font-semibold uppercase leading-[16px] text-[#4ade80]">
-                  <span className="h-[6px] w-[16px] rounded-[3px] bg-[#4ade80]" aria-hidden />
+                <p className="flex items-center gap-[8px] text-[13px] font-semibold uppercase leading-[16px] text-[#33db70]">
+                  <span className="h-[6px] w-[16px] rounded-[3px] bg-[#33db70]" aria-hidden />
                   Filming Guide
                 </p>
                 <h2 className={cn(GEIST, "text-[18px] font-semibold leading-[23px] text-white")}>How to start</h2>
@@ -595,7 +597,7 @@ export function ValeOpportunityDetail({ opportunity }: { opportunity: ValeOpport
               <ol className="flex flex-col gap-[16px]">
                 {o.filmingGuide.map((g, i) => (
                   <li key={g} className="flex items-center gap-[20px] rounded-[12px] border border-[#222226] bg-[#121214] p-[20px]">
-                    <span className="flex h-[32px] w-[36px] shrink-0 items-center justify-center rounded-[6px] border border-[#4ade80] bg-[rgba(74,222,128,0.07)] text-[14px] font-semibold text-[#4ade80]">
+                    <span className="flex h-[32px] w-[36px] shrink-0 items-center justify-center rounded-[6px] border border-[#33db70] bg-[rgba(51,219,112,0.07)] text-[14px] font-semibold text-[#33db70]">
                       {i + 1}
                     </span>
                     <p className="text-[13px] leading-[16px] text-[#a1a1aa]">{g}</p>
@@ -605,8 +607,8 @@ export function ValeOpportunityDetail({ opportunity }: { opportunity: ValeOpport
             </div>
             <div className="flex flex-col gap-[32px] rounded-[24px] border border-[#222226] bg-[#18181b] p-[28px] sm:p-[42px]">
               <div className="flex flex-col gap-[10px]">
-                <p className="flex items-center gap-[8px] text-[13px] font-semibold uppercase leading-[16px] text-[#4ade80]">
-                  <span className="h-[6px] w-[16px] rounded-[3px] bg-[#4ade80]" aria-hidden />
+                <p className="flex items-center gap-[8px] text-[13px] font-semibold uppercase leading-[16px] text-[#33db70]">
+                  <span className="h-[6px] w-[16px] rounded-[3px] bg-[#33db70]" aria-hidden />
                   Props you might need
                 </p>
                 <h2 className={cn(GEIST, "text-[18px] font-semibold leading-[23px] text-white")}>Suggested Props</h2>
@@ -644,7 +646,7 @@ export function ValeOpportunityDetail({ opportunity }: { opportunity: ValeOpport
                   <div className="flex flex-wrap gap-[6px]">
                     <span className="rounded-[4px] bg-[#18181b] px-[8px] py-[2px] text-[10px] font-medium leading-[12px] text-[#a1a1aa]">{shot.framing}</span>
                     <span className="rounded-[4px] bg-[#18181b] px-[8px] py-[2px] text-[10px] font-medium leading-[12px] text-[#a1a1aa]">{shot.duration}</span>
-                    <span className="rounded-[4px] bg-[#18181b] px-[8px] py-[2px] text-[10px] font-medium leading-[12px] text-[#4ade80]">{shot.purpose}</span>
+                    <span className="rounded-[4px] bg-[#18181b] px-[8px] py-[2px] text-[10px] font-medium leading-[12px] text-[#33db70]">{shot.purpose}</span>
                   </div>
                   {shot.line && <p className="text-[11px] leading-[1.5] text-[#71717a]">{shot.line}</p>}
                 </div>
@@ -671,7 +673,7 @@ export function ValeOpportunityDetail({ opportunity }: { opportunity: ValeOpport
                   <ul aria-live="polite" className="flex flex-col gap-[8px]">
                     {GEN_STAGES.map((stage, i) => (
                       <li key={stage} className={cn("flex items-center gap-[8px] text-[13px] leading-[16px]", i < genStage ? "text-[#a1a1aa]" : i === genStage ? "text-[#71717a]" : "text-[#71717a] opacity-30")}>
-                        {i < genStage ? <Check className="size-[13px] text-[#4ade80]" aria-hidden /> : <Loader2 className={cn("size-[13px]", i === genStage && "animate-spin")} aria-hidden />}
+                        {i < genStage ? <Check className="size-[13px] text-[#33db70]" aria-hidden /> : <Loader2 className={cn("size-[13px]", i === genStage && "animate-spin")} aria-hidden />}
                         {stage}
                       </li>
                     ))}
@@ -691,11 +693,11 @@ export function ValeOpportunityDetail({ opportunity }: { opportunity: ValeOpport
                     Experiment brief — {o.title}
                   </h2>
                   <div className="flex items-center gap-[8px]">
-                    <button onClick={copyBrief} className="flex h-[36px] items-center gap-[6px] rounded-[8px] border border-[#222226] bg-[#18181b] px-[14px] text-[13px] font-semibold leading-[16px] text-white transition-colors hover:bg-[#222226] focus-visible:outline-2 focus-visible:outline-[#4ade80]">
-                      {copied ? <Check className="size-[14px] text-[#4ade80]" aria-hidden /> : <Copy className="size-[14px]" aria-hidden />}
+                    <button onClick={copyBrief} className="flex h-[36px] items-center gap-[6px] rounded-[8px] border border-[#222226] bg-[#18181b] px-[14px] text-[13px] font-semibold leading-[16px] text-white transition-colors hover:bg-[#222226] focus-visible:outline-2 focus-visible:outline-[#33db70]">
+                      {copied ? <Check className="size-[14px] text-[#33db70]" aria-hidden /> : <Copy className="size-[14px]" aria-hidden />}
                       {copied ? "Copied" : "Copy"}
                     </button>
-                    <button onClick={downloadBrief} className="flex h-[36px] items-center gap-[6px] rounded-[8px] bg-[#4ade80] px-[14px] text-[13px] font-semibold leading-[16px] text-[#09090b] transition-colors hover:bg-[#65e39a] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4ade80]">
+                    <button onClick={downloadBrief} className="flex h-[36px] items-center gap-[6px] rounded-[8px] bg-[#33db70] px-[14px] text-[13px] font-semibold leading-[16px] text-[#09090b] transition-colors hover:bg-[#50e08c] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#33db70]">
                       <Download className="size-[14px]" aria-hidden />
                       Download .md
                     </button>
@@ -737,11 +739,9 @@ export function ValeOpportunityDetail({ opportunity }: { opportunity: ValeOpport
           <div className="flex flex-col justify-between gap-[40px] md:flex-row">
             <div className="flex max-w-[320px] flex-col gap-[16px]">
               <p className="flex items-center gap-[8px]">
-                <span className="flex size-[24px] items-center justify-center rounded-[6px] bg-[#4ade80]">
-                  <Zap className="size-[12px] text-[#09090b]" aria-hidden />
-                </span>
+                <ValeMark className="size-[24px] shrink-0" />
                 <span className="text-[16px] font-extrabold leading-[19px] text-[#fafafa]">
-                  Vale<span className="text-[#4ade80]">.</span>
+                  Vale<span className="text-[#33db70]">.</span>
                 </span>
               </p>
               <p className="text-[13px] leading-[20px] text-[#71717a]">
@@ -758,7 +758,7 @@ export function ValeOpportunityDetail({ opportunity }: { opportunity: ValeOpport
                 <div key={head} className="flex flex-col gap-[12px]">
                   <p className="text-[12px] font-semibold uppercase leading-[15px] text-[#a1a1aa]">{head}</p>
                   {links.map(l => (
-                    <a key={l} href="#" className="rounded-md text-[13px] leading-[16px] text-[#71717a] transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4ade80]">
+                    <a key={l} href="#" className="rounded-md text-[13px] leading-[16px] text-[#71717a] transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#33db70]">
                       {l}
                     </a>
                   ))}

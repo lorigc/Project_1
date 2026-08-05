@@ -63,14 +63,14 @@ export function ValeTelemetry() {
                 y={t.toFixed(1)}
                 width={BAR_W.toFixed(1)}
                 height={(H - t).toFixed(1)}
-                fill="rgba(62,147,0,0.08)"
+                fill="rgba(51,219,112,0.08)"
               />
             ))}
           </g>
-          <polyline points={line} fill="none" stroke="#3e9300" strokeWidth="2" strokeLinejoin="round" />
-          <circle cx={peakX.toFixed(1)} cy={peakY.toFixed(1)} r="4" fill="#3e9300" />
+          <polyline points={line} fill="none" stroke="#33db70" strokeWidth="2" strokeLinejoin="round" />
+          <circle cx={peakX.toFixed(1)} cy={peakY.toFixed(1)} r="4" fill="#33db70" />
           <g>
-            <rect x={boxX.toFixed(1)} y={boxY} width={boxW.toFixed(1)} height="27" rx="6" fill="#09090b" stroke="#3e9300" strokeWidth="1" />
+            <rect x={boxX.toFixed(1)} y={boxY} width={boxW.toFixed(1)} height="27" rx="6" fill="#09090b" stroke="#33db70" strokeWidth="1" />
             <text
               x={(boxX + boxW / 2).toFixed(1)}
               y={boxY + 18}
@@ -96,9 +96,9 @@ export function ValeTelemetry() {
               aria-pressed={range === r}
               className={cn(
                 "h-[44px] min-w-[64px] flex-1 whitespace-nowrap rounded-[8px] px-[12px] text-[12px] leading-[15px] transition-colors duration-150",
-                "focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[#3e9300]",
+                "focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[#33db70]",
                 range === r
-                  ? "bg-[rgba(62,147,0,0.1)] font-semibold text-[#3e9300]"
+                  ? "bg-[rgba(51,219,112,0.1)] font-semibold text-[#33db70]"
                   : "font-medium text-[#71717a] hover:text-[#a1a1aa]"
               )}
             >

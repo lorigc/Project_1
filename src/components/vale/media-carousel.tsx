@@ -110,7 +110,7 @@ export function ValeMediaCarousel({
   const chevronClass = (dir: 1 | -1) =>
     cn(
       "rounded-full border border-[#222226] bg-[#121214]/90 p-[6px] text-[#fafafa] transition-colors hover:bg-[#18181b]",
-      "focus-visible:outline-2 focus-visible:outline-[#4ade80]",
+      "focus-visible:outline-2 focus-visible:outline-[#33db70]",
       dir === 1 ? "mr-[8px]" : "ml-[8px]"
     );
 
@@ -145,7 +145,7 @@ export function ValeMediaCarousel({
           }}
           className={cn(
             "vale-no-scrollbar flex snap-x snap-mandatory overflow-x-auto",
-            "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#4ade80]",
+            "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#33db70]",
             contentInsetClass
           )}
         >

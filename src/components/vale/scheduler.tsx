@@ -20,7 +20,7 @@ export function ValeScheduler() {
         <div className="flex w-full flex-col gap-[12px] rounded-[8px] border border-[#222226] bg-[#09090b] p-[16px]">
           <div className="flex w-full items-center justify-between text-[12px] leading-[16px]">
             <h3 className="font-semibold text-[#a1a1aa]">Weekly Content Goal</h3>
-            <p className="font-[family-name:var(--font-vale-mono)] font-bold text-[#3e9300]">
+            <p className="font-[family-name:var(--font-vale-mono)] font-bold text-[#33db70]">
               {weeklyGoal.done} / {weeklyGoal.target} videos
             </p>
           </div>
@@ -32,7 +32,7 @@ export function ValeScheduler() {
             aria-valuemax={weeklyGoal.target}
             aria-label="Weekly content goal progress"
           >
-            <span className="h-full rounded-[3px] bg-[#3e9300]" style={{ width: `${goalPct}%` }} />
+            <span className="h-full rounded-[3px] bg-[#33db70]" style={{ width: `${goalPct}%` }} />
           </div>
         </div>
       </div>
@@ -73,7 +73,7 @@ export function ValeScheduler() {
         </p>
         <a
           href="#"
-          className="flex items-center gap-[4px] rounded-md text-[12px] font-semibold leading-[15px] text-[#3e9300] hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3e9300]"
+          className="flex items-center gap-[4px] rounded-md text-[12px] font-semibold leading-[15px] text-[#33db70] hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#33db70]"
         >
           Access Asset Deck
           <ArrowRight className="size-[12px]" aria-hidden />

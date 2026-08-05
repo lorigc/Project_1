@@ -37,7 +37,7 @@ export default async function ExampleBreakdownPage({
         <div className="mx-auto flex w-full max-w-[720px] flex-col gap-[24px] px-[24px] py-[48px]">
           <Link
             href={`/opportunities/${slug}`}
-            className="inline-flex w-fit items-center gap-[8px] rounded-md text-[13px] font-medium leading-[16px] text-[#71717a] transition-colors hover:text-[#fafafa] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4ade80]"
+            className="inline-flex w-fit items-center gap-[8px] rounded-md text-[13px] font-medium leading-[16px] text-[#71717a] transition-colors hover:text-[#fafafa] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#33db70]"
           >
             <ArrowLeft className="size-[14px]" aria-hidden />
             Back to {opportunity.title}
@@ -63,7 +63,7 @@ export default async function ExampleBreakdownPage({
                 </div>
                 <div>
                   <dt className="text-[11px] uppercase leading-[13px] text-[#71717a]">AVD Retention</dt>
-                  <dd className="mt-[4px] text-[15px] font-semibold leading-[18px] text-[#4ade80]">{video.retention}</dd>
+                  <dd className="mt-[4px] text-[15px] font-semibold leading-[18px] text-[#33db70]">{video.retention}</dd>
                 </div>
                 <div>
                   <dt className="text-[11px] uppercase leading-[13px] text-[#71717a]">Engagement</dt>
@@ -71,13 +71,13 @@ export default async function ExampleBreakdownPage({
                 </div>
               </dl>
               <div>
-                <h2 className="text-[11px] font-semibold uppercase leading-[13px] tracking-wide text-[#4ade80]">
+                <h2 className="text-[11px] font-semibold uppercase leading-[13px] tracking-wide text-[#33db70]">
                   Why it worked
                 </h2>
                 <p className="mt-[6px] text-[14px] leading-[22px] text-[#a1a1aa]">{video.insight}</p>
               </div>
               <div>
-                <h2 className="text-[11px] font-semibold uppercase leading-[13px] tracking-wide text-[#4ade80]">
+                <h2 className="text-[11px] font-semibold uppercase leading-[13px] tracking-wide text-[#33db70]">
                   Pattern to adapt
                 </h2>
                 <p className="mt-[6px] text-[14px] leading-[22px] text-[#a1a1aa]">{video.pattern}</p>

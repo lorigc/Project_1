@@ -19,7 +19,7 @@ export function ValeSegmented({ options, initial, label }: { options: string[]; 
           onClick={() => setActive(opt)}
           aria-pressed={active === opt}
           className={cn(
-            "rounded-[6px] px-[12px] py-[4px] text-[12px] font-semibold leading-[15px] transition-colors focus-visible:outline-2 focus-visible:outline-[#3e9300]",
+            "rounded-[6px] px-[12px] py-[4px] text-[12px] font-semibold leading-[15px] transition-colors focus-visible:outline-2 focus-visible:outline-[#33db70]",
             active === opt ? "bg-[#222226] text-[#fafafa]" : "text-[#71717a] hover:text-[#a1a1aa]"
           )}
         >

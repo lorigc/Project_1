@@ -19,14 +19,14 @@ function OpportunityCard({ o }: { o: ValeOpportunity }) {
       className={cn(
         "flex h-[269px] w-[216px] shrink-0 snap-start flex-col items-start gap-[34px] rounded-[12px]",
         "border-2 border-[#222226] bg-[#121214] px-[12px] py-[10px]",
-        "transition-colors hover:border-[#3e9300]/50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3e9300]"
+        "transition-colors hover:border-[#33db70]/50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#33db70]"
       )}
     >
       <div className="flex w-full items-center gap-[8px]">
         {[o.signalLabel, o.fitLabel].map(pill => (
           <span
             key={pill}
-            className="flex items-center justify-center whitespace-nowrap rounded-[24px] border border-[#3e9300] px-[12px] py-[6px] font-[family-name:var(--font-sans)] text-[12px] font-normal leading-[1.6] text-white"
+            className="flex items-center justify-center whitespace-nowrap rounded-[24px] border border-[#33db70] px-[12px] py-[6px] font-[family-name:var(--font-sans)] text-[12px] font-normal leading-[1.6] text-white"
           >
             {pill}
           </span>
@@ -38,11 +38,11 @@ function OpportunityCard({ o }: { o: ValeOpportunity }) {
       </div>
       <div className="flex min-h-px w-full flex-1 flex-col items-start justify-end gap-[6px] font-[family-name:var(--font-sans)]">
         <span className="flex items-center gap-[6px]">
-          <Zap className="size-[16px] text-[#3e9300]" aria-hidden />
+          <Zap className="size-[16px] text-[#33db70]" aria-hidden />
           <span className="text-[12px] leading-[1.6] text-white">{o.effort}</span>
         </span>
         <span className="flex items-center gap-[6px]">
-          <Clock className="size-[16px] text-[#3e9300]" aria-hidden />
+          <Clock className="size-[16px] text-[#33db70]" aria-hidden />
           <span className="text-[12px] leading-[1.6] text-white">{o.estimatedFilmMinutes} min to film</span>
         </span>
       </div>
@@ -109,7 +109,7 @@ export function ValeRecommended() {
   const chevronClass = (dir: 1 | -1) =>
     cn(
       "rounded-full bg-[#09090b]/80 p-[2px] text-[#fafafa] transition-colors hover:bg-[#09090b]",
-      "focus-visible:outline-2 focus-visible:outline-[#3e9300]",
+      "focus-visible:outline-2 focus-visible:outline-[#33db70]",
       dir === 1 ? "mr-[4px]" : "ml-[4px]"
     );
 
@@ -156,7 +156,7 @@ export function ValeRecommended() {
               if (e.key === "ArrowRight") { e.preventDefault(); scrollByPage(1); }
               if (e.key === "ArrowLeft") { e.preventDefault(); scrollByPage(-1); }
             }}
-            className="vale-no-scrollbar flex snap-x snap-mandatory gap-[16px] overflow-x-auto focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#3e9300]"
+            className="vale-no-scrollbar flex snap-x snap-mandatory gap-[16px] overflow-x-auto focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#33db70]"
           >
             {valeOpportunities.map(o => (
               <OpportunityCard key={o.id} o={o} />

@@ -14,7 +14,7 @@ export function ValeUploads() {
         </h2>
         <a
           href="#"
-          className="whitespace-nowrap rounded-md text-[12px] font-semibold leading-[15px] text-[#3e9300] hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3e9300]"
+          className="whitespace-nowrap rounded-md text-[12px] font-semibold leading-[15px] text-[#33db70] hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#33db70]"
         >
           View Studio Details
         </a>
@@ -44,7 +44,7 @@ export function ValeUploads() {
                 <td className="py-[11.5px] pr-[16px] align-middle font-[family-name:var(--font-vale-mono)] text-[13px] font-medium leading-[17px] text-[#fafafa]">
                   {u.views}
                 </td>
-                <td className="py-[11.5px] pr-[16px] align-middle font-[family-name:var(--font-vale-mono)] text-[13px] font-medium leading-[17px] text-[#10b981]">
+                <td className="py-[11.5px] pr-[16px] align-middle font-[family-name:var(--font-vale-mono)] text-[13px] font-medium leading-[17px] text-[#33db70]">
                   {u.ctr}
                 </td>
                 <td className="py-[11.5px] align-middle font-[family-name:var(--font-vale-mono)] text-[13px] font-medium leading-[17px] text-[#a1a1aa]">
