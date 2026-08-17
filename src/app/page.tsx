@@ -1,12 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import {
   FileSpreadsheet,
   Music2,
-  Sparkles,
   Check,
   Loader2,
 } from "lucide-react";
@@ -76,7 +76,7 @@ export default function ImportPage() {
   }, [processing, stage, router]);
 
   return (
-    <div className="ambient-glow flex min-h-dvh flex-col items-center justify-center px-6 py-16">
+    <div className="vale-import-brand ambient-glow flex min-h-dvh flex-col items-center justify-center px-6 py-16">
       <AnimatePresence mode="wait">
         {!processing ? (
           <motion.div
@@ -87,11 +87,18 @@ export default function ImportPage() {
           >
             <FadeIn className="text-center">
               <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-secondary/60 px-3.5 py-1.5 text-xs font-medium text-muted-foreground">
-                <Sparkles className="size-3.5 text-primary" />
+                <Image
+                  src="/brand/vale-mark.svg"
+                  alt=""
+                  width={14}
+                  height={14}
+                  className="size-3.5 shrink-0"
+                  aria-hidden
+                />
                 AI strategist for creators
               </div>
               <h1 className="mx-auto max-w-2xl text-balance text-4xl font-bold tracking-tight sm:text-5xl">
-                Understand what content performs—
+                Understand what content performs{" "}
                 <span className="text-gradient">and discover what to create next.</span>
               </h1>
               <p className="mx-auto mt-4 max-w-xl text-[15px] leading-relaxed text-muted-foreground">
@@ -151,7 +158,7 @@ export default function ImportPage() {
                 size="lg"
                 disabled={connected.length === 0}
                 onClick={() => setProcessing(true)}
-                className="bg-brand-gradient h-12 rounded-xl px-8 text-[15px] font-semibold text-white shadow-[0_8px_30px_-8px_rgba(62,147,0,0.55)] transition-transform hover:scale-[1.02] active:scale-100 disabled:opacity-40"
+                className="bg-brand-gradient h-12 rounded-xl px-8 text-[15px] font-semibold text-white shadow-[0_8px_30px_-8px_rgba(51,219,112,0.55)] transition-transform hover:scale-[1.02] active:scale-100 disabled:opacity-40"
               >
                 Import creator data
               </Button>
@@ -173,9 +180,16 @@ export default function ImportPage() {
               <motion.div
                 animate={reduced ? undefined : { rotate: 360 }}
                 transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
-                className="bg-brand-gradient flex size-14 items-center justify-center rounded-2xl shadow-[0_0_60px_-10px_rgba(62,147,0,0.6)]"
+                className="flex size-14 items-center justify-center"
               >
-                <Sparkles className="size-6 text-white" />
+                <Image
+                  src="/brand/vale-mark.svg"
+                  alt=""
+                  width={56}
+                  height={56}
+                  className="size-14"
+                  aria-hidden
+                />
               </motion.div>
               <h2 className="mt-6 text-xl font-semibold tracking-tight">
                 Analyzing your content

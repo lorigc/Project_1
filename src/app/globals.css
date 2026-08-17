@@ -159,6 +159,30 @@
       radial-gradient(52rem 30rem at 18% -10%, rgba(62, 147, 0, 0.13), transparent 60%),
       radial-gradient(44rem 26rem at 85% 0%, rgba(143, 206, 85, 0.10), transparent 60%);
   }
+  .vale-import-brand {
+    --primary: #33DB70;
+    --ring: #33DB70;
+    --success: #33DB70;
+    --chart-2: #33DB70;
+    --color-success-fg: #33DB70;
+  }
+  .vale-import-brand .text-gradient {
+    background: linear-gradient(100deg, #7af0a2 0%, #33DB70 55%, #1dbf59 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .vale-import-brand .bg-brand-gradient {
+    background: linear-gradient(120deg, #5ce88a 0%, #33DB70 48%, #16b94f 100%);
+  }
+  .vale-import-brand .border-glow {
+    box-shadow: 0 0 0 1px rgba(51, 219, 112, 0.25), 0 8px 40px -12px rgba(51, 219, 112, 0.25);
+  }
+  .vale-import-brand.ambient-glow {
+    background:
+      radial-gradient(52rem 30rem at 18% -10%, rgba(51, 219, 112, 0.13), transparent 60%),
+      radial-gradient(44rem 26rem at 85% 0%, rgba(122, 240, 162, 0.10), transparent 60%);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
