@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import {
@@ -87,11 +86,9 @@ export default function ImportPage() {
           >
             <FadeIn className="text-center">
               <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-secondary/60 px-3.5 py-1.5 text-xs font-medium text-muted-foreground">
-                <Image
-                  src="/brand/vale-mark.svg"
+                <img
+                  src="./brand/vale-mark.svg"
                   alt=""
-                  width={14}
-                  height={14}
                   className="size-3.5 shrink-0"
                   aria-hidden
                 />
@@ -182,11 +179,9 @@ export default function ImportPage() {
                 transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
                 className="flex size-14 items-center justify-center"
               >
-                <Image
-                  src="/brand/vale-mark.svg"
+                <img
+                  src="./brand/vale-mark.svg"
                   alt=""
-                  width={56}
-                  height={56}
                   className="size-14"
                   aria-hidden
                 />
