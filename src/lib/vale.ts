@@ -281,11 +281,12 @@ export type ValeKpi = {
   id: string;
   label: string;
   value: string; // preformatted — must prerender, never start at zero
-  delta: string;
-  deltaUp: boolean;
-  badgeBg: string;
+  percentChange: string;
+  comparisonPeriod: string;
+  absoluteChange: string;
+  direction: "up" | "down" | "neutral";
   sparkColor: string;
-  /** Normalized 0–1 points for the 90×36 sparkline. */
+  /** Normalized 0–1 points for the compact sparkline. */
   spark: number[];
 };
 
@@ -293,10 +294,11 @@ export const valeKpis: ValeKpi[] = [
   {
     id: "subscribers",
     label: "Subscribers",
-    value: "128.4k",
-    delta: "+12.4%",
-    deltaUp: true,
-    badgeBg: "rgba(168,85,247,0.08)",
+    value: "128.4K",
+    percentChange: "12.4%",
+    comparisonPeriod: "last 30 days",
+    absoluteChange: "+14.1K subscribers this month",
+    direction: "up",
     sparkColor: "#33db70",
     spark: [0.12, 0.22, 0.3, 0.27, 0.45, 0.55, 0.5, 0.7, 0.82, 0.95],
   },
@@ -304,31 +306,34 @@ export const valeKpis: ValeKpi[] = [
     id: "views",
     label: "Total Views",
     value: "2.4M",
-    delta: "+8.2%",
-    deltaUp: true,
-    badgeBg: "rgba(6,182,212,0.1)",
+    percentChange: "8.2%",
+    comparisonPeriod: "last 30 days",
+    absoluteChange: "+182K views this month",
+    direction: "up",
     sparkColor: "#33db70",
     spark: [0.3, 0.18, 0.45, 0.35, 0.6, 0.42, 0.75, 0.62, 0.9, 1],
   },
   {
     id: "watch",
     label: "Watch Hours",
-    value: "42.8k",
-    delta: "-2.4%",
-    deltaUp: false,
-    badgeBg: "rgba(249,115,22,0.1)",
+    value: "42.8K",
+    percentChange: "2.4%",
+    comparisonPeriod: "last 30 days",
+    absoluteChange: "-1.1K hours this month",
+    direction: "down",
     sparkColor: "#f97316",
-    spark: [0.92, 0.85, 0.7, 0.76, 0.58, 0.62, 0.45, 0.38, 0.3, 0.18],
+    spark: [0.88, 0.84, 0.79, 0.82, 0.74, 0.7, 0.66, 0.58, 0.53, 0.48],
   },
   {
     id: "revenue",
     label: "Est. Revenue",
-    value: "$14.2k",
-    delta: "+18.5%",
-    deltaUp: true,
-    badgeBg: "rgba(51,219,112,0.1)",
+    value: "$14.2K",
+    percentChange: "18.5%",
+    comparisonPeriod: "last 30 days",
+    absoluteChange: "+$2.2K this month",
+    direction: "up",
     sparkColor: "#33db70",
-    spark: [0.2, 0.3, 0.28, 0.42, 0.5, 0.46, 0.6, 0.7, 0.78, 0.9],
+    spark: [0.1, 0.2, 0.18, 0.34, 0.48, 0.44, 0.62, 0.78, 0.86, 0.98],
   },
 ];
 
@@ -530,4 +535,3 @@ export const valeSchedule = {
     },
   ] satisfies ValeScheduledPost[],
 };
-
