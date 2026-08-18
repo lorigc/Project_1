@@ -11,11 +11,25 @@ const CARD_W = 216;
 const CARD_GAP = 16;
 const STEP = CARD_W + CARD_GAP;
 
+type RecommendedPill = "Emerging" | "Strong Fit" | "Trending" | "Cultural";
+
+const recommendationPillStyles: Record<RecommendedPill, string> = {
+  Emerging: "border-[#005521] bg-[rgba(0,85,33,0.2)] text-[#33db70]",
+  "Strong Fit": "border-[#1c3c58] bg-[rgba(28,60,88,0.2)] text-[#6dbde0]",
+  Trending: "border-[#221429] bg-[rgba(28,60,88,0.2)] text-[#d6aacf]",
+  Cultural: "border-[#3f3009] bg-[rgba(63,48,9,0.2)] text-[#ffc507]",
+};
+
+const recommendationPillLabel = (pill: ValeOpportunity["signalLabel"]): RecommendedPill =>
+  pill === "High Growth" ? "Trending" : pill;
+
 function OpportunityCard({ o }: { o: ValeOpportunity }) {
+  const pills = [recommendationPillLabel(o.signalLabel), recommendationPillLabel(o.fitLabel)];
+
   return (
     <Link
       href={`/opportunities/${o.slug}`}
-      aria-label={`${o.title} — ${o.signalLabel}, ${o.fitLabel}, ${o.effort}, about ${o.estimatedFilmMinutes} minutes to film`}
+      aria-label={`${o.title} — ${pills.join(", ")}, ${o.effort}, about ${o.estimatedFilmMinutes} minutes to film`}
       className={cn(
         "flex h-[269px] w-[216px] shrink-0 snap-start flex-col items-start gap-[34px] rounded-[12px]",
         "border-2 border-[#222226] bg-[#121214] px-[12px] py-[10px]",
@@ -23,10 +37,14 @@ function OpportunityCard({ o }: { o: ValeOpportunity }) {
       )}
     >
       <div className="flex w-full items-center gap-[8px]">
-        {[o.signalLabel, o.fitLabel].map(pill => (
+        {pills.map(pill => (
           <span
             key={pill}
-            className="flex items-center justify-center whitespace-nowrap rounded-[24px] border border-[#33db70] px-[12px] py-[6px] font-[family-name:var(--font-sans)] text-[12px] font-normal leading-[1.6] text-white"
+            className={cn(
+              "flex items-center justify-center whitespace-nowrap rounded-[24px] border px-[12px] py-[6px]",
+              "font-[family-name:var(--font-sans)] text-[12px] font-normal leading-[1.6]",
+              recommendationPillStyles[pill]
+            )}
           >
             {pill}
           </span>
